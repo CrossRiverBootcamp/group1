@@ -18,16 +18,16 @@ public class AccountController : ControllerBase
 
     // GET api/<AccountController>/5
     [HttpGet("{accountId}")]
-    public Task<AccountDTO> Get(int accountId)
+    public async Task<CustomerAccountDTO> Get(Guid accountId)
     {
         return await IAccountBL.GetAccountInfo(accountId);
     }
 
     // POST api/<AccountController>
     [HttpPost]
-    public async Task<bool> Post([FromBody] AccountDTO accountDTO)
+    public async Task<bool> Post([FromBody] CustomerAccountDTO customerAccountDTO)
     {
-        return await IAccountBL.CreateAccount(accountDTO);
+        return await IAccountBL.CreateAccount(customerAccountDTO);
     }
 
  
