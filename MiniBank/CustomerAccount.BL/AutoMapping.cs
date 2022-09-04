@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CustomerAccount.DAL.Entities;
 using CustomerAccount.DTO;
 
 namespace CustomerAccount.BL
@@ -12,17 +13,19 @@ namespace CustomerAccount.BL
     {
         public AutoMapping() 
         {
-           
 
-          
 
-            
+            CreateMap<CustomerDTO, Customer>();
+            CreateMap<CustomerAccountDTO, Customer>();
 
-            CreateMap<AccountData, AccountCustomerInfoDTO>()
+
+
+
+            CreateMap<AccountData, CustomerAccountInfoDTO>()
                 .ForMember(dest => dest.FirstName, opts => opts
-                    .MapFrom(src => src.customer.FirstName))
+                    .MapFrom(src => src.Customer.FirstName))
                 .ForMember(dest => dest.LastName, opts => opts
-                    .MapFrom(src => src.customer.LastName));
+                    .MapFrom(src => src.Customer.LastName));
         }
     }
 }

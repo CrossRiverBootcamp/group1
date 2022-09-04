@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CustomerAccount.DAL;
+using CustomerAccount.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +19,10 @@ namespace CustomerAccount.BL
             _Storage = storage;
         }
 
-        Task<Guid>LogIn(string email, string password)
-        {
+         Task <Guid> Login(LoginDTO loginDTO)
+         {
 
-            _Storage.LogIn(string email, string password);
-        }
+            return  _Storage.LogIn( loginDTO.Email , loginDTO.Password);
+         }
     }
 }

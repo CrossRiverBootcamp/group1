@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAccount.DTO
 {
-    internal class AccountCustomerDTO
+    public class CustomerAccountDTO
     {
         [Required]
         [MinLength(2)]
