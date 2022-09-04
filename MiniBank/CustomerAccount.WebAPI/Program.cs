@@ -7,6 +7,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// add DI services
+builder.Services.AddScoped<IAccountBL, AccountBL>();
+builder.Services.AddScoped<ILoginBL, LoginBL>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
