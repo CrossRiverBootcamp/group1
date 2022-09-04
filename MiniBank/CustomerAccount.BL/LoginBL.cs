@@ -22,7 +22,7 @@ namespace CustomerAccount.BL
          Task <Guid> Login(LoginDTO loginDTO)
          {
 
-            return  _Storage.LogIn( loginDTO.Email , loginDTO.Password);
+            return  _Storage.Login( loginDTO.Email , loginDTO.Password);
          }
     }
 }

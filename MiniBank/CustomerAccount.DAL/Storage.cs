@@ -58,7 +58,7 @@ namespace CustomerAccount.DAL
             }
             return true;
         }
-        public async Task<Guid> LogIn(string email, string password)
+        public async Task<Guid> Login(string email, string password)
         {
             using var context = _factory.CreateDbContext();
 
@@ -76,12 +76,13 @@ namespace CustomerAccount.DAL
 
             return await context.AccountDatas.FindAsync(accountDataId);
         }
-        //public async Task<Customer> GetCustomer(Guid customerId)
-        //{
-        //    using var context = _factory.CreateDbContext();
 
-        //    return await context.Customers.FindAsync(customerId);
-        //}
+        public async Task<Customer> GetCustomer(Guid customerId)
+        {
+            using var context = _factory.CreateDbContext();
+
+            return await context.Customers.FindAsync(customerId);
+        }
 
     }
 }
