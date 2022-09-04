@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "AqHU4mws+FIX8pGWzp5UU07FUv9fTn/2ubZnjePujZZxL5cCdXncaYpvzbcDKarmL8XGyNzTnQ0k1E7j9NRlwg==",
+  "dgSpecHash": "7oz92T1TJMCyByaTtecfSo7XEerTjLaqDAE5r9CJNdyYLlzerDQidc6pvYTRPXZKHJZh2d19HbmdJTHzCNH1Lg==",
   "success": true,
-  "projectFilePath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\user\\מה שיש בשולחן עבודה\\בוטקמפ\\final project\\group1\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
