@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using CustomerAccount.DAL;
+using CustomerAccount.DAL.Entities;
+using CustomerAccount.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +19,18 @@ namespace CustomerAccount.BL
             _mapper = mapper;
             _Storage = storage;
         }
-        Task<bool> CreateAccount(Guid Email)
+        async Task<bool> CreateAccount(CustomerAccountDTO customerAccountDTO)
         {
-            if (!_Storage.CreateCustomer(Email))
-                return ErrorEventArgs;
-            return _Storage.CreateCustomerAccount(_mapper.Map<AccountCustomerDTO, Customer>(accountCustomerDTO));
+            bool isExists = await _Storage.CustomerExists(customerAccountDTO.Email);
+            if (isExists)
+                return false;
+            return await _Storage.CreateCustomerAccount(_mapper.Map<CustomerAccountDTO, Customer>(customerAccountDTO));
         }
         
 
-        Task<AccountCustomerInfoDTO> GetAccountInfo(accountId)
+        async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
-            return _mapper.Map<AccountCustomerDTO,>(_Storage.GetAccountData(accountId)) ;
+            return _mapper.Map<AccountData,CustomerAccountInfoDTO>( await _Storage.GetAccountData(accountId)) ;
         }
 
       
