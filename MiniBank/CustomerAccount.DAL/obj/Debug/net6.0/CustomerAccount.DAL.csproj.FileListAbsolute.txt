@@ -1,0 +1,14 @@
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\bin\Debug\net6.0\CustomerAccount.DAL.deps.json
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\bin\Debug\net6.0\CustomerAccount.DAL.runtimeconfig.json
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\bin\Debug\net6.0\CustomerAccount.DAL.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\bin\Debug\net6.0\CustomerAccount.DAL.pdb
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.csproj.AssemblyReference.cache
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.AssemblyInfoInputs.cache
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.AssemblyInfo.cs
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.csproj.CoreCompileInputs.cache
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\refint\CustomerAccount.DAL.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.pdb
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.genruntimeconfig.cache
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\ref\CustomerAccount.DAL.dll

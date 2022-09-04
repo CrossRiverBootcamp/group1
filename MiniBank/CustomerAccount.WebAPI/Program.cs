@@ -1,12 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using CustomerAccount.DAL.EF;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContextFactory<CustomerAccountDBContext>(item =>
+    item.UseSqlServer(builder.Configuration.GetConnectionString("myconn"))); 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// add DI services
+builder.Services.AddScoped<IAccountBL, AccountBL>();
+builder.Services.AddScoped<ILoginBL, LoginBL>();
+
 
 var app = builder.Build();
 
