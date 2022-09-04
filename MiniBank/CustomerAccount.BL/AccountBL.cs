@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL;
 using CustomerAccount.DAL.Entities;
 using CustomerAccount.DTO;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAccount.BL
 {
-    public class AccountBL
+    public class AccountBL: IAccountBL
     {
         private readonly IMapper _mapper;
         private readonly IStorage _Storage;
@@ -19,7 +20,7 @@ namespace CustomerAccount.BL
             _mapper = mapper;
             _Storage = storage;
         }
-        async Task<bool> CreateAccount(CustomerAccountDTO customerAccountDTO)
+        public async Task<bool> CreateAccount(CustomerAccountDTO customerAccountDTO)
         {
             bool isExists = await _Storage.CustomerExists(customerAccountDTO.Email);
             if (isExists)
@@ -28,7 +29,7 @@ namespace CustomerAccount.BL
         }
         
 
-        async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
+        public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
             return _mapper.Map<AccountData,CustomerAccountInfoDTO>( await _Storage.GetAccountData(accountId)) ;
         }

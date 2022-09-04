@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CustomerAccount.DTO;
+using CustomerAccount.BL.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,16 +19,16 @@ public class AccountController : ControllerBase
 
     // GET api/<AccountController>/5
     [HttpGet("{accountId}")]
-    public async Task<CustomerAccountDTO> Get(Guid accountId)
+    public  Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
-        return await IAccountBL.GetAccountInfo(accountId);
+        return accountBL.GetAccountInfo(accountId);
     }
 
     // POST api/<AccountController>
     [HttpPost]
-    public async Task<bool> Post([FromBody] CustomerAccountDTO customerAccountDTO)
+    public Task<bool> Post([FromBody] CustomerAccountDTO customerAccountDTO)
     {
-        return await IAccountBL.CreateAccount(customerAccountDTO);
+        return  accountBL.CreateAccount(customerAccountDTO);
     }
 
  

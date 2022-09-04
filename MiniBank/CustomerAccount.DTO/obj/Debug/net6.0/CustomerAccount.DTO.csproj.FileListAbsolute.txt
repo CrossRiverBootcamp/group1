@@ -10,3 +10,15 @@ C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\Cust
 C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\refint\CustomerAccount.DTO.dll
 C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.pdb
 C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\ref\CustomerAccount.DTO.dll
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\bin\Debug\net6.0\CustomerAccount.DTO.deps.json
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\bin\Debug\net6.0\CustomerAccount.DTO.dll
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\bin\Debug\net6.0\CustomerAccount.DTO.pdb
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.csproj.AssemblyReference.cache
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.GeneratedMSBuildEditorConfig.editorconfig
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.AssemblyInfoInputs.cache
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.AssemblyInfo.cs
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.csproj.CoreCompileInputs.cache
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.dll
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\refint\CustomerAccount.DTO.dll
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.pdb
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\ref\CustomerAccount.DTO.dll

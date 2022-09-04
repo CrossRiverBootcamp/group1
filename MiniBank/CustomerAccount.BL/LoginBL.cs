@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL;
 using CustomerAccount.DTO;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAccount.BL
 {
-    public class LoginBL
+    public class LoginBL:ILoginBL
     {
         private readonly IMapper _mapper;
         private readonly IStorage _Storage;
@@ -19,7 +20,7 @@ namespace CustomerAccount.BL
             _Storage = storage;
         }
 
-         Task <Guid> Login(LoginDTO loginDTO)
+         public Task <Guid> Login(LoginDTO loginDTO)
          {
 
             return  _Storage.Login( loginDTO.Email , loginDTO.Password);
