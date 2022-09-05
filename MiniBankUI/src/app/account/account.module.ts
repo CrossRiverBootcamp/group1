@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OpenAccountComponent } from './open-account/open-account.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    OpenAccountComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,   FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class AccountModule { }
