@@ -136,3 +136,13 @@ D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.WebAPI\obj\Deb
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\ref\CustomerAccount.WebAPI.dll
 C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.WebAPI\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.WebAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.csproj.AssemblyReference.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.AssemblyInfoInputs.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.AssemblyInfo.cs
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.csproj.CoreCompileInputs.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\refint\CustomerAccount.WebAPI.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.pdb

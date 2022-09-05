@@ -22,3 +22,15 @@ D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\refint\CustomerAccount.DTO.dll
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.pdb
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\ref\CustomerAccount.DTO.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\bin\Debug\net6.0\CustomerAccount.DTO.deps.json
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\bin\Debug\net6.0\CustomerAccount.DTO.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\bin\Debug\net6.0\CustomerAccount.DTO.pdb
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.csproj.AssemblyReference.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.AssemblyInfoInputs.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.AssemblyInfo.cs
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.csproj.CoreCompileInputs.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\refint\CustomerAccount.DTO.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\CustomerAccount.DTO.pdb
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DTO\obj\Debug\net6.0\ref\CustomerAccount.DTO.dll
