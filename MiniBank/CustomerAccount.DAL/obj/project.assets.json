@@ -782,6 +782,16 @@
             "rid": "win"
           }
         }
+      },
+      "ExtendedExceptions/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ExtendedExceptions.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ExtendedExceptions.dll": {}
+        }
       }
     }
   },
@@ -2003,10 +2013,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ExtendedExceptions/1.0.0": {
+      "type": "project",
+      "path": "../ExtendedExceptions/ExtendedExceptions.csproj",
+      "msbuildProject": "../ExtendedExceptions/ExtendedExceptions.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "ExtendedExceptions >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.8"
@@ -2048,7 +2064,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj": {
+              "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

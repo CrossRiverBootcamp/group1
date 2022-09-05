@@ -771,6 +771,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "ExtendedExceptions": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8"
         },
@@ -789,6 +790,16 @@
         },
         "runtime": {
           "bin/placeholder/CustomerAccount.DTO.dll": {}
+        }
+      },
+      "ExtendedExceptions/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ExtendedExceptions.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ExtendedExceptions.dll": {}
         }
       }
     }
@@ -1995,6 +2006,11 @@
       "type": "project",
       "path": "../CustomerAccount.DTO/CustomerAccount.DTO.csproj",
       "msbuildProject": "../CustomerAccount.DTO/CustomerAccount.DTO.csproj"
+    },
+    "ExtendedExceptions/1.0.0": {
+      "type": "project",
+      "path": "../ExtendedExceptions/ExtendedExceptions.csproj",
+      "msbuildProject": "../ExtendedExceptions/ExtendedExceptions.csproj"
     }
   },
   "projectFileDependencyGroups": {
