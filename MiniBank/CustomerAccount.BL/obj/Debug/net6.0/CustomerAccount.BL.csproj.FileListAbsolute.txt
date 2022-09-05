@@ -34,3 +34,22 @@ D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.BL\obj\Debug\n
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\ref\CustomerAccount.BL.dll
 C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\ExtendedExceptions.dll
 C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\ExtendedExceptions.pdb
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\CustomerAccount.BL.deps.json
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\CustomerAccount.BL.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\CustomerAccount.BL.pdb
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\CustomerAccount.DAL.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\CustomerAccount.DTO.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\ExtendedExceptions.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\CustomerAccount.DAL.pdb
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\CustomerAccount.DTO.pdb
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\ExtendedExceptions.pdb
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.csproj.AssemblyReference.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.AssemblyInfoInputs.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.AssemblyInfo.cs
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.csproj.CoreCompileInputs.cache
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.csproj.CopyComplete
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\refint\CustomerAccount.BL.dll
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.pdb
+C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\ref\CustomerAccount.BL.dll
