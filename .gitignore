@@ -358,3 +358,10 @@ FodyWeavers.xsd
 *.cache
 *.editorconfig
 *.v1
+*.config
+*.v1
+*.dll
+*.config
+*.dll
+*.cache
+*.dll
