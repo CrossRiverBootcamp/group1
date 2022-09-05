@@ -4,7 +4,7 @@ namespace CustomerAccount.BL.Interfaces
 {
     public interface IAccountBL
     {
-        Task<bool> CreateAccount(CustomerAccountDTO customerAccountDTO);
+        Task<bool> CreateAccount(CustomerDTO customerDTO);
          Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId);
     }
 }
