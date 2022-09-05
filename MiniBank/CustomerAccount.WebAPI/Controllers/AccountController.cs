@@ -2,8 +2,6 @@
 using CustomerAccount.DTO;
 using CustomerAccount.BL.Interfaces;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CustomerAccount.WebAPI.Controllers;
 
 [Route("api/[controller]")]
@@ -19,7 +17,7 @@ public class AccountController : ControllerBase
 
     // GET api/<AccountController>/5
     [HttpGet("{accountId}")]
-    public  Task<CustomerAccountInfoDTO> Get(Guid accountId)
+    public Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
         return accountBL.GetAccountInfo(accountId);
     }
@@ -30,6 +28,4 @@ public class AccountController : ControllerBase
     {
         return  accountBL.CreateAccount(customerDTO);
     }
-
- 
 }

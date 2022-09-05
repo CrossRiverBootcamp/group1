@@ -23,6 +23,5 @@ namespace CustomerAccount.WebAPI.Controllers
         {
            return  loginBL.Login(loginDTO);
         }
-
     }
 }

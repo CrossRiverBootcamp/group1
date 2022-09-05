@@ -13,13 +13,7 @@ namespace CustomerAccount.BL
     {
         public AutoMapping() 
         {
-
-
             CreateMap<CustomerDTO, Customer>();
-            CreateMap<CustomerAccountDTO, Customer>();
-
-
-
 
             CreateMap<AccountData, CustomerAccountInfoDTO>()
                 .ForMember(dest => dest.FirstName, opts => opts

@@ -16,22 +16,6 @@ namespace CustomerAccount.DAL
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
-        private async Task CreateCustomer(Customer customer)
-        {
-            using var context = _factory.CreateDbContext();
-            await context.Customers.AddAsync(customer);
-        }
-        private async Task CreateAccountData(Customer customer)
-        {
-            using var context = _factory.CreateDbContext();
-            AccountData accountData = new AccountData()
-            {
-                Customer = customer,
-                OpenDate = DateTime.UtcNow,
-                Balance = "1000"
-            };
-            await context.AccountDatas.AddAsync(accountData);
-        }
         public async Task<bool> CustomerExists(string email)
         {
             using var context = _factory.CreateDbContext();
@@ -46,8 +30,15 @@ namespace CustomerAccount.DAL
 
             try
             {
-                await CreateCustomer(customer);
-                await CreateAccountData(customer);
+                await context.Customers.AddAsync(customer);
+
+                AccountData accountData = new AccountData()
+                {
+                    Customer = customer,
+                    OpenDate = DateTime.UtcNow,
+                    Balance = "1000"
+                };
+                await context.AccountDatas.AddAsync(accountData);
 
                 await context.SaveChangesAsync();
             }
@@ -67,22 +58,25 @@ namespace CustomerAccount.DAL
                 .FirstOrDefaultAsync(acc =>
                 acc.Customer.Email.Equals(email) && acc.Customer.Password.Equals(password));
 
-            return accountData?.Id ?? throw new UnauthorizedAccessException("LogIn failed");
+            return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed");
         }
 
         public async Task<AccountData> GetAccountData(Guid accountDataId)
         {
             using var context = _factory.CreateDbContext();
+            return await context.AccountDatas
+                .Where(acc => acc.Id.Equals(accountDataId))
+                .Include(acc => acc.Customer)
+                .FirstOrDefaultAsync();
 
-            return await context.AccountDatas.FindAsync(accountDataId);
+            //return await context.AccountDatas.FindAsync(accountDataId);
         }
 
-        public async Task<Customer> GetCustomer(Guid customerId)
-        {
-            using var context = _factory.CreateDbContext();
+        //public async Task<Customer> GetCustomer(Guid customerId)
+        //{
+        //    using var context = _factory.CreateDbContext();
 
-            return await context.Customers.FindAsync(customerId);
-        }
-
+        //    return await context.Customers.FindAsync(customerId);
+        //}
     }
 }

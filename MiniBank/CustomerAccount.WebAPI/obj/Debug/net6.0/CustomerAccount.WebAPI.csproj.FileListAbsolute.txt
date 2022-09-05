@@ -134,3 +134,5 @@ D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.WebAPI\obj\Deb
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.csproj.CopyComplete
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.genruntimeconfig.cache
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\ref\CustomerAccount.WebAPI.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.WebAPI\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.WebAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
