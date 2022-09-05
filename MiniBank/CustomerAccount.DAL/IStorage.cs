@@ -8,6 +8,6 @@ namespace CustomerAccount.DAL
         Task<bool> CustomerExists(string email);
         Task<AccountData> GetAccountData(Guid accountDataId);
         Task<Customer> GetCustomer(Guid customerId);
-        Task<Guid> LogIn(string email, string password);
+        Task<Guid> Login(string email, string password);
     }
 }

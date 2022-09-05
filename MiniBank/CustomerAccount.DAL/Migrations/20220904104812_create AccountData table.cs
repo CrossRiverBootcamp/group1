@@ -29,7 +29,7 @@ namespace CustomerAccount.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.Createindex(
                 name: "IX_AccountDatas_CustomerId",
                 table: "AccountDatas",
                 column: "CustomerId");

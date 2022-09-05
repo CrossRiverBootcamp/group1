@@ -58,7 +58,7 @@ namespace CustomerAccount.DAL
             }
             return true;
         }
-        public async Task<Guid> LogIn(string email, string password)
+        public async Task<Guid> Login(string email, string password)
         {
             using var context = _factory.CreateDbContext();
 
@@ -67,7 +67,7 @@ namespace CustomerAccount.DAL
                 .FirstOrDefaultAsync(acc =>
                 acc.Customer.Email.Equals(email) && acc.Customer.Password.Equals(password));
 
-            return accountData?.Id ?? throw new UnauthorizedAccessException("LogIn failed");
+            return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed");
         }
 
         public async Task<AccountData> GetAccountData(Guid accountDataId)
@@ -76,12 +76,12 @@ namespace CustomerAccount.DAL
 
             return await context.AccountDatas.FindAsync(accountDataId);
         }
-        //public async Task<Customer> GetCustomer(Guid customerId)
-        //{
-        //    using var context = _factory.CreateDbContext();
+        public async Task<Customer> GetCustomer(Guid customerId)
+        {
+            using var context = _factory.CreateDbContext();
 
-        //    return await context.Customers.FindAsync(customerId);
-        //}
+            return await context.Customers.FindAsync(customerId);
+        }
 
     }
 }

@@ -18,10 +18,9 @@ namespace CustomerAccount.WebAPI.Controllers
        
         // POST api/<LoginController>
         [HttpPost]
-        public async Task<int> Post([FromBody] LoginDTO loginDTO)
+        public Task<int> Post([FromBody] LoginDTO loginDTO)
         {
-           return await loginBL.Login(loginDTO);
+           return loginBL.Login(loginDTO);
         }
-
     }
 }

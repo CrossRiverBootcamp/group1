@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "rWWL16qiFjrMy/cR5++V5R14ADeIx3DWM8EhVmPQkPa8avqmahOYknXYZ2HHYcokyQ9dn7zCRqGiCrQggsspNA==",
+  "dgSpecHash": "sgw65Mryy67GZIAdsjRoGyD3+kWY+G/eSaQbnhkxb0L8vBT6H7qbeXtqfNFIRsqJSM/6QYww0X+++NDLPSqixg==",
   "success": true,
   "projectFilePath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\משתמש זה\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\משתמש זה\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\משתמש זה\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\משתמש זה\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\משתמש זה\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\משתמש זה\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\משתמש זה\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.8\\microsoft.entityframeworkcore.6.0.8.nupkg.sha512",
