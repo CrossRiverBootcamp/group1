@@ -17,7 +17,7 @@ public class AccountController : ControllerBase
 
     // GET api/<AccountController>/5
     [HttpGet("{accountId}")]
-    public  Task<CustomerAccountInfoDTO> Get(Guid accountId)
+    public Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
         return accountBL.GetAccountInfo(accountId);
     }

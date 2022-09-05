@@ -28,14 +28,9 @@ namespace CustomerAccount.BL
             return await _Storage.CreateCustomerAccount(_mapper.Map<CustomerDTO, Customer>(customerDTO));
         }
         
-
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
-            return _mapper.Map<AccountData,CustomerAccountInfoDTO>( await _Storage.GetAccountData(accountId)) ;
+            return _mapper.Map<AccountData,CustomerAccountInfoDTO>(await _Storage.GetAccountData(accountId)) ;
         }
-
-      
-
-
     }
 }
