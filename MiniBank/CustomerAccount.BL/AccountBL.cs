@@ -20,12 +20,12 @@ namespace CustomerAccount.BL
             _mapper = mapper;
             _Storage = storage;
         }
-        public async Task<bool> CreateAccount(CustomerAccountDTO customerAccountDTO)
+        public async Task<bool> CreateAccount(CustomerDTO customerDTO)
         {
-            bool isExists = await _Storage.CustomerExists(customerAccountDTO.Email);
+            bool isExists = await _Storage.CustomerExists(customerDTO.Email);
             if (isExists)
                 return false;
-            return await _Storage.CreateCustomerAccount(_mapper.Map<CustomerAccountDTO, Customer>(customerAccountDTO));
+            return await _Storage.CreateCustomerAccount(_mapper.Map<CustomerDTO, Customer>(customerDTO));
         }
         
 

@@ -26,9 +26,9 @@ public class AccountController : ControllerBase
 
     // POST api/<AccountController>
     [HttpPost]
-    public Task<bool> Post([FromBody] CustomerAccountDTO customerAccountDTO)
+    public Task<bool> Post([FromBody] CustomerDTO customerDTO)
     {
-        return  accountBL.CreateAccount(customerAccountDTO);
+        return  accountBL.CreateAccount(customerDTO);
     }
 
  
