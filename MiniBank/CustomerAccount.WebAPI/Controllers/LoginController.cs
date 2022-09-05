@@ -2,8 +2,6 @@
 using CustomerAccount.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CustomerAccount.WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -19,9 +17,10 @@ namespace CustomerAccount.WebAPI.Controllers
        
         // POST api/<LoginController>
         [HttpPost]
-        public Task<Guid> Post([FromBody] LoginDTO loginDTO)
+        public async Task<ActionResult<Guid>> Post([FromBody] LoginDTO loginDTO)
         {
-           return  loginBL.Login(loginDTO);
+            var result = await loginBL.Login(loginDTO);
+            return Ok(result);
         }
     }
 }

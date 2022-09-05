@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CustomerAccount.BL\CustomerAccount.BL.csproj" />
-    <ProjectReference Include="..\CustomerAccount.DAL\CustomerAccount.DAL.csproj" />
     <ProjectReference Include="..\CustomerAccount.DTO\CustomerAccount.DTO.csproj" />
+    <ProjectReference Include="..\ExtendedExceptions\ExtendedExceptions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

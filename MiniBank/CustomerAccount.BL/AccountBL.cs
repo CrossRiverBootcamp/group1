@@ -25,12 +25,22 @@ namespace CustomerAccount.BL
             bool isExists = await _Storage.CustomerExists(customerDTO.Email);
             if (isExists)
                 return false;
-            return await _Storage.CreateCustomerAccount(_mapper.Map<CustomerDTO, Customer>(customerDTO));
+
+            Customer customer = _mapper.Map<CustomerDTO, Customer>(customerDTO);
+            AccountData accountData = new AccountData()
+            {
+                Customer = customer,
+                OpenDate = DateTime.UtcNow,
+                Balance = "1000"
+            };
+
+            return await _Storage.CreateCustomerAccount(customer, accountData);
         }
         
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
-            return _mapper.Map<AccountData,CustomerAccountInfoDTO>(await _Storage.GetAccountData(accountId)) ;
+            AccountData accountData = await _Storage.GetAccountData(accountId);
+            return _mapper.Map<AccountData,CustomerAccountInfoDTO>(accountData) ;
         }
     }
 }

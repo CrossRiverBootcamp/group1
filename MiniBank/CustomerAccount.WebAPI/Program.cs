@@ -4,7 +4,7 @@ using CustomerAccount.BL.Interfaces;
 using CustomerAccount.BL;
 using CustomerAccount.DAL;
 using Microsoft.AspNetCore.Diagnostics;
-using CustomerAccount.WebAPI;
+using CustomerAccount.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +16,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+//call extention methods
+builder.Services.AddDBContextService(builder.Configuration.GetConnectionString("myconn"));
+builder.Services.AddDIServices();
 
-
-
-//Extention method to add DBContext 
-builder.Services.AddServices(builder.Configuration.GetConnectionString("myconn"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -484,6 +484,7 @@
       },
       "CustomerAccount.DAL/1.0.0": {
         "dependencies": {
+          "ExtendedExceptions": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8"
         },
@@ -494,6 +495,11 @@
       "CustomerAccount.DTO/1.0.0": {
         "runtime": {
           "CustomerAccount.DTO.dll": {}
+        }
+      },
+      "ExtendedExceptions/1.0.0": {
+        "runtime": {
+          "ExtendedExceptions.dll": {}
         }
       }
     }
@@ -804,6 +810,11 @@
       "sha512": ""
     },
     "CustomerAccount.DTO/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ExtendedExceptions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

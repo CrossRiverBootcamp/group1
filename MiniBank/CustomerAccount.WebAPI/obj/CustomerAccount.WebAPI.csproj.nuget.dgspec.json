@@ -1,25 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj": {}
+    "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj": {}
   },
   "projects": {
-    "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj": {
+    "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj",
+        "projectUniqueName": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj",
         "projectName": "CustomerAccount.BL",
-        "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj",
-        "packagesPath": "C:\\Users\\This_User\\.nuget\\packages\\",
-        "outputPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.BL\\obj\\",
+        "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj",
+        "packagesPath": "C:\\Users\\משתמש זה\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.BL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\This_User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\משתמש זה\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -32,11 +35,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj": {
-                "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj"
+              "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj": {
+                "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj"
               },
-              "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj": {
-                "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj"
+              "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj": {
+                "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj"
               }
             }
           }
@@ -66,7 +69,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -75,26 +79,29 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj": {
+    "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj",
         "projectName": "CustomerAccount.DAL",
-        "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj",
-        "packagesPath": "C:\\Users\\This_User\\.nuget\\packages\\",
-        "outputPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\obj\\",
+        "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj",
+        "packagesPath": "C:\\Users\\משתמש זה\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\This_User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\משתמש זה\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -106,7 +113,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj": {
+                "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -140,7 +151,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -149,26 +161,29 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj": {
+    "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj",
+        "projectUniqueName": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj",
         "projectName": "CustomerAccount.DTO",
-        "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj",
-        "packagesPath": "C:\\Users\\This_User\\.nuget\\packages\\",
-        "outputPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DTO\\obj\\",
+        "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj",
+        "packagesPath": "C:\\Users\\משתמש זה\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\This_User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\משתמש זה\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -198,7 +213,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -207,26 +223,29 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj": {
+    "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj",
         "projectName": "CustomerAccount.WebAPI",
-        "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj",
-        "packagesPath": "C:\\Users\\This_User\\.nuget\\packages\\",
-        "outputPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.WebAPI\\obj\\",
+        "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.WebAPI\\CustomerAccount.WebAPI.csproj",
+        "packagesPath": "C:\\Users\\משתמש זה\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\This_User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\משתמש זה\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -239,14 +258,14 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj": {
-                "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj"
+              "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj": {
+                "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj"
               },
-              "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj": {
-                "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj"
+              "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj": {
+                "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj"
               },
-              "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj": {
-                "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj"
+              "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj": {
+                "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj"
               }
             }
           }
@@ -278,7 +297,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -290,7 +310,69 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj",
+        "projectName": "ExtendedExceptions",
+        "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj",
+        "packagesPath": "C:\\Users\\משתמש זה\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\ExtendedExceptions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\משתמש זה\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

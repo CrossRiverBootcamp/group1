@@ -8,18 +8,16 @@ namespace CustomerAccount.BL
 {
     public static class Extentions
     {
-        public static void AddServices(this IServiceCollection Services, string connection)
+        public static void AddDIServices(this IServiceCollection services)
         {
-            Services.AddDbContextFactory<CustomerAccountDBContext>(item =>
-            item.UseSqlServer(connection));
-
-            // add DI services
-            Services.AddScoped<IAccountBL, AccountBL>();
-            Services.AddScoped<ILoginBL, LoginBL>();
-
-            Services.AddScoped<IStorage, Storage>();
-
-
+            services.AddScoped<IAccountBL, AccountBL>();
+            services.AddScoped<ILoginBL, LoginBL>();
+            services.AddScoped<IStorage, Storage>();
+        }
+        public static void AddDBContextService(this IServiceCollection services, string connection)
+        {
+            services.AddDbContextFactory<CustomerAccountDBContext>(item =>
+           item.UseSqlServer(connection));
         }
     }
 }

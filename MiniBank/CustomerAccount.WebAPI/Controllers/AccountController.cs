@@ -17,15 +17,17 @@ public class AccountController : ControllerBase
 
     // GET api/<AccountController>/5
     [HttpGet("{accountId}")]
-    public Task<CustomerAccountInfoDTO> Get(Guid accountId)
+    public async Task<ActionResult<CustomerAccountInfoDTO>> Get(Guid accountId)
     {
-        return accountBL.GetAccountInfo(accountId);
+        var result = await accountBL.GetAccountInfo(accountId);
+        return Ok(result);
     }
 
     // POST api/<AccountController>
     [HttpPost]
-    public Task<bool> Post([FromBody] CustomerDTO customerDTO)
+    public async Task<ActionResult<bool>> Post([FromBody] CustomerDTO customerDTO)
     {
-        return  accountBL.CreateAccount(customerDTO);
+        var result = await accountBL.CreateAccount(customerDTO);
+        return Ok(result);
     }
 }

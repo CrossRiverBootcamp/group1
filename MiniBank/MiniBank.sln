@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerAccount.WebAPI", "CustomerAccount.WebAPI\CustomerAccount.WebAPI.csproj", "{CEC4FFD0-BF0F-4F9C-8C31-F48E976CBA5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAccount.WebAPI", "CustomerAccount.WebAPI\CustomerAccount.WebAPI.csproj", "{CEC4FFD0-BF0F-4F9C-8C31-F48E976CBA5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomerAccount", "CustomerAccount", "{9AD5D93B-45FD-4023-AAF9-9246BBE6FFB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerAccount.BL", "CustomerAccount.BL\CustomerAccount.BL.csproj", "{F2469DCD-B1EA-48FF-AF52-96AC3B466412}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAccount.BL", "CustomerAccount.BL\CustomerAccount.BL.csproj", "{F2469DCD-B1EA-48FF-AF52-96AC3B466412}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerAccount.DAL", "CustomerAccount.DAL\CustomerAccount.DAL.csproj", "{AF43F9CB-B917-4B61-B3F1-6B8B6FD0BF1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAccount.DAL", "CustomerAccount.DAL\CustomerAccount.DAL.csproj", "{AF43F9CB-B917-4B61-B3F1-6B8B6FD0BF1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerAccount.DTO", "CustomerAccount.DTO\CustomerAccount.DTO.csproj", "{E23037CD-83E5-4534-85EE-9C3C144B21FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAccount.DTO", "CustomerAccount.DTO\CustomerAccount.DTO.csproj", "{E23037CD-83E5-4534-85EE-9C3C144B21FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedExceptions", "ExtendedExceptions\ExtendedExceptions.csproj", "{BFA8F1F6-4389-4693-BEC5-A52275DCBAE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{E23037CD-83E5-4534-85EE-9C3C144B21FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E23037CD-83E5-4534-85EE-9C3C144B21FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E23037CD-83E5-4534-85EE-9C3C144B21FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFA8F1F6-4389-4693-BEC5-A52275DCBAE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFA8F1F6-4389-4693-BEC5-A52275DCBAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFA8F1F6-4389-4693-BEC5-A52275DCBAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFA8F1F6-4389-4693-BEC5-A52275DCBAE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{F2469DCD-B1EA-48FF-AF52-96AC3B466412} = {9AD5D93B-45FD-4023-AAF9-9246BBE6FFB6}
 		{AF43F9CB-B917-4B61-B3F1-6B8B6FD0BF1B} = {9AD5D93B-45FD-4023-AAF9-9246BBE6FFB6}
 		{E23037CD-83E5-4534-85EE-9C3C144B21FF} = {9AD5D93B-45FD-4023-AAF9-9246BBE6FFB6}
+		{BFA8F1F6-4389-4693-BEC5-A52275DCBAE4} = {9AD5D93B-45FD-4023-AAF9-9246BBE6FFB6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E0B8F62-58D2-4BF1-A95E-CA0F39CFD7C0}

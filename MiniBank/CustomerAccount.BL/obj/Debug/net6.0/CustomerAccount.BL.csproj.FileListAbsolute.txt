@@ -32,3 +32,5 @@ D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.BL\bin\Debug\n
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\CustomerAccount.DTO.pdb
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.csproj.CopyComplete
 D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\ref\CustomerAccount.BL.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\ExtendedExceptions.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\ExtendedExceptions.pdb
