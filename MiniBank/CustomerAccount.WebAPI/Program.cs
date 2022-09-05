@@ -3,6 +3,8 @@ using CustomerAccount.DAL.EF;
 using CustomerAccount.BL.Interfaces;
 using CustomerAccount.BL;
 using CustomerAccount.DAL;
+using Microsoft.AspNetCore.Diagnostics;
+using CustomerAccount.WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.ConfigureCustomExceptionMiddleware();
 
 app.MapControllers();
 
