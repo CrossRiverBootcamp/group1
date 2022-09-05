@@ -26,47 +26,48 @@ public class Middleware
 
     public async Task InvokeAsync(HttpContext httpContext)
     {
-        try
-        {
-            await _next(httpContext);
-            if (httpContext.Response.StatusCode > 400 && httpContext.Response.StatusCode < 500)
-            {
-                throw new KeyNotFoundException("Not Found");
-            }​
-        }
-        catch (Exception error)
-        {
-            var response = httpContext.Response;
-            response.ContentType = "application/json";
-            _logger.LogError(error, error.Message);
-            switch (error)
-            {
-                //case CreateUserException ex:
-                //    //CreateCustomerAccount failed
-                //    await response.WriteAsync("Ooops... \n Create customerAccount failed!");
-                //    response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
-                //    //need to return false
-                //    break;
-                case DBContextException ex:
-                    //Other DBContext Exceptions
-                    await response.WriteAsync("Ooops... \n DBContext issue: {e.Message}");
-                    response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
-                    break;
-                case ArgumentNullException ex:
-                    await response.WriteAsync("Ooops... \n the argument {e.Message} is null!");
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    break;
-                case KeyNotFoundException ex:
-                    await response.WriteAsync("Ooops... \n page not found!");
-                    response.StatusCode = (int)HttpStatusCode.NotFound;
-                    break;
-                default:
-                    // unhandled error
-                    await response.WriteAsync("Ooops... \n unknown problem:(");
-                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    break;
-            }
-        }
+        await _next(httpContext);
+        //try
+        //{
+          
+        //    if (httpContext.Response.StatusCode > 400 && httpContext.Response.StatusCode < 500)
+        //    {
+        //        throw new KeyNotFoundException("Not Found");
+        //    }​
+        //}
+        //catch (Exception error)
+        //{
+        //    var response = httpContext.Response;
+        //    response.ContentType = "application/json";
+        //    _logger.LogError(error, error.Message);
+        //    switch (error)
+        //    {
+        //        //case CreateUserException ex:
+        //        //    //CreateCustomerAccount failed
+        //        //    await response.WriteAsync("Ooops... \n Create customerAccount failed!");
+        //        //    response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
+        //        //    //need to return false
+        //        //    break;
+        //        case DBContextException ex:
+        //            //Other DBContext Exceptions
+        //            await response.WriteAsync("Ooops... \n DBContext issue: {e.Message}");
+        //            response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
+        //            break;
+        //        case ArgumentNullException ex:
+        //            await response.WriteAsync("Ooops... \n the argument {e.Message} is null!");
+        //            response.StatusCode = (int)HttpStatusCode.BadRequest;
+        //            break;
+        //        case KeyNotFoundException ex:
+        //            await response.WriteAsync("Ooops... \n page not found!");
+        //            response.StatusCode = (int)HttpStatusCode.NotFound;
+        //            break;
+        //        default:
+        //            // unhandled error
+        //            await response.WriteAsync("Ooops... \n unknown problem:(");
+        //            response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        //            break;
+        //    }
+        //}
     }
 }
 public static class MiddlewareExtensions
