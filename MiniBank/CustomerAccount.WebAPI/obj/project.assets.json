@@ -2313,7 +2313,6 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "CustomerAccount.BL >= 1.0.0",
-      "CustomerAccount.DAL >= 1.0.0",
       "CustomerAccount.DTO >= 1.0.0",
       "ExtendedExceptions >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.8",
@@ -2359,9 +2358,6 @@
           "projectReferences": {
             "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj": {
               "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.BL\\CustomerAccount.BL.csproj"
-            },
-            "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj": {
-              "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj"
             },
             "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj": {
               "projectPath": "C:\\Users\\משתמש זה\\Desktop\\בוטקמפ\\CrossRiverPro\\group1\\MiniBank\\CustomerAccount.DTO\\CustomerAccount.DTO.csproj"

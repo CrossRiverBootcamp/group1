@@ -38,18 +38,18 @@ public class Middleware
         {
             var response = httpContext.Response;
             response.ContentType = "application/json";
-            _logger.Log(LogLevel.Error, error.Message);
+            _logger.LogError(error, error.Message);
             switch (error)
             {
-                case CreateUserException ex:
-                    //CreateCustomerAccount failed
-                    await response.WriteAsync("Ooops... \n Create customerAccount failed!");
-                    response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
-                    //need to return false
-                    break;
+                //case CreateUserException ex:
+                //    //CreateCustomerAccount failed
+                //    await response.WriteAsync("Ooops... \n Create customerAccount failed!");
+                //    response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
+                //    //need to return false
+                //    break;
                 case DBContextException ex:
                     //Other DBContext Exceptions
-                    await response.WriteAsync("Ooops... \n the argument {e.Message} is null!");
+                    await response.WriteAsync("Ooops... \n DBContext issue: {e.Message}");
                     response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
                     break;
                 case ArgumentNullException ex:
@@ -68,7 +68,6 @@ public class Middleware
             }
         }
     }
-
 }
 public static class MiddlewareExtensions
 {

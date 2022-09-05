@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Entities;
-using CustomerAccount.DAL;
 using ExtendedExceptions;
 
 namespace CustomerAccount.DAL
@@ -25,9 +19,9 @@ namespace CustomerAccount.DAL
             {
                 return await context.Customers.AnyAsync(sub => sub.Email.Equals(email));
             }
-            catch
+            catch(Exception ex)
             {
-                throw new DBContextException();
+                throw new DBContextException(ex.Message);
             }
         }
         public async Task<bool> CreateCustomerAccount(Customer customer, AccountData accountData)
@@ -43,7 +37,8 @@ namespace CustomerAccount.DAL
             }
             catch
             {
-                throw new CreateUserException();
+                // throw new CreateUserException();
+                return false;
             }
             return true;
         }
@@ -59,9 +54,9 @@ namespace CustomerAccount.DAL
 
                return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed");
             }
-            catch
+            catch(Exception ex)
             {
-                throw new DBContextException();
+                throw new DBContextException(ex.Message);
             }
         }
 
@@ -75,9 +70,9 @@ namespace CustomerAccount.DAL
                 .Include(acc => acc.Customer)
                 .FirstOrDefaultAsync();
             }
-            catch
+            catch(Exception ex)
             {
-               throw new DBContextException();
+               throw new DBContextException(ex.Message);
             }
         }
 
