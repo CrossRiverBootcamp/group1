@@ -27,9 +27,10 @@ public class Middleware
 
         await _next(httpContext);
         var exception = httpContext.Features
-       .Get<IExceptionHandlerPathFeature>().Error;
-
-       _logger.LogError(exception,$"oh no! {exception.Message}");
+       .Get<IExceptionHandlerPathFeature>()?.Error;
+        if(exception!=null)
+            _logger.LogError(exception,$"oh no! {exception.Message}");
+      
         
     }
 
