@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAccount.DTO
 {
-    public class AccountDTO
+    public class CustomerAccountInfoDTO
     {
         [Required]
         [MinLength(2)]
@@ -17,10 +17,10 @@ namespace CustomerAccount.DTO
         [MinLength(2)]
         [MaxLength(25)]
         public string LastName { get; set; }
-        [Required]
+  
+     
         public DateTime OpenDate { get; set; }
         [Required]
         public int Balance { get; set; }
-    
     }
 }

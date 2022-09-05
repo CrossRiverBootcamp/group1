@@ -1,4 +1,5 @@
-﻿using CustomerAccount.DTO;
+﻿using CustomerAccount.BL.Interfaces;
+using CustomerAccount.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,9 +19,9 @@ namespace CustomerAccount.WebAPI.Controllers
        
         // POST api/<LoginController>
         [HttpPost]
-        public Task<int> Post([FromBody] LoginDTO loginDTO)
+        public Task<Guid> Post([FromBody] LoginDTO loginDTO)
         {
-           return loginBL.Login(loginDTO);
+           return  loginBL.Login(loginDTO);
         }
     }
 }

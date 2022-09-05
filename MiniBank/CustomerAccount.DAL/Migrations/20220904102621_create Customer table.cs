@@ -24,7 +24,7 @@ namespace CustomerAccount.DAL.Migrations
                     table.PrimaryKey("PK_Customers", x => x.Id);
                 });
 
-            migrationBuilder.Createindex(
+            migrationBuilder.CreateIndex(
                 name: "IX_Customers_Email",
                 table: "Customers",
                 column: "Email",

@@ -4,25 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CustomerAccount.DAL.Entities;
 using CustomerAccount.DTO;
 
 namespace CustomerAccount.BL
 {
-    public class AutoMapping
+    public class AutoMapping : Profile
     {
-        public AutoMapping() : Profile
+        public AutoMapping() 
         {
-            //.reveseMap כדאי??
-
             CreateMap<CustomerDTO, Customer>();
 
-            CreateMap<LoginDTO, Login>();
-
-            CreateMap<AccountDTO, Customer>()
-                .ForMember(dest => dest.OpenDate, opts => opts
-                    .MapFrom(src => src.Account.OpenDate))
-                .ForMember(dest => dest.Balance, opts => opts
-                    .MapFrom(src => src.Account.Balance));
+            CreateMap<AccountData, CustomerAccountInfoDTO>()
+                .ForMember(dest => dest.FirstName, opts => opts
+                    .MapFrom(src => src.Customer.FirstName))
+                .ForMember(dest => dest.LastName, opts => opts
+                    .MapFrom(src => src.Customer.LastName));
         }
     }
 }

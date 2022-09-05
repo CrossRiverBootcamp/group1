@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CustomerAccount.DTO;
+using CustomerAccount.BL.Interfaces;
 
 namespace CustomerAccount.WebAPI.Controllers;
 
@@ -16,17 +17,15 @@ public class AccountController : ControllerBase
 
     // GET api/<AccountController>/5
     [HttpGet("{accountId}")]
-    public Task<AccountDTO> Get(int accountId)
+    public  Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
-        return IAccountBL.GetAccountinfo(accountId);
+        return accountBL.GetAccountInfo(accountId);
     }
 
     // POST api/<AccountController>
     [HttpPost]
-    public Task<bool> Post([FromBody] AccountDTO accountDTO)
+    public Task<bool> Post([FromBody] CustomerAccountDTO customerAccountDTO)
     {
-        return IAccountBL.CreateAccount(accountDTO);
+        return  accountBL.CreateAccount(customerAccountDTO);
     }
-
- 
 }

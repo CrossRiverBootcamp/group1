@@ -893,7 +893,8 @@
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "CustomerAccount.DAL": "1.0.0",
-          "CustomerAccount.DTO": "1.0.0"
+          "CustomerAccount.DTO": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "6.0.8"
         },
         "compile": {
           "bin/placeholder/CustomerAccount.BL.dll": {}

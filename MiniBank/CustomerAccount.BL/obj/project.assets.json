@@ -2001,7 +2001,8 @@
     "net6.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 11.0.0",
       "CustomerAccount.DAL >= 1.0.0",
-      "CustomerAccount.DTO >= 1.0.0"
+      "CustomerAccount.DTO >= 1.0.0",
+      "Microsoft.EntityFrameworkCore >= 6.0.8"
     ]
   },
   "packageFolders": {
@@ -2063,6 +2064,10 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[11.0.0, )"
+          },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[6.0.8, )"
           }
         },
         "imports": [
