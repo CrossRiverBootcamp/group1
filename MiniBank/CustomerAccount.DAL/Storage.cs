@@ -48,11 +48,11 @@ namespace CustomerAccount.DAL
             try
             {
                AccountData accountData = await context.AccountDatas
+                .Where(acc => acc.Customer.Email.Equals(email) && acc.Customer.Password.Equals(password))
                 .Include(acc => acc.Customer)
-                .FirstOrDefaultAsync(acc =>
-                   acc.Customer.Email.Equals(email) && acc.Customer.Password.Equals(password));
+                .FirstOrDefaultAsync();
 
-               return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed");
+               return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed, your name or password are not correct:(");
             }
             catch(Exception ex)
             {
@@ -75,12 +75,5 @@ namespace CustomerAccount.DAL
                throw new DBContextException(ex.Message);
             }
         }
-
-        //public async Task<Customer> GetCustomer(Guid customerId)
-        //{
-        //    using var context = _factory.CreateDbContext();
-
-        //    return await context.Customers.FindAsync(customerId);
-        //}
     }
 }

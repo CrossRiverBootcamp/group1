@@ -9,8 +9,8 @@
       "CustomerAccount.WebAPI/1.0.0": {
         "dependencies": {
           "CustomerAccount.BL": "1.0.0",
-          "CustomerAccount.DAL": "1.0.0",
           "CustomerAccount.DTO": "1.0.0",
+          "ExtendedExceptions": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "6.0.8",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
@@ -513,6 +513,7 @@
       },
       "CustomerAccount.DAL/1.0.0": {
         "dependencies": {
+          "ExtendedExceptions": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8"
         },
@@ -523,6 +524,11 @@
       "CustomerAccount.DTO/1.0.0": {
         "runtime": {
           "CustomerAccount.DTO.dll": {}
+        }
+      },
+      "ExtendedExceptions/1.0.0": {
+        "runtime": {
+          "ExtendedExceptions.dll": {}
         }
       }
     }
@@ -894,6 +900,11 @@
       "sha512": ""
     },
     "CustomerAccount.DTO/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ExtendedExceptions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

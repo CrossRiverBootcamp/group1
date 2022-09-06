@@ -29,10 +29,10 @@ public class Middleware
         try
         {
             await _next(httpContext);
-            if (httpContext.Response.StatusCode > 400 && httpContext.Response.StatusCode < 500)
+            if(httpContext.Response.StatusCode > 400 && httpContext.Response.StatusCode < 500)
             {
-                throw new KeyNotFoundException("Not Found");
-            }​
+                throw new KeyNotFoundException("Not Fount");
+            }
         }
         catch (Exception error)
         {
@@ -49,15 +49,19 @@ public class Middleware
                 //    break;
                 case DBContextException ex:
                     //Other DBContext Exceptions
-                    await response.WriteAsync("Ooops... \n DBContext issue: {e.Message}");
+                    await response.WriteAsync("Ooops... \n DBContext issue:" + ex.Message);
                     response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
                     break;
                 case ArgumentNullException ex:
-                    await response.WriteAsync("Ooops... \n the argument {e.Message} is null!");
+                    await response.WriteAsync("Ooops... \n the argument " + ex.Message + "is null!");
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+                case UnauthorizedAccessException ex:
+                    await response.WriteAsync("Ooops... \n " + ex.Message);
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
                 case KeyNotFoundException ex:
-                    await response.WriteAsync("Ooops... \n page not found!");
+                    await response.WriteAsync("Ooops... \n key not found!");
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
                 default:
