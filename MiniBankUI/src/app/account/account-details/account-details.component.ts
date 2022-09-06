@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CustomerAccountInfo } from 'src/app/models/customer-account.model';
-import { AccountService } from '../services/account.service';
+import { CustomerAccountService } from '../services/customer-account.service';
 
 @Component({
   selector: 'app-account-details',
@@ -11,13 +11,15 @@ import { AccountService } from '../services/account.service';
 export class AccountDetailsComponent  {
 
   accountInfo!:CustomerAccountInfo;
-  constructor(private accountService:AccountService,
+  constructor(private accountService:CustomerAccountService,
     // private alertService: AlertService
     ) {
-      accountService.getAccountInfo()
-      .subscribe((accountInfo:CustomerAccountInfo) => {this.accountInfo = accountInfo}, (error: HttpErrorResponse) => {
-          //this.alertService.error(error.message);
-      });
+      let accountId= sessionStorage.getItem('accountId');
+      if(accountId)
+        accountService.getAccountInfo(accountId)
+        .subscribe((accountInfo:CustomerAccountInfo) => {this.accountInfo = accountInfo}, (error: HttpErrorResponse) => {
+            //this.alertService.error(error.message);
+        });
    }
 
 }

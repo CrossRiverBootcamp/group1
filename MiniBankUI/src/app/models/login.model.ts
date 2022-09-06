@@ -1,4 +1,3 @@
-import { LoginService } from "../account/services/login.service"
 
 export interface Login
 {

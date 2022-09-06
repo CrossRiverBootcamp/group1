@@ -2,7 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from '../services/account.service';
+import { CustomerAccountService } from '../services/customer-account.service';
+
 
 @Component({
   selector: 'app-open-account',
@@ -18,7 +19,7 @@ export class OpenAccountComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private accountService: AccountService
+    private accountService: CustomerAccountService
    // private alertService: AlertService
   ) { }
 
@@ -50,10 +51,10 @@ export class OpenAccountComponent implements OnInit {
     this.loading = true;
     this.accountService.createCustomerAccount(this.form.value)
       .subscribe(
-        (data: any) => {
-          console.log(data);
+        (isAdded: boolean) => {
+          isAdded?alert('added'):alert("an error occurred, please try again"); this.loading = false;
           //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-          //this.router.navigate(['login']);
+          //this.router.navigate(['login'])
         },
         (error: HttpErrorResponse) => {
           console.log(error);
