@@ -49,11 +49,15 @@ public class Middleware
                 //    break;
                 case DBContextException ex:
                     //Other DBContext Exceptions
-                    await response.WriteAsync("Ooops... \n DBContext issue: {e.Message}");
+                    await response.WriteAsync("Ooops... \n DBContext issue:" + ex.Message);
                     response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
                     break;
                 case ArgumentNullException ex:
-                    await response.WriteAsync("Ooops... \n the argument {e.Message} is null!");
+                    await response.WriteAsync("Ooops... \n the argument " + ex.Message + "is null!");
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+                case UnauthorizedAccessException ex:
+                    await response.WriteAsync("Ooops... \n " + ex.Message);
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
                 case KeyNotFoundException ex:

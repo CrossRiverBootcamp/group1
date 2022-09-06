@@ -52,7 +52,7 @@ namespace CustomerAccount.DAL
                 .Include(acc => acc.Customer)
                 .FirstOrDefaultAsync();
 
-               return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed");
+               return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed, your name or password are not correct:(");
             }
             catch(Exception ex)
             {

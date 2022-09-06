@@ -207,3 +207,5 @@ C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\gro
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.csproj.CopyComplete
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\CustomerAccount.WebAPI.genruntimeconfig.cache
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.WebAPI\obj\Debug\net6.0\ref\CustomerAccount.WebAPI.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.WebAPI\bin\Debug\net6.0\ExtendedExceptions.dll
+C:\Users\משתמש זה\Desktop\בוטקמפ\CrossRiverPro\group1\MiniBank\CustomerAccount.WebAPI\bin\Debug\net6.0\ExtendedExceptions.pdb
