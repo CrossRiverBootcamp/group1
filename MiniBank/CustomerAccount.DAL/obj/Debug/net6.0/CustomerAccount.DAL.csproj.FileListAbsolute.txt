@@ -46,3 +46,6 @@ C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\gro
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.pdb
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.genruntimeconfig.cache
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\ref\CustomerAccount.DAL.dll
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DAL\bin\Debug\net6.0\ExtendedExceptions.dll
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DAL\bin\Debug\net6.0\ExtendedExceptions.pdb
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.DAL\obj\Debug\net6.0\CustomerAccount.DAL.csproj.CopyComplete

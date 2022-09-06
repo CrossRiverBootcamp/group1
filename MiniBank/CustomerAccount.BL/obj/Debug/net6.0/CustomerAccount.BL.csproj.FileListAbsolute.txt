@@ -53,3 +53,5 @@ C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\gro
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\refint\CustomerAccount.BL.dll
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\CustomerAccount.BL.pdb
 C:\Users\user\מה שיש בשולחן עבודה\בוטקמפ\final project\group1\MiniBank\CustomerAccount.BL\obj\Debug\net6.0\ref\CustomerAccount.BL.dll
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\ExtendedExceptions.dll
+D:\הנדסאים\BOOTCAMP\final project\MiniBank\CustomerAccount.BL\bin\Debug\net6.0\ExtendedExceptions.pdb
