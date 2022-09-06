@@ -1881,24 +1881,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\This_User\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\user\\מה שיש בשולחן עבודה\\בוטקמפ\\final project\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj",
       "projectName": "CustomerAccount.DAL",
-      "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj",
-      "packagesPath": "C:\\Users\\This_User\\.nuget\\packages\\",
-      "outputPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\CustomerAccount.DAL\\obj\\",
+      "projectPath": "C:\\Users\\user\\מה שיש בשולחן עבודה\\בוטקמפ\\final project\\group1\\MiniBank\\CustomerAccount.DAL\\CustomerAccount.DAL.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\מה שיש בשולחן עבודה\\בוטקמפ\\final project\\group1\\MiniBank\\CustomerAccount.DAL\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\This_User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1912,8 +1907,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj": {
-              "projectPath": "D:\\הנדסאים\\BOOTCAMP\\final project\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj"
+            "C:\\Users\\user\\מה שיש בשולחן עבודה\\בוטקמפ\\final project\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj": {
+              "projectPath": "C:\\Users\\user\\מה שיש בשולחן עבודה\\בוטקמפ\\final project\\group1\\MiniBank\\ExtendedExceptions\\ExtendedExceptions.csproj"
             }
           }
         }
@@ -1958,7 +1953,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

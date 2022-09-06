@@ -52,7 +52,6 @@ ngOnInit() {
                 this.router.navigate(['account-details']);
             },
             (error: HttpErrorResponse) => {
-              // debugger;
               //   this.alertService.error(error.message);
                 this.loading = false;
             });
