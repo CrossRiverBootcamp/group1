@@ -4,11 +4,11 @@ export interface CustomerAccount {
   email:string;
   password:string;
   openDate:Date;
-  Balance:number;
+  balance:number;
 }
 export interface CustomerAccountInfo {
   firstName:string;
   lastName :string;
   openDate:Date;
-  Balance:number;
+  balance:number;
 }

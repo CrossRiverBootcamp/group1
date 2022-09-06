@@ -72,7 +72,9 @@
               "browserTarget": "MiniBankUI:build:production"
             },
             "development": {
-              "browserTarget": "MiniBankUI:build:development"
+              "browserTarget": "MiniBankUI:build:development",
+              "proxyConfig": "src/proxy.config.json"
+
             }
           },
           "defaultConfiguration": "development"

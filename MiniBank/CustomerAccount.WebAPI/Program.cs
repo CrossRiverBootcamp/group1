@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using CustomerAccount.DAL.EF;
-using CustomerAccount.BL.Interfaces;
 using CustomerAccount.BL;
-using CustomerAccount.DAL;
 using Microsoft.AspNetCore.Diagnostics;
 using CustomerAccount.WebAPI.Middlewares;
 
@@ -35,7 +31,6 @@ app.UseCors(options => {
     options.AllowAnyOrigin();
     options.AllowAnyMethod();
     options.AllowAnyHeader();
-
 });
 
 app.UseAuthorization();
