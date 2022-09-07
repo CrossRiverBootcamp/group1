@@ -1,6 +1,33 @@
-using Transaction.BL;
+﻿using Transaction.BL;
+using NServiceBus;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseNServiceBus(context =>
+  {
+      var endpointConfiguration = new EndpointConfiguration("Transaction.WebApplication");
+      //permissions to administer resources
+      endpointConfiguration.EnableInstallers();
+
+      endpointConfiguration.EnableOutbox();
+      endpointConfiguration.SendOnly();
+      
+    var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+      persistence.ConnectionBuilder(
+      connectionBuilder: () =>
+      {
+          return new SqlConnection(builder.Configuration.GetConnectionString("nsbconn"));
+      });
+
+      //חייב????????
+      //var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+      //dialect.Schema("dbo");​
+    var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+      transport.ConnectionString(builder.Configuration.GetConnectionString("rabbitMQconn"));
+      transport.UseConventionalRoutingTopology(QueueType.Quorum);
+    return endpointConfiguration;
+  });
 
 // Add services to the container.
 
