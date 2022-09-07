@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using System.Data.SqlClient;
-
+using Transaction.BL;
+//using Autofac.Extensions.DependencyInjection;
 class Program
 {
     static async Task Main()
@@ -14,7 +16,12 @@ class Program
         var endpointConfiguration = new EndpointConfiguration("Transaction.NSB");
         endpointConfiguration.EnableInstallers();
 
-        endpointConfiguration.EnableOutbox();
+        endpointConfiguration.EnableOutbox(); 
+
+        var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
+        containerSettings.ServiceCollection.AddDBContextService(configuration.GetConnectionString("myconn"));
+        containerSettings.ServiceCollection.AddDIServices();
+
         var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
         persistence.ConnectionBuilder(
         connectionBuilder: () =>
@@ -23,9 +30,11 @@ class Program
         });
         var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
         dialect.Schema("dbo");
+
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.ConnectionString(configuration.GetConnectionString("rabbitMQconn"));
         transport.UseConventionalRoutingTopology(QueueType.Quorum);
+
         var endpointInstance = await Endpoint.Start(endpointConfiguration);
 
         Console.WriteLine("Press Enter to exit.");

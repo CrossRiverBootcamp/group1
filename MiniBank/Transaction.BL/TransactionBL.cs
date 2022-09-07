@@ -8,6 +8,11 @@ using Transaction.DAL.Entities;
 using AutoMapper;
 using Transaction.DTO;
 using Transaction.DAL;
+using Transaction.DAL.Models;
+using Transaction.BL.Interfaces;
+using NServiceBus;
+using Transaction.Messeges;
+using ExtendedExceptions;
 
 namespace Transaction.BL
 {
@@ -15,25 +20,43 @@ namespace Transaction.BL
     {
         private readonly ITransactionDal _transactionDal;
         private readonly IMapper _mapper;
-
-
-        public TransactionBL(IMapper mapper, ITransactionDal transactionDal)
+        private readonly IMessageSession _messageSession;
+        public TransactionBL(IMapper mapper, IMessageSession messageSession, ITransactionDal transactionDal)
         {
             _mapper = mapper;
             _transactionDal = transactionDal;
+            _messageSession = messageSession;
         }
-        public async Task<bool> PostTransactionStartSaga(TransactionDTO TransactionDTO)
+        
+        public async Task<bool> PostTransactionStartSaga(TransactionDTO transactionDTO)
         {
             
-            DAL.Entities.Transaction transaction = _mapper.Map<TransactionDTO, DAL.Entities.Transaction>(TransactionDTO);
-            bool isSuccess = await _transactionDal.PostTransaction(transaction);
-            if (!isSuccess)
+            DAL.Entities.Transaction transaction = _mapper.Map<TransactionDTO, DAL.Entities.Transaction>(transactionDTO);
+            transaction.Date = DateTime.UtcNow;
+
+            try
+            {
+                var transactionId = await _transactionDal.PostTransaction(transaction);
+                TransactionReqMade transactionReqMade = new TransactionReqMade()
+                {
+                    TransactionId = transactionId,
+                    FromAccountId = transaction.FromAccountId,
+                    ToAccountId = transaction.ToAccountId,
+                    Amount = transaction.Amount
+                };
+
+                //publish the event
+                await _messageSession.Publish(transactionReqMade);
+                return true;
+            }
+            catch
+            {
                 return false;
-            //publish the event
-            return true;
-
-
-
+            }         
+        }
+        public async Task ChangeTransactionStatus(UpadateTransactionStatusDTO upadateTransactionStatusDTO)
+        {
+            _transactionDal.ChangeTransactionStatus(upadateTransactionStatusDTO);
         }
 
     }

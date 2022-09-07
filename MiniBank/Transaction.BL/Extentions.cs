@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Transaction.DAL;
 using Transaction.DAL.EF;
-
+using Transaction.BL.Interfaces;
 
 namespace Transaction.BL
 {

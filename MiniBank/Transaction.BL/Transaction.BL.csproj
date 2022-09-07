@@ -9,15 +9,13 @@
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
+		<PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Transaction.DAL\Transaction.DAL.csproj" />
 	  <ProjectReference Include="..\Transaction.DTO\Transaction.DTO.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Interfaces\" />
+	  <ProjectReference Include="..\Transaction.Messeges\Transaction.Messeges.csproj" />
 	</ItemGroup>	
 	
 </Project>

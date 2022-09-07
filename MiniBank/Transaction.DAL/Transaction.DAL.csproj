@@ -22,6 +22,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\ExtendedExceptions\ExtendedExceptions.csproj" />
+	  <ProjectReference Include="..\Transaction.DTO\Transaction.DTO.csproj" />
 	</ItemGroup>
 
 </Project>

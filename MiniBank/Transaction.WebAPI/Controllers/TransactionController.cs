@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Transaction.BL;
+using Transaction.BL.Interfaces;
 using Transaction.DTO;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,17 +9,17 @@ namespace Transaction.WebAPI.Controllers
     [ApiController]
     public class TransactionController : ControllerBase
     {
-        private readonly ITransactionBL TransactionBL;
-        public TransactionController(ITransactionBL TransactionBL)
+        private readonly ITransactionBL _transactionBL;
+        public TransactionController(ITransactionBL transactionBL)
         {
-            this.TransactionBL = TransactionBL;
+            _transactionBL = transactionBL;
         }
 
         // POST api/<TransactionController>
         [HttpPost]
         public async Task<ActionResult<bool>> Post([FromBody] TransactionDTO transactionDTO)
         {
-            var result = await TransactionBL.PostTransactionStartSaga(transactionDTO);
+            var result = await _transactionBL.PostTransactionStartSaga(transactionDTO);
             return Ok(result);
         }
     }
