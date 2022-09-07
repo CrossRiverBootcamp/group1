@@ -9,6 +9,7 @@ using AutoMapper;
 using Transaction.DTO;
 using Transaction.DAL;
 using Transaction.DAL.Models;
+using Transaction.BL.Interfaces;
 
 namespace Transaction.BL
 {
@@ -16,7 +17,6 @@ namespace Transaction.BL
     {
         private readonly ITransactionDal _transactionDal;
         private readonly IMapper _mapper;
-
 
         public TransactionBL(IMapper mapper, ITransactionDal transactionDal)
         {

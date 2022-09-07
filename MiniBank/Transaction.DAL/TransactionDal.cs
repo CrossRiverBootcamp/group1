@@ -38,13 +38,18 @@ namespace Transaction.DAL
         {
            using var context = _factory.CreateDbContext();
 
-            Entities.Transaction transaction = await context.Transactions.FindAsync(upadateTransactionStatusDTO.TransactioId)
-                ?? throw new KeyNotFoundException("Transaction to update not found");
-            //האם מיותר האקספשן?
+            try
+            {
+                Entities.Transaction transaction = await context.Transactions.FindAsync(upadateTransactionStatusDTO.TransactioId);
 
-            transaction.Status = upadateTransactionStatusDTO.Status;
-            transaction.FailureReason = upadateTransactionStatusDTO.FailureReasun;
-            await context.SaveChangesAsync();
+                transaction.Status = upadateTransactionStatusDTO.IsSuccess ? StatusEnum.SUCCESS : StatusEnum.FAIL;
+                transaction.FailureReason = upadateTransactionStatusDTO.FailureReasun;
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
         }
     }
 }

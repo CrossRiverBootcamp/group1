@@ -3,7 +3,8 @@ using NServiceBus;
 using NServiceBus.Logging;
 using Transaction.DTO;
 using Transaction.Messeges;
-using Transaction.BL;
+using ExtendedExceptions;
+using Transaction.BL.Interfaces;
 
 namespace Transaction.NSB
 {
@@ -13,12 +14,19 @@ namespace Transaction.NSB
         IHandleMessages<TransactionDone>
 
     {
+        private readonly ITransactionBL _transactionBL;
+        public TransactionPolicy(ITransactionBL transactionBL)
+        {
+            _transactionBL = transactionBL;
+        }
+
         static ILog log = LogManager.GetLogger<TransactionPolicy>();
+
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransactionPolicyData> mapper)
         {
             mapper.MapSaga(sagaData => sagaData.TransactionId)
                .ToMessage<TransactionReqMade>(message => message.TransactionId)
-               .ToMessage<TransactionDone>(message => message.TransactionId)
+               .ToMessage<TransactionDone>(message => message.TransactionId);
         }
 
         public Task Handle(TransactionReqMade message, IMessageHandlerContext context)
@@ -35,19 +43,26 @@ namespace Transaction.NSB
 
             return context.Publish(makeTransfer);
         }
-        public Task Handle(TransactionDone message, IMessageHandlerContext context)
+        public async Task Handle(TransactionDone message, IMessageHandlerContext context)
         {
             log.Info($"Transaction request has returned with status: {message.IsDone}. TransactionId: {message.TransactionId}");
+
             UpadateTransactionStatusDTO upadateTransactionStatusDTO = new UpadateTransactionStatusDTO()
             {
                 TransactioId = message.TransactionId,
-                Status = message.IsDone? StatusEnum.SUCCESS : StatusEnum.FAIL,
+                IsSuccess = message.IsDone,
                 FailureReasun = message.FailureReason
             };
 
-            ChangeTransactionStatus(upadateTransactionStatusDTO);
+            try
+            {
+                await _transactionBL.ChangeTransactionStatus(upadateTransactionStatusDTO);
+            }
+            catch(DBContextException ex)
+            {
+                log.Info($"Updating transactions status failed with message: {ex.Message}. TransactionId: {message.TransactionId}");
+            }
             MarkAsComplete();
         }
-
     }
 }
