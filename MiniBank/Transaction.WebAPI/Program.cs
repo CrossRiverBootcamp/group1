@@ -19,10 +19,9 @@ builder.Host.UseNServiceBus(context =>
       {
           return new SqlConnection(builder.Configuration.GetConnectionString("nsbconn"));
       });
+      var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+      dialect.Schema("dbo");
 
-      //חייב????????
-      //var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-      //dialect.Schema("dbo");​
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
       transport.ConnectionString(builder.Configuration.GetConnectionString("rabbitMQconn"));
       transport.UseConventionalRoutingTopology(QueueType.Quorum);
@@ -35,6 +34,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 //call extention methods
 builder.Services.AddDBContextService(builder.Configuration.GetConnectionString("myconn"));

@@ -9,7 +9,6 @@
 
 
 	  <ItemGroup>
-		  <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
 		  <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 		  <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
 		  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
@@ -17,6 +16,7 @@
 		  <PackageReference Include="NServiceBus.Extensions.Logging" Version="1.0.0" />
 		  <PackageReference Include="NServiceBus.Persistence.Sql" Version="6.5.1" />
 		  <PackageReference Include="NServiceBus.RabbitMQ" Version="7.0.0" />
+		  <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
 	  </ItemGroup>
 
 
