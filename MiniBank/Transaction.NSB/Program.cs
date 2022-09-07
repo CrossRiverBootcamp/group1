@@ -22,6 +22,8 @@ class Program
         {
             return new SqlConnection(configuration.GetConnectionString("nsbconn"));
         });
+        var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+        dialect.Schema("dbo");
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.ConnectionString(configuration.GetConnectionString("rabbitMQconn"));
         transport.UseConventionalRoutingTopology(QueueType.Quorum);
