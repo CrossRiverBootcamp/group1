@@ -8,6 +8,7 @@ using Transaction.DAL.Entities;
 using AutoMapper;
 using Transaction.DTO;
 using Transaction.DAL;
+using Transaction.DAL.Models;
 
 namespace Transaction.BL
 {
@@ -22,19 +23,22 @@ namespace Transaction.BL
             _mapper = mapper;
             _transactionDal = transactionDal;
         }
-        public async Task<bool> PostTransactionStartSaga(TransactionDTO TransactionDTO)
+        public async Task<bool> PostTransactionStartSaga(TransactionDTO transactionDTO)
         {
             
-            DAL.Entities.Transaction transaction = _mapper.Map<TransactionDTO, DAL.Entities.Transaction>(TransactionDTO);
+            DAL.Entities.Transaction transaction = _mapper.Map<TransactionDTO, DAL.Entities.Transaction>(transactionDTO);
+            transaction.Date = DateTime.UtcNow;
+
             bool isSuccess = await _transactionDal.PostTransaction(transaction);
             if (!isSuccess)
                 return false;
+
             //publish the event
             return true;
-
-
-
         }
-
+        public async Task ChangeTransactionStatus(UpadateTransactionStatusDTO upadateTransactionStatusDTO)
+        {
+            _transactionDal.ChangeTransactionStatus(upadateTransactionStatusDTO);
+        }
     }
 }

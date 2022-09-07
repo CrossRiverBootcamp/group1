@@ -18,10 +18,12 @@
 
 	<ItemGroup>
 		<Folder Include="Migrations\" />
+		<Folder Include="Models\" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\ExtendedExceptions\ExtendedExceptions.csproj" />
+	  <ProjectReference Include="..\Transaction.DTO\Transaction.DTO.csproj" />
 	</ItemGroup>
 
 </Project>

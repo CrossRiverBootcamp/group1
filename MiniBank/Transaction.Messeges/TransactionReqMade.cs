@@ -2,7 +2,7 @@
 
 namespace Transaction.Messeges
 {
-    public class TransactionResults : IEvent
+    public class TransactionReqMade : IEvent
     {
         public Guid TransactionId { get; set; }
 

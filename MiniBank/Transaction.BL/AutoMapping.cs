@@ -15,7 +15,7 @@ namespace Transaction.BL
         {
             CreateMap<TransactionDTO, DAL.Entities.Transaction>()
                 .ForMember(dest => dest.Amount, opts => opts
-                    .MapFrom(src => src.Amount*100));
+                    .MapFrom(src => src.Amount * 100));
         }
     }
 }

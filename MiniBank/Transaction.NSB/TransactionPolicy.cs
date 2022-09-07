@@ -1,7 +1,9 @@
 ﻿using CustomerAccount.Messeges;
 using NServiceBus;
 using NServiceBus.Logging;
+using Transaction.DTO;
 using Transaction.Messeges;
+using Transaction.BL;
 
 namespace Transaction.NSB
 {
@@ -36,7 +38,14 @@ namespace Transaction.NSB
         public Task Handle(TransactionDone message, IMessageHandlerContext context)
         {
             log.Info($"Transaction request has returned with status: {message.IsDone}. TransactionId: {message.TransactionId}");
-            
+            UpadateTransactionStatusDTO upadateTransactionStatusDTO = new UpadateTransactionStatusDTO()
+            {
+                TransactioId = message.TransactionId,
+                Status = message.IsDone? StatusEnum.SUCCESS : StatusEnum.FAIL,
+                FailureReasun = message.FailureReason
+            };
+
+            ChangeTransactionStatus(upadateTransactionStatusDTO);
             MarkAsComplete();
         }
 

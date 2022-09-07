@@ -9,17 +9,17 @@ namespace Transaction.WebAPI.Controllers
     [ApiController]
     public class TransactionController : ControllerBase
     {
-        private readonly ITransactionBL TransactionBL;
-        public TransactionController(ITransactionBL TransactionBL)
+        private readonly ITransactionBL _transactionBL;
+        public TransactionController(ITransactionBL transactionBL)
         {
-            this.TransactionBL = TransactionBL;
+            _transactionBL = transactionBL;
         }
 
         // POST api/<TransactionController>
         [HttpPost]
         public async Task<ActionResult<bool>> Post([FromBody] TransactionDTO transactionDTO)
         {
-            var result = await TransactionBL.PostTransactionStartSaga(transactionDTO);
+            var result = await _transactionBL.PostTransactionStartSaga(transactionDTO);
             return Ok(result);
         }
     }

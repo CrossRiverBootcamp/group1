@@ -21,6 +21,14 @@
 
 
 	  <ItemGroup>
+	    <ProjectReference Include="..\CustomerAccount.DTO\CustomerAccount.DTO.csproj" />
+	    <ProjectReference Include="..\CustomerAccount.Messeges\CustomerAccount.Messeges.csproj" />
+	    <ProjectReference Include="..\Transaction.BL\Transaction.BL.csproj" />
+	    <ProjectReference Include="..\Transaction.Messeges\Transaction.Messeges.csproj" />
+	  </ItemGroup>
+
+
+	  <ItemGroup>
 	    <None Update="appsettings.json">
 	      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	    </None>
