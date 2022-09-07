@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExtendedExceptions;
 
 namespace Transaction.DAL
 {
@@ -22,7 +23,7 @@ namespace Transaction.DAL
             using var context = _factory.CreateDbContext();
             try
             {
-                var newTransaction = (await context.Transactions.AddAsync(Transaction)).Entity;
+                await context.Transactions.AddAsync(Transaction);
                 await context.SaveChangesAsync();
                 return true;
             }

@@ -16,9 +16,9 @@ namespace Transaction.DTO
 
         [Required]
         public Guid ToAccountId { get; set; }
-
+        [Range (1,1000000)]
         [Required]
-        public int Amount { get; set; }
+        public float Amount { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
