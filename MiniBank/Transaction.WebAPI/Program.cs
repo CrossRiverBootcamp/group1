@@ -19,10 +19,9 @@ builder.Host.UseNServiceBus(context =>
       {
           return new SqlConnection(builder.Configuration.GetConnectionString("nsbconn"));
       });
+      var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+      dialect.Schema("dbo");
 
-      //חייב????????
-      //var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-      //dialect.Schema("dbo");​
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
       transport.ConnectionString(builder.Configuration.GetConnectionString("rabbitMQconn"));
       transport.UseConventionalRoutingTopology(QueueType.Quorum);
