@@ -8,7 +8,8 @@ class Program
 {
     static async Task Main()
     {
-        var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
             .AddJsonFile("appsettings.json", false).Build();
 
         Console.Title = "Transaction";
