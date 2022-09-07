@@ -15,7 +15,7 @@ namespace Transaction.Messeges
 
         public Guid ToAccountId { get; set; }
 
-        public float Amount { get; set; }
+        public int Amount { get; set; }
 
     }
 }
