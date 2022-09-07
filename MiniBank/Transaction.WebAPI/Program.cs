@@ -6,23 +6,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseNServiceBus(context =>
   {
-      var endpointConfiguration = new EndpointConfiguration("Transaction.WebApplication");
+      var endpointConfiguration = new EndpointConfiguration("Transaction.WebAPI");
       //permissions to administer resources
       endpointConfiguration.EnableInstallers();
 
       endpointConfiguration.EnableOutbox();
+
       endpointConfiguration.SendOnly();
-      
-    var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+
+      var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
       persistence.ConnectionBuilder(
       connectionBuilder: () =>
       {
-          return new SqlConnection(builder.Configuration.GetConnectionString("nsbconn"));
+          return new SqlConnection(builder.Configuration.GetConnectionString("NSBconn"));
       });
       var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
       dialect.Schema("dbo");
 
-    var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+      var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
       transport.ConnectionString(builder.Configuration.GetConnectionString("rabbitMQconn"));
       transport.UseConventionalRoutingTopology(QueueType.Quorum);
     return endpointConfiguration;
