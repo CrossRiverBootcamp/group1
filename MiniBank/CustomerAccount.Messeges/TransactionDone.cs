@@ -6,10 +6,6 @@ namespace CustomerAccount.Messeges
     {
         public Guid TransactionId { get; set; }
 
-        public Guid FromAccountId { get; set; }
-
-        public Guid ToAccountId { get; set; }
-
-        public int Amount { get; set; }
+        public bool IsDone { get; set; }
     }
 }
