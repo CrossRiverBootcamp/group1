@@ -20,14 +20,14 @@ namespace Transaction.DAL
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
-        public async Task<bool> PostTransaction(Entities.Transaction transaction)
+        public async Task<Guid> PostTransaction(Entities.Transaction transaction)
         {
             using var context = _factory.CreateDbContext();
             try
             {
-                await context.Transactions.AddAsync(transaction);
+                var transactionId = (await context.Transactions.AddAsync(transaction)).Entity.Id;
                 await context.SaveChangesAsync();
-                return true;
+                return transactionId;
             }
             catch (Exception ex)
             {

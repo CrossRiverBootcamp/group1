@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Transaction.DTO;
+using Transaction.DAL.Models;
 
 namespace Transaction.DAL.Entities;
 

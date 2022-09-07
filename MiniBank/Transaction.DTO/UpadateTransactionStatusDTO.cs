@@ -13,7 +13,7 @@ namespace Transaction.DTO
         [Required]
         public Guid TransactioId { get; set; }
         [Required]
-        public bool Result { get; set; }
+        public bool IsSuccess { get; set; }
         public string FailureReasun { get; set; }
     }
 }
