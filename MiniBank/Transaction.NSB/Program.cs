@@ -18,7 +18,7 @@ class Program
         persistence.ConnectionBuilder(
         connectionBuilder: () =>
         {
-            return new SqlConnection(configuration.GetConnectionString("nsbconn"));
+            return new SqlConnection(configuration.GetConnectionString("NSBconn"));
         });
         var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
         dialect.Schema("dbo");
