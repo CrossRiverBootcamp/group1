@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using System.Data.SqlClient;
+using Transaction.BL;
 //using Autofac.Extensions.DependencyInjection;
 class Program
 {
