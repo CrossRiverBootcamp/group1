@@ -18,6 +18,7 @@ class Program
         var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
         containerSettings.ServiceCollection.AddDBContextService(configuration.GetConnectionString("myconn"));
         containerSettings.ServiceCollection.AddDIServicesNSB();
+        containerSettings.ServiceCollection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         endpointConfiguration.EnableInstallers();
 

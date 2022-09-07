@@ -19,6 +19,7 @@ class Program
         endpointConfiguration.EnableOutbox(); 
 
         var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
+        containerSettings.ServiceCollection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         containerSettings.ServiceCollection.AddDBContextService(configuration.GetConnectionString("myconn"));
         containerSettings.ServiceCollection.AddDIServices();
 
