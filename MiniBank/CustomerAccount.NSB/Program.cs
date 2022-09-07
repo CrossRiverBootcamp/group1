@@ -1,7 +1,8 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using System.Data.SqlClient;
+using CustomerAccount.BL;
 
 class Program
 {
@@ -13,6 +14,11 @@ class Program
 
         Console.Title = "CustomerAccount";
         var endpointConfiguration = new EndpointConfiguration("CustomerAccount.NSB");
+
+        var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
+        containerSettings.ServiceCollection.AddDBContextService(configuration.GetConnectionString("myconn"));
+        containerSettings.ServiceCollection.AddDIServicesNSB();
+
         endpointConfiguration.EnableInstallers();
 
         endpointConfiguration.EnableOutbox();
