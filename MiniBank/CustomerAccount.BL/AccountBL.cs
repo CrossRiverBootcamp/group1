@@ -31,16 +31,32 @@ namespace CustomerAccount.BL
             {
                 Customer = customer,
                 OpenDate = DateTime.UtcNow,
-                Balance = "1000"
+                Balance = 100000
             };
 
             return await _Storage.CreateCustomerAccount(customer, accountData);
         }
-        
+
+        public Task<bool> CustumerAccountExists(Guid accountId)
+        {
+           return _Storage.CustumerAccountExists(accountId);
+
+        }
+
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
             AccountData accountData = await _Storage.GetAccountData(accountId);
             return _mapper.Map<AccountData,CustomerAccountInfoDTO>(accountData) ;
+        }
+
+        public Task MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
+        {
+            return _Storage.MakeBankTransfer(fromAccountId, toAccountId, amount);
+        }
+
+        public Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
+        {
+            return _Storage.SenderHasEnoughBalance(accountId, amount);
         }
     }
 }

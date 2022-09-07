@@ -75,5 +75,54 @@ namespace CustomerAccount.DAL
                throw new DBContextException(ex.Message);
             }
         }
+
+        public async Task<bool> CustumerAccountExists(Guid accountId)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                return await context.AccountDatas.AnyAsync(account => account.Id.Equals(accountId));
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+
+        public async Task<bool>  SenderHasEnoughBalance(Guid accountId, int amount)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                var customerAccount= await context.AccountDatas.FindAsync(accountId);
+                return customerAccount.Balance >= amount;
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+
+        public async Task MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+
+                var fromAccount = await context.AccountDatas.FindAsync(fromAccountId);
+                var newfromAccount = new AccountData() { Id=fromAccountId,Balance = fromAccount.Balance-amount };
+                context.AccountDatas.Attach(newfromAccount).Property(account => account.Balance).IsModified = true;
+
+               var toAccount = await context.AccountDatas.FindAsync(toAccountId);
+               var newtoAccount = new AccountData() { Id=toAccountId,Balance = toAccount.Balance + amount };
+               context.AccountDatas.Attach(newtoAccount).Property(account => account.Balance).IsModified = true;
+
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
     }
 }
