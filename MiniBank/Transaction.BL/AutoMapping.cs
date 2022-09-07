@@ -13,7 +13,9 @@ namespace Transaction.BL
     {
         public AutoMapping()
         {
-            CreateMap<TransactionDTO, DAL.Entities.Transaction>();
+            CreateMap<TransactionDTO, DAL.Entities.Transaction>()
+                .ForMember(dest => dest.Amount, opts => opts
+                    .MapFrom(src => src.Amount*100));
         }
     }
 }
