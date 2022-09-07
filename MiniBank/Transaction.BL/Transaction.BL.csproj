@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Transaction.DAL\Transaction.DAL.csproj" />
+	  <ProjectReference Include="..\Transaction.DTO\Transaction.DTO.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

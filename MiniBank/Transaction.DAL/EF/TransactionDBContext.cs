@@ -15,6 +15,6 @@ namespace Transaction.DAL.EF;
 
         }
 
-        DbSet<Entities.Transaction> Transactions { get; set; }
+         public DbSet<Entities.Transaction> Transactions { get; set; }
     }
 
