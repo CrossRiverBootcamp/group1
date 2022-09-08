@@ -1,9 +1,15 @@
 
 {
-    "/api/*": {
+    "/api/Login": {
       "target": "http://localhost:17556",
       "secure": false
-      
-     
+    },
+    "/api/Account": {
+      "target": "http://localhost:17556",
+      "secure": false
+    },
+    "/api/Transaction": {
+      "target": "http://localhost:22772",
+      "secure": false
     }
 }
