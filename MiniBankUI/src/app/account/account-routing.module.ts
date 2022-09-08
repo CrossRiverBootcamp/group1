@@ -4,7 +4,12 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
 import { LoginComponent } from './login/login.component';
 import { OpenAccountComponent } from './open-account/open-account.component';
 
-const routes: Routes = [{path:'open-account',component:OpenAccountComponent},{path:'account-details',component:AccountDetailsComponent},{path:'login',component:LoginComponent}];
+const routes: Routes =
+[
+  {path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'open-account',component:OpenAccountComponent},
+  {path:'account-details',component:AccountDetailsComponent},
+  {path:'login',component:LoginComponent}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

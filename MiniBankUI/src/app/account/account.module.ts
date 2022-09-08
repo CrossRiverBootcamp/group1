@@ -9,11 +9,16 @@ import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
-
+    OpenAccountComponent,
+    AccountDetailsComponent,LoginComponent
   ],
   imports: [
     CommonModule,   FormsModule,
     ReactiveFormsModule,
+  ],
+  exports:[
+    OpenAccountComponent,
+    AccountDetailsComponent,LoginComponent
   ]
 })
 export class AccountModule { }

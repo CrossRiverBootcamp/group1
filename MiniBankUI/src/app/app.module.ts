@@ -8,11 +8,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LoginComponent } from './account/login/login.component';
 import { AccountDetailsComponent } from './account/account-details/account-details.component';
 import { OpenAccountComponent } from './account/open-account/open-account.component';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
-    AppComponent, OpenAccountComponent,
-    AccountDetailsComponent,LoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +20,8 @@ import { OpenAccountComponent } from './account/open-account/open-account.compon
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AccountModule
   ],
   providers: [],
   bootstrap: [AppComponent]

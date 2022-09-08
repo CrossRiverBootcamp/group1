@@ -54,7 +54,7 @@ export class OpenAccountComponent implements OnInit {
         (isAdded: boolean) => {
           isAdded?alert('added'):alert("an error occurred, please try again"); this.loading = false;
           //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-          //this.router.navigate(['login'])
+          this.router.navigateByUrl('account/login');
         },
         (error: HttpErrorResponse) => {
           console.log(error);

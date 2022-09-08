@@ -49,7 +49,7 @@ ngOnInit() {
             (accountId: string) => {
                 sessionStorage.setItem('accountId', accountId);
                 this.loading = false;
-                this.router.navigate(['account-details']);
+                this.router.navigateByUrl('account/account-details');
             },
             (error: HttpErrorResponse) => {
               //   this.alertService.error(error.message);
