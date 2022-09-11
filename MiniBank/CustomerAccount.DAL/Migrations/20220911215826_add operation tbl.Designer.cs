@@ -4,6 +4,7 @@ using CustomerAccount.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomerAccount.DAL.Migrations
 {
     [DbContext(typeof(CustomerAccountDBContext))]
-    partial class CustomerAccountDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220911215826_add operation tbl")]
+    partial class addoperationtbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

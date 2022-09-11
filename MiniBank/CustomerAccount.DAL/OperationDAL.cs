@@ -11,21 +11,19 @@ namespace CustomerAccount.DAL
 {
     public class OperationDAL : IOperationDAL
     {
-        private readonly IDbContextFactory<OperationDBContext> _factory;
-        public OperationDAL(IDbContextFactory<OperationDBContext> factory)
+        private readonly IDbContextFactory<CustomerAccountDBContext> _factory;
+        public OperationDAL(IDbContextFactory<CustomerAccountDBContext> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
-        public async Task<IEnumerable<OperationData>> GetByPageAndAccountId(int AccountId, int PageNumber, int PageSize)
+        public async Task<IEnumerable<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize)
         {
             using var context = _factory.CreateDbContext();
 
-
-            var pagedData = await context.Operations.Where(Operation => Operation.AccountId == AccountId).OrderBy(Operat => Operat.date)
+            var pagedData = await context.Operations.Where(Operation => Operation.AccountId == AccountId).OrderBy(Operat => Operat.OperationTime)
                .Skip((PageNumber - 1) * PageSize)
                .Take(PageSize)
                .ToListAsync();
-
 
             return pagedData ?? throw new KeyNotFoundException("data not found");
         }

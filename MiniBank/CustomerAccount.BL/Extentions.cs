@@ -14,6 +14,7 @@ namespace CustomerAccount.BL
             services.AddScoped<ILoginBL, LoginBL>();
             services.AddScoped<IStorage, Storage>();
             services.AddScoped<IOperationBL, OperationBL>();
+            services.AddScoped<IOperationDAL, OperationDAL>();
 
 
         }

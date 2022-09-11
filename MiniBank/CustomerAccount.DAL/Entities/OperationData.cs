@@ -10,15 +10,16 @@ namespace CustomerAccount.DAL.Entities
 {
     public class OperationData
     {
-        [Required]
-        public int Id { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
         [Required]
         [ForeignKey("AccountData")]
        
-        public int AccountId { get; set; }
+        public Guid AccountId { get; set; }
         virtual public AccountData AccountData { get; set; }
         [Required]
-        public int TransactionId { get; set; }
+        public Guid TransactionId { get; set; }
 
         [Required]
         public Boolean IsCredit { get; set; }

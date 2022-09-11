@@ -16,6 +16,7 @@ namespace CustomerAccount.DAL.EF
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<AccountData> AccountDatas { get; set; }
+        public DbSet<OperationData> Operations { get; set; }
 
     }
 }

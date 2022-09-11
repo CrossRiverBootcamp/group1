@@ -4,6 +4,6 @@ namespace CustomerAccount.DAL
 {
     public interface IOperationDAL
     {
-        Task<IEnumerable<OperationData>> GetByPageAndAccountId(int AccountId, int PageNumber, int PageSize);
+        Task<IEnumerable<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize);
     }
 }
