@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CustomerAccount.DAL.EF;
+using CustomerAccount.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +16,7 @@ namespace CustomerAccount.DAL
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
-        public async Task<IEnumerable<Operation>> GetByPageAndAccountId(int AccountId, int PageNumber, int PageSize)
+        public async Task<IEnumerable<OperationData>> GetByPageAndAccountId(int AccountId, int PageNumber, int PageSize)
         {
             using var context = _factory.CreateDbContext();
 

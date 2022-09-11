@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CustomerAccount.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace CustomerAccount.DAL.EF
             {
             }
 
-            public DbSet<Operation> Operations { get; set; }
+            public DbSet<OperationData> Operations { get; set; }
          
 
         }
