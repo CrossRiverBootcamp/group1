@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAccount.BL
 {
-    public class OperationBL
+    public class OperationBL : IOperationBL
     {
         private readonly IMapper _mapper;
         private readonly IOperationDAL OperationDAL;
@@ -16,10 +16,10 @@ namespace CustomerAccount.BL
             _mapper = mapper;
             _operationDAL = operationDAL;
         }
-        public Task<List<OperationDTO>> GetByPageAndAccountId( int AccountId, int PageNumber, int PageSize)
+        public Task<List<OperationDTO>> GetByPageAndAccountId(int AccountId, int PageNumber, int PageSize)
         {
             return _mapper.Map<Operation, OperationDTO>(_OperationDAL.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
-            
 
+        }
     }
 }

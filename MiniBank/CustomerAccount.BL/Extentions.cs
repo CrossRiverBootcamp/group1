@@ -13,6 +13,8 @@ namespace CustomerAccount.BL
             services.AddScoped<IAccountBL, AccountBL>();
             services.AddScoped<ILoginBL, LoginBL>();
             services.AddScoped<IStorage, Storage>();
+            services.AddScoped<IOperationBL, OperationBL>();
+
 
         }
         public static void AddDBContextService(this IServiceCollection services, string connection)
