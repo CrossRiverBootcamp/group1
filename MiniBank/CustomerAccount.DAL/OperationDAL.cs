@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAccount.DAL
 {
-   public class OperationDAL
+    public class OperationDAL : IOperationDAL
     {
         private readonly IDbContextFactory<OperationDBContext> _factory;
         public OperationDAL(IDbContextFactory<OperationDBContext> factory)
