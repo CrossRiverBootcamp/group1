@@ -108,16 +108,11 @@ namespace CustomerAccount.DAL
             using var context = _factory.CreateDbContext();
             try
             {
-
                 var fromAccount = await context.AccountDatas.FindAsync(fromAccountId);
                 fromAccount.Balance -= amount;
-               // var newfromAccount = new AccountData() { Id=fromAccountId,Balance = fromAccount.Balance-amount };
-                //context.AccountDatas.Attach(newfromAccount).Property(account => account.Balance).IsModified = true;
 
-               var toAccount = await context.AccountDatas.FindAsync(toAccountId);
+                var toAccount = await context.AccountDatas.FindAsync(toAccountId);
                 toAccount.Balance += amount;
-            //   var newtoAccount = new AccountData() { Id=toAccountId,Balance = toAccount.Balance + amount };
-            // context.AccountDatas.Attach(newtoAccount).Property(account => account.Balance).IsModified = true;
 
                 await context.SaveChangesAsync();
             }

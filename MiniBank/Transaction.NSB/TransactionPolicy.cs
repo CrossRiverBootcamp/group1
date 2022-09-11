@@ -41,7 +41,7 @@ namespace Transaction.NSB
                 Amount = message.Amount
             };
 
-            return context.Send(makeTransfer);
+            return context.Publish(makeTransfer);
         }
         public async Task Handle(TransactionDone message, IMessageHandlerContext context)
         {
