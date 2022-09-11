@@ -19,7 +19,9 @@ namespace CustomerAccount.BL
                 .ForMember(dest => dest.FirstName, opts => opts
                     .MapFrom(src => src.Customer.FirstName))
                 .ForMember(dest => dest.LastName, opts => opts
-                    .MapFrom(src => src.Customer.LastName));
+                    .MapFrom(src => src.Customer.LastName))
+                .ForMember(dest => dest.Balance, opts => opts
+                    .MapFrom(src => src.Balance / 100)); ;
         }
     }
 }

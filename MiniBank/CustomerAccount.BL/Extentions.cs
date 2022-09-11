@@ -19,5 +19,10 @@ namespace CustomerAccount.BL
             services.AddDbContextFactory<CustomerAccountDBContext>(item =>
            item.UseSqlServer(connection));
         }
+        public static void AddDIServicesNSB(this IServiceCollection services)
+        {
+            services.AddScoped<IAccountBL, AccountBL>();
+            services.AddScoped<IStorage, Storage>();
+        }
     }
 }

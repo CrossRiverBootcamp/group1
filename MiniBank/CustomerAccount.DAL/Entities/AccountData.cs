@@ -19,7 +19,8 @@ namespace CustomerAccount.DAL.Entities
         virtual public Customer Customer { get; set; }
         [Required]
         public DateTime OpenDate { get; set; }
+        //balance is in cents
         [Required]
-        public string Balance { get; set; }
+        public int Balance { get; set; }
     }
 }
