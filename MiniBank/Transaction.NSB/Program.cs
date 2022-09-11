@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using System.Data.SqlClient;
 using Transaction.BL;
+using Transaction.Messeges;
 //using Autofac.Extensions.DependencyInjection;
 class Program
 {
@@ -35,6 +36,10 @@ class Program
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.ConnectionString(configuration.GetConnectionString("rabbitMQconn"));
         transport.UseConventionalRoutingTopology(QueueType.Quorum);
+        var routing = transport.Routing();
+            routing.RouteToEndpoint(
+        messageType: typeof(MakeTransfer),
+        destination: "CustomerAccount.NSB");
 
         var endpointInstance = await Endpoint.Start(endpointConfiguration);
 

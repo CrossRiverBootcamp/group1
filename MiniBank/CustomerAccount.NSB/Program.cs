@@ -34,6 +34,8 @@ class Program
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.ConnectionString(configuration.GetConnectionString("rabbitMQconn"));
         transport.UseConventionalRoutingTopology(QueueType.Quorum);
+
+
         var endpointInstance = await Endpoint.Start(endpointConfiguration);
 
         Console.WriteLine("Press Enter to exit.");

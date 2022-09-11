@@ -110,12 +110,14 @@ namespace CustomerAccount.DAL
             {
 
                 var fromAccount = await context.AccountDatas.FindAsync(fromAccountId);
-                var newfromAccount = new AccountData() { Id=fromAccountId,Balance = fromAccount.Balance-amount };
-                context.AccountDatas.Attach(newfromAccount).Property(account => account.Balance).IsModified = true;
+                fromAccount.Balance -= amount;
+               // var newfromAccount = new AccountData() { Id=fromAccountId,Balance = fromAccount.Balance-amount };
+                //context.AccountDatas.Attach(newfromAccount).Property(account => account.Balance).IsModified = true;
 
                var toAccount = await context.AccountDatas.FindAsync(toAccountId);
-               var newtoAccount = new AccountData() { Id=toAccountId,Balance = toAccount.Balance + amount };
-               context.AccountDatas.Attach(newtoAccount).Property(account => account.Balance).IsModified = true;
+                toAccount.Balance += amount;
+            //   var newtoAccount = new AccountData() { Id=toAccountId,Balance = toAccount.Balance + amount };
+            // context.AccountDatas.Attach(newtoAccount).Property(account => account.Balance).IsModified = true;
 
                 await context.SaveChangesAsync();
             }

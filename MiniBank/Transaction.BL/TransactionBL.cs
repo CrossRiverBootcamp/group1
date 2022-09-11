@@ -20,15 +20,15 @@ namespace Transaction.BL
     {
         private readonly ITransactionDal _transactionDal;
         private readonly IMapper _mapper;
-        private readonly IMessageSession _messageSession;
-        public TransactionBL(IMapper mapper, IMessageSession messageSession, ITransactionDal transactionDal)
+  
+        public TransactionBL(IMapper mapper, ITransactionDal transactionDal)
         {
             _mapper = mapper;
             _transactionDal = transactionDal;
-            _messageSession = messageSession;
+            
         }
         
-        public async Task<bool> PostTransactionStartSaga(TransactionDTO transactionDTO)
+        public async Task<bool> PostTransactionStartSaga(TransactionDTO transactionDTO, IMessageSession _messageSession)
         {
             
             DAL.Entities.Transaction transaction = _mapper.Map<TransactionDTO, DAL.Entities.Transaction>(transactionDTO);
@@ -47,6 +47,8 @@ namespace Transaction.BL
 
                 //publish the event
                 await _messageSession.Publish(transactionReqMade);
+                //await _messageSession.Publish<TransactionReqMade>(); 
+                //await session.Publish<MyEvent>();
                 return true;
             }
             catch
