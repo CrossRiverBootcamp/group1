@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.CustomerAccountDAL.ValueConversion;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Transaction.DAL.EF;
 
 #nullable disable

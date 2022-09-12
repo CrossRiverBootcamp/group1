@@ -1,8 +1,34 @@
 using CustomerAccount.BL;
 using Microsoft.AspNetCore.Diagnostics;
 using CustomerAccount.WebAPI.Middlewares;
+using NServiceBus;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseNServiceBus(context =>
+{
+    var endpointConfiguration = new EndpointConfiguration("CustomerAccount");
+    //permissions to administer resources
+    endpointConfiguration.EnableInstallers();
+
+    endpointConfiguration.EnableOutbox();
+
+    var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+    persistence.ConnectionBuilder(
+    connectionBuilder: () =>
+    {
+        return new SqlConnection(builder.Configuration.GetConnectionString("NSBconn"));
+    });
+    var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+    dialect.Schema("dbo");
+
+    var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+    transport.ConnectionString(builder.Configuration.GetConnectionString("rabbitMQconn"));
+    transport.UseConventionalRoutingTopology(QueueType.Quorum);
+
+    return endpointConfiguration;
+});
+
 
 // Add services to the container.
 
