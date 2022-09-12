@@ -47,8 +47,6 @@ namespace Transaction.BL
 
                 //publish the event
                 await _messageSession.Publish(transactionReqMade);
-                //await _messageSession.Publish<TransactionReqMade>(); 
-                //await session.Publish<MyEvent>();
                 return true;
             }
             catch

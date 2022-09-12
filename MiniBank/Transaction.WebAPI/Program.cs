@@ -1,18 +1,17 @@
 ﻿using Transaction.BL;
 using NServiceBus;
 using Microsoft.Data.SqlClient;
+using Transaction.Messeges;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseNServiceBus(context =>
   {
-      var endpointConfiguration = new EndpointConfiguration("Transaction.WebAPI");
+      var endpointConfiguration = new EndpointConfiguration("Transaction");
       //permissions to administer resources
       endpointConfiguration.EnableInstallers();
 
       endpointConfiguration.EnableOutbox();
-
-      endpointConfiguration.SendOnly();
 
       var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
       persistence.ConnectionBuilder(
@@ -26,7 +25,12 @@ builder.Host.UseNServiceBus(context =>
       var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
       transport.ConnectionString(builder.Configuration.GetConnectionString("rabbitMQconn"));
       transport.UseConventionalRoutingTopology(QueueType.Quorum);
-    return endpointConfiguration;
+
+      var routing = transport.Routing();
+          routing.RouteToEndpoint(
+      messageType: typeof(MakeTransfer),
+      destination: "CustomerAccount");
+      return endpointConfiguration;
   });
 
 // Add services to the container.

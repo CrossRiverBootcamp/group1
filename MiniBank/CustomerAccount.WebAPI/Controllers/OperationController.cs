@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CustomerAccount.DTO;
 using CustomerAccount.BL.Interfaces;
+using CustomerAccount.DAL.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,10 +21,10 @@ namespace CustomerAccount.WebAPI.Controllers
 
         // GET api/<OperationController>/5
         [HttpGet("{id}")]
-        public Task<IEnumerable<OperationDTO>> GetByPageAndAccountId([FromQuery] Guid AccountId, [FromQuery] int PageNumber, [FromQuery] int PageSize)
+        public Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId, [FromQuery] SortDirection sortDirection, [FromQuery] int PageNumber, [FromQuery] int PageSize)
         {
 
-            return _operationBL.GetByPageAndAccountId(AccountId, PageNumber, PageSize);
+            return _operationBL.GetByPageAndAccountId(AccountId, sortDirection, PageNumber, PageSize);
         }
 
 

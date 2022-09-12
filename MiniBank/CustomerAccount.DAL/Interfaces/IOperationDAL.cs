@@ -1,4 +1,5 @@
 ﻿using CustomerAccount.DAL.Entities;
+using CustomerAccount.DAL.Models;
 
 namespace CustomerAccount.DAL.Interfaces
 {
