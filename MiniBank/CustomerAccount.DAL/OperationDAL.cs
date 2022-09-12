@@ -1,6 +1,7 @@
 ﻿using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Entities;
 using CustomerAccount.DAL.Interfaces;
+using ExtendedExceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,20 @@ namespace CustomerAccount.DAL
                .ToListAsync();
 
             return pagedData ?? throw new KeyNotFoundException("data not found");
+        }
+        public async Task PostOperation(OperationData operation )
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                await context.Operations.AddAsync(operation);
+                await context.SaveChangesAsync();
+                
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
         }
     }
 }
