@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using CustomerAccount.WebAPI.Middlewares;
+﻿using System.Net;
 using ExtendedExceptions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+
 
 
 namespace CustomerAccount.WebAPI.Middlewares;
