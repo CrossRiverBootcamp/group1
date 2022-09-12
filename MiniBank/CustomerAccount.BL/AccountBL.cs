@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CustomerAccount.BL.Interfaces;
-using CustomerAccount.DAL;
 using CustomerAccount.DAL.Entities;
+using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DTO;
 using System;
 using System.Collections.Generic;
@@ -14,15 +14,15 @@ namespace CustomerAccount.BL
     public class AccountBL: IAccountBL
     {
         private readonly IMapper _mapper;
-        private readonly IStorage _Storage;
-        public AccountBL(IMapper mapper, IStorage storage)
+        private readonly ICustomerAccountDAL _CustomerAccountDAL;
+        public AccountBL(IMapper mapper, ICustomerAccountDAL CustomerAccountDAL)
         {
             _mapper = mapper;
-            _Storage = storage;
+            _CustomerAccountDAL = CustomerAccountDAL;
         }
         public async Task<bool> CreateAccount(CustomerDTO customerDTO)
         {
-            bool isExists = await _Storage.CustomerExists(customerDTO.Email);
+            bool isExists = await _CustomerAccountDAL.CustomerExists(customerDTO.Email);
             if (isExists)
                 return false;
 
@@ -34,29 +34,29 @@ namespace CustomerAccount.BL
                 Balance = 100000
             };
 
-            return await _Storage.CreateCustomerAccount(customer, accountData);
+            return await _CustomerAccountDAL.CreateCustomerAccount(customer, accountData);
         }
 
         public Task<bool> CustumerAccountExists(Guid accountId)
         {
-           return _Storage.CustumerAccountExists(accountId);
+           return _CustomerAccountDAL.CustumerAccountExists(accountId);
 
         }
 
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
-            AccountData accountData = await _Storage.GetAccountData(accountId);
+            AccountData accountData = await _CustomerAccountDAL.GetAccountData(accountId);
             return _mapper.Map<AccountData,CustomerAccountInfoDTO>(accountData) ;
         }
 
         public Task MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
         {
-            return _Storage.MakeBankTransfer(fromAccountId, toAccountId, amount);
+            return _CustomerAccountDAL.MakeBankTransfer(fromAccountId, toAccountId, amount);
         }
 
         public Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
         {
-            return _Storage.SenderHasEnoughBalance(accountId, amount);
+            return _CustomerAccountDAL.SenderHasEnoughBalance(accountId, amount);
         }
     }
 }

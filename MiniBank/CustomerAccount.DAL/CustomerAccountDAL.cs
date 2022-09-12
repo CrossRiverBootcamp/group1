@@ -2,13 +2,14 @@
 using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Entities;
 using ExtendedExceptions;
+using CustomerAccount.DAL.Interfaces;
 
 namespace CustomerAccount.DAL
 {
-    public class Storage : IStorage
+    public class CustomerAccountDAL : ICustomerAccountDAL
     {
         private readonly IDbContextFactory<CustomerAccountDBContext> _factory;
-        public Storage(IDbContextFactory<CustomerAccountDBContext> factory)
+        public CustomerAccountDAL(IDbContextFactory<CustomerAccountDBContext> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }

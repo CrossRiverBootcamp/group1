@@ -1,29 +1,28 @@
 ﻿using AutoMapper;
 using CustomerAccount.BL.Interfaces;
-using CustomerAccount.DAL;
+using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 
 namespace CustomerAccount.BL
 {
     public class LoginBL:ILoginBL
     {
         private readonly IMapper _mapper;
-        private readonly IStorage _Storage;
-        public LoginBL(IMapper mapper, IStorage storage)
+        private readonly ICustomerAccountDAL _CustomerAccountDAL;
+        public LoginBL(IMapper mapper, ICustomerAccountDAL CustomerAccountDAL)
         {
             _mapper = mapper;
-            _Storage = storage;
+            _CustomerAccountDAL = CustomerAccountDAL;
         }
 
          public Task <Guid> Login(LoginDTO loginDTO)
          {
-            return _Storage.Login( loginDTO.Email , loginDTO.Password);
+            return _CustomerAccountDAL.Login( loginDTO.Email , loginDTO.Password);
          }
     }
 }

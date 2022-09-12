@@ -1,8 +1,8 @@
 ﻿using CustomerAccount.DAL.Entities;
 
-namespace CustomerAccount.DAL
+namespace CustomerAccount.DAL.Interfaces
 {
-    public interface IStorage
+    public interface ICustomerAccountDAL
     {
         Task<bool> CreateCustomerAccount(Customer customer, AccountData accountData);
         Task<bool> CustomerExists(string email);

@@ -12,10 +12,10 @@ using Transaction.DTO;
 
 namespace Transaction.DAL
 {
-    public class TransactionDal : ITransactionDal
+    public class TransactionDAL : ITransactionDAL
     {
         private readonly IDbContextFactory<TransactionDBContext> _factory;
-        public TransactionDal(IDbContextFactory<TransactionDBContext> factory)
+        public TransactionDAL(IDbContextFactory<TransactionDBContext> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }

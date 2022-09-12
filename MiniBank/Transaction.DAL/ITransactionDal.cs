@@ -2,7 +2,7 @@
 
 namespace Transaction.DAL
 {
-    public interface ITransactionDal
+    public interface ITransactionDAL
     {
         Task<Guid> PostTransaction(Entities.Transaction Transaction);
         Task ChangeTransactionStatus(UpadateTransactionStatusDTO upadateTransactionStatusDTO);

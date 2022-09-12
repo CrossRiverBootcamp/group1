@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CustomerAccount.BL.Interfaces;
-using CustomerAccount.DAL;
 using CustomerAccount.DAL.Entities;
+using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DTO;
 using System;
 using System.Collections.Generic;

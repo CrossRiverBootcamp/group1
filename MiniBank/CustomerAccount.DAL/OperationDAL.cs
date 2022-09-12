@@ -1,5 +1,6 @@
 ﻿using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Entities;
+using CustomerAccount.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

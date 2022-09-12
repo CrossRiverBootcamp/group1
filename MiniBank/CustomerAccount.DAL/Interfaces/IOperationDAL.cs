@@ -1,6 +1,6 @@
 ﻿using CustomerAccount.DAL.Entities;
 
-namespace CustomerAccount.DAL
+namespace CustomerAccount.DAL.Interfaces
 {
     public interface IOperationDAL
     {

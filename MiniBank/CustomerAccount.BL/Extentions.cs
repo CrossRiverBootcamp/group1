@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL;
 using CustomerAccount.DAL.EF;
+using CustomerAccount.DAL.Interfaces;
 
 namespace CustomerAccount.BL
 {
@@ -12,7 +13,7 @@ namespace CustomerAccount.BL
         {
             services.AddScoped<IAccountBL, AccountBL>();
             services.AddScoped<ILoginBL, LoginBL>();
-            services.AddScoped<IStorage, Storage>();
+            services.AddScoped<ICustomerAccountDAL, CustomerAccountDAL>();
             services.AddScoped<IOperationBL, OperationBL>();
             services.AddScoped<IOperationDAL, OperationDAL>();
 
@@ -26,7 +27,7 @@ namespace CustomerAccount.BL
         public static void AddDIServicesNSB(this IServiceCollection services)
         {
             services.AddScoped<IAccountBL, AccountBL>();
-            services.AddScoped<IStorage, Storage>();
+            services.AddScoped<ICustomerAccountDAL, CustomerAccountDAL>();
         }
     }
 }
