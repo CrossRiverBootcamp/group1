@@ -20,15 +20,18 @@ namespace CustomerAccount.BL
             _mapper = mapper;
             _CustomerAccountDAL = CustomerAccountDAL;
         }
-        public async Task<bool> CreateAccount(CustomerDTO customerDTO)
+        public async Task<bool> ValidateCodeAndTime(string email, string validatCode)
         {
-            bool isExists = await _CustomerAccountDAL.CustomerExists(customerDTO.Email);
+            bool isExists = await _CustomerAccountDAL.CustomerExists(email);
             if (isExists)
                 return false;
-            bool ValidateCodeTime = await _CustomerAccountDAL.validateCodeAndTime(customerDTO.Email, customerDTO.ValidatCode);
-            if(!ValidateCodeTime)
-               return false; 
+
+            return await _CustomerAccountDAL.validateCodeAndTime(email, validatCode);
             //או אולי לזרוק פה שגיאה
+        }
+
+        public async Task<bool> CreateAccount(CustomerDTO customerDTO)
+        {
             Customer customer = _mapper.Map<CustomerDTO, Customer>(customerDTO);
             AccountData accountData = new AccountData()
             {
@@ -42,8 +45,7 @@ namespace CustomerAccount.BL
 
         public Task<bool> CustumerAccountExists(Guid accountId)
         {
-           return _CustomerAccountDAL.CustumerAccountExists(accountId);
-
+            return _CustomerAccountDAL.CustumerAccountExists(accountId);
         }
 
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
