@@ -21,6 +21,6 @@ namespace CustomerAccount.DTO
      
         public DateTime OpenDate { get; set; }
         [Required]
-        public int Balance { get; set; }
+        public float Balance { get; set; }
     }
 }
