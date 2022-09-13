@@ -10,7 +10,8 @@ namespace CustomerAccount.DAL.Entities
 {
     public class OperationData
     {
-  
+
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]
