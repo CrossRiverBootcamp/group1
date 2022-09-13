@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CustomerAccountInfo } from 'src/app/models/customer-account.model';
 import { CustomerAccountService } from '../services/customer-account.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-account-details',
@@ -11,12 +12,14 @@ import { CustomerAccountService } from '../services/customer-account.service';
 export class AccountDetailsComponent  {
 
   accountInfo!:CustomerAccountInfo;
-  constructor(private accountService:CustomerAccountService,
+
+  constructor(private _accountService:CustomerAccountService,_loginService:LoginService
     // private alertService: AlertService
     ) {
-      let accountId= sessionStorage.getItem('accountId');
-      if(accountId)
-        accountService.getAccountInfo(accountId)
+      let accountId = _loginService.accountId;
+      //מיותר?- תמיד מגיע רק חארי לוגין
+     // if(accountId)
+        _accountService.getAccountInfo(accountId)
         .subscribe((accountInfo:CustomerAccountInfo) => {this.accountInfo = accountInfo}, (error: HttpErrorResponse) => {
             //this.alertService.error(error.message);
         });

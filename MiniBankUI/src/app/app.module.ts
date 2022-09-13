@@ -9,10 +9,12 @@ import { LoginComponent } from './account/login/login.component';
 import { AccountDetailsComponent } from './account/account-details/account-details.component';
 import { OpenAccountComponent } from './account/open-account/open-account.component';
 import { AccountModule } from './account/account.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,8 @@ import { AccountModule } from './account/account.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AccountModule
+    AccountModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

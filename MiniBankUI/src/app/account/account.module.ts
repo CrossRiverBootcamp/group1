@@ -5,21 +5,42 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountDetailsComponent } from './account-details/account-details.component';
 import { LoginComponent } from './login/login.component';
 import { TransactionComponent } from './transaction/transaction.component';
-
+import { OperationsHistoryComponent } from './operations-history/operations-history.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSortModule } from '@angular/material/sort';
+import { ActionsComponent } from './actions/actions.component';
+import { DialogTransactionPartnerDetailsComponent } from './dialog-transaction-partner-details/dialog-transaction-partner-details.component';
 
 
 @NgModule({
   declarations: [
     OpenAccountComponent,
-    AccountDetailsComponent,LoginComponent, TransactionComponent
+    ActionsComponent,
+    AccountDetailsComponent,
+    LoginComponent,
+    TransactionComponent,
+    OperationsHistoryComponent,
+    DialogTransactionPartnerDetailsComponent,
   ],
   imports: [
-    CommonModule,   FormsModule,
+    CommonModule,   
+    FormsModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   exports:[
     OpenAccountComponent,
-    AccountDetailsComponent,LoginComponent
+    ActionsComponent,
+    AccountDetailsComponent,
+    LoginComponent,
+    OperationsHistoryComponent,
+    TransactionComponent,
+    DialogTransactionPartnerDetailsComponent
   ]
 })
 export class AccountModule { }

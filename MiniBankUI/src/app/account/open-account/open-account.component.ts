@@ -62,5 +62,4 @@ export class OpenAccountComponent implements OnInit {
           this.loading = false;
         });
   }
-
 }

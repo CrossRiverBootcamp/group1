@@ -1,4 +1,3 @@
-
 {
     "/api/Login": {
       "target": "http://localhost:17556",
@@ -10,6 +9,10 @@
     },
     "/api/Transaction": {
       "target": "http://localhost:22772",
+      "secure": false
+    },
+    "/api/Operation": {
+      "target": "http://localhost:17556",
       "secure": false
     }
 }
