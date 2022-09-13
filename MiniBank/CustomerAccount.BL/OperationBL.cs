@@ -26,38 +26,31 @@ namespace CustomerAccount.BL
             return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _operationDAL.GetByPageAndAccountId(AccountId, sortDirection, PageNumber, PageSize));
 
         }
-        public async Task<bool> PostOperation(MakeTransfer makeTransfer)
+        public async Task PostOperations(MakeTransfer makeTransferMsg)
         {
            
             OperationData creditOperation = new OperationData()
             {
-                AccountId = makeTransfer.FromAccountId,
-                TransactionId = makeTransfer.TransactionId,
+                AccountId = makeTransferMsg.FromAccountId,
+                TransactionId = makeTransferMsg.TransactionId,
                 IsCredit = true,
-                TransactionAmount = makeTransfer.Amount,
+                TransactionAmount = makeTransferMsg.Amount,
                 //balance
                 OperationTime = DateTime.UtcNow
             };
             OperationData debitOperation = new OperationData()
             {
-                AccountId = makeTransfer.ToAccountId,
-                TransactionId = makeTransfer.TransactionId,
+                AccountId = makeTransferMsg.ToAccountId,
+                TransactionId = makeTransferMsg.TransactionId,
                 IsCredit = false,
-                TransactionAmount = makeTransfer.Amount,
+                TransactionAmount = makeTransferMsg.Amount,
                 //balance
                 OperationTime = DateTime.UtcNow
             };
 
-            try
-            {
                 await _operationDAL.PostOperation(creditOperation);
                 await _operationDAL.PostOperation(debitOperation);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+
         }
     }
 }
