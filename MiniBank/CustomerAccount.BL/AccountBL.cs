@@ -55,9 +55,9 @@ namespace CustomerAccount.BL
         //    return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _CustomerAccountDAL.GetAccountData(transactionPartnerAccountId));
         //}
 
-        public Task MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
+        public async Task<BalancesDTO> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
         {
-            return _CustomerAccountDAL.MakeBankTransfer(fromAccountId, toAccountId, amount);
+            return _mapper.Map<BalancesDTO>(await _CustomerAccountDAL.MakeBankTransfer(fromAccountId, toAccountId, amount));
         }
 
         public Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)

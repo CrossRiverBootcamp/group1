@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CustomerAccount.DAL.Entities;
+using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
 
 namespace CustomerAccount.BL
@@ -14,6 +15,7 @@ namespace CustomerAccount.BL
         public AutoMapping() 
         {
             CreateMap<CustomerDTO, Customer>();
+            CreateMap<BalancesModel, BalancesDTO>();
 
             CreateMap<AccountData, CustomerAccountInfoDTO>()
                 .ForMember(dest => dest.FirstName, opts => opts

@@ -1,4 +1,5 @@
 ﻿using CustomerAccount.DAL.Entities;
+using CustomerAccount.DAL.Models;
 
 namespace CustomerAccount.DAL.Interfaces
 {
@@ -10,7 +11,7 @@ namespace CustomerAccount.DAL.Interfaces
         Task<bool> CustumerAccountExists(Guid accountId);
         Task<Guid> Login(string email, string password);
         Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
-        Task MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount);
+        Task<BalancesModel> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount);
         //Task<Customer> GetCustomer(Guid customerId);
     }
 }

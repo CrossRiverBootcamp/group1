@@ -53,8 +53,8 @@ public class MakeTransferHandler :
                     else
                     {
                         //Update receiver/sender balances (run in DB transaction) 
-                        await _accountBL.MakeBankTransfer(message.FromAccountId, message.ToAccountId, message.Amount);
-                        await _operationBL.PostOperations(message);
+                        var balances=await _accountBL.MakeBankTransfer(message.FromAccountId, message.ToAccountId, message.Amount);
+                        await _operationBL.PostOperations(message,balances);
                         log.Info($"Transfer succeded, TransactionId = {message.TransactionId} ");
                         transactionDoneMsg.IsDone = true;
                     }
