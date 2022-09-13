@@ -2,7 +2,6 @@
 using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL.Entities;
 using CustomerAccount.DAL.Interfaces;
-using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
 using System;
 using System.Collections.Generic;
@@ -21,9 +20,9 @@ namespace CustomerAccount.BL
             _mapper = mapper;
             _operationDAL = operationDAL;
         }
-        public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId, SortDirection sortDirection,int PageNumber, int PageSize)
+        public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
         {
-            return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _operationDAL.GetByPageAndAccountId(AccountId, sortDirection, PageNumber, PageSize));
+            return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _operationDAL.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
 
         }
     }
