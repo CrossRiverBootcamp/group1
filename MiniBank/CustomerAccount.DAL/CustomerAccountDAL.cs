@@ -3,6 +3,7 @@ using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Entities;
 using ExtendedExceptions;
 using CustomerAccount.DAL.Interfaces;
+using CustomerAccount.DAL.Models;
 
 namespace CustomerAccount.DAL
 {
@@ -104,11 +105,14 @@ namespace CustomerAccount.DAL
             }
         }
 
-        public async Task MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
+        public async Task<BalancesModel> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
         {
             using var context = _factory.CreateDbContext();
             try
             {
+                //we don't check here for nullability of the accounts
+                //because we already have checked it in the previous funcs
+
                 var fromAccount = await context.AccountDatas.FindAsync(fromAccountId);
                 fromAccount.Balance -= amount;
 
@@ -116,7 +120,13 @@ namespace CustomerAccount.DAL
                 toAccount.Balance += amount;
 
                 await context.SaveChangesAsync();
-            }
+                BalancesModel balances = new BalancesModel()
+                {
+                    FromAccountBalance = fromAccount.Balance,
+                    ToAccountBalance = toAccount.Balance
+                };
+                return balances;
+            } 
             catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);
