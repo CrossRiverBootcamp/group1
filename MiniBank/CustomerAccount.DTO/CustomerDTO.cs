@@ -25,6 +25,10 @@ namespace CustomerAccount.DTO
         [MaxLength(15)]
         [MinLength(4)]
         public string Password { get; set; }
+        [Required]
+        public string ValidatCode { get; set; }
+
+        public string ValidatName { get; set; }
 
     }
 }

@@ -25,7 +25,10 @@ namespace CustomerAccount.BL
             bool isExists = await _CustomerAccountDAL.CustomerExists(customerDTO.Email);
             if (isExists)
                 return false;
-
+            bool ValidateCodeTime = await _CustomerAccountDAL.validateCodeAndTime(customerDTO.Email, customerDTO.ValidatCode);
+            if(!ValidateCodeTime)
+               return false; 
+            //או אולי לזרוק פה שגיאה
             Customer customer = _mapper.Map<CustomerDTO, Customer>(customerDTO);
             AccountData accountData = new AccountData()
             {
