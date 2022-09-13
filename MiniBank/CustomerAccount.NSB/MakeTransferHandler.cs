@@ -12,9 +12,13 @@ public class MakeTransferHandler :
     IHandleMessages<MakeTransfer>
 {
     private readonly IAccountBL _accountBL;
-    public MakeTransferHandler(IAccountBL accountBL)
+
+    private readonly IOperationBL _operationBL;
+
+    public MakeTransferHandler(IAccountBL accountBL, IOperationBL operationBL)
     {
         this._accountBL = accountBL;
+        _operationBL = operationBL;
     }
     static ILog log = LogManager.GetLogger<MakeTransferHandler>();
   
@@ -63,6 +67,8 @@ transaction)
                         await _accountBL.MakeBankTransfer(message.FromAccountId, message.ToAccountId, message.Amount);
                         log.Info($"Transfer succeded, TransactionId = {message.TransactionId} ");
                         transactionDoneMsg.IsDone = true;
+                        _operationBL.PostOperation(message);
+
                     }
                 }
             }
