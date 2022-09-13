@@ -1,5 +1,6 @@
 ﻿using CustomerAccount.DAL.Entities;
 using CustomerAccount.DTO;
+using Transaction.Messeges;
 
 namespace CustomerAccount.BL.Interfaces
 {
@@ -7,5 +8,6 @@ namespace CustomerAccount.BL.Interfaces
     {
         Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountIdion, int PageNumber, int PageSize);
         Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId);
+        public Task PostOperations(MakeTransfer makeTransferMsg);
     }
 }

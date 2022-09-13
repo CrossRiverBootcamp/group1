@@ -12,9 +12,12 @@ public class MakeTransferHandler :
     IHandleMessages<MakeTransfer>
 {
     private readonly IAccountBL _accountBL;
-    public MakeTransferHandler(IAccountBL accountBL)
+    private readonly IOperationBL _operationBL;
+
+    public MakeTransferHandler(IAccountBL accountBL, IOperationBL operationBL)
     {
         this._accountBL = accountBL;
+        this._operationBL = operationBL;
     }
     static ILog log = LogManager.GetLogger<MakeTransferHandler>();
   
@@ -51,12 +54,14 @@ public class MakeTransferHandler :
                     {
                         //Update receiver/sender balances (run in DB transaction) 
                         await _accountBL.MakeBankTransfer(message.FromAccountId, message.ToAccountId, message.Amount);
+                        await _operationBL.PostOperations(message);
                         log.Info($"Transfer succeded, TransactionId = {message.TransactionId} ");
                         transactionDoneMsg.IsDone = true;
                     }
                 }
             }
              await context.Publish(transactionDoneMsg);
+
             return;
         }
         catch (DBContextException error)
