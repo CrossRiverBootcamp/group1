@@ -12,6 +12,7 @@ namespace CustomerAccount.DAL.Interfaces
         Task<Guid> Login(string email, string password);
         Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
         Task<BalancesModel> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount);
+        Task<bool> validateCodeAndTime(string email, string validatCode);
         //Task<Customer> GetCustomer(Guid customerId);
     }
 }

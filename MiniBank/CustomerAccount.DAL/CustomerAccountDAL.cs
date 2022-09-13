@@ -132,5 +132,24 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
+        public async Task<bool> validateCodeAndTime(string email,string ValidatCode)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                var b = await context.EmailVerifications.Findasync(email);
+                if(b.ValidatCode.Equals(ValidatCode) && b.ExpirationTime>DateTime.UtcNow)
+                    return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+        //public async Task<bool> deletValidateCodeAndTime(string email)
+        //{
+          
+        //}
     }
 }
