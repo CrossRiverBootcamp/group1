@@ -1,5 +1,4 @@
-﻿using CustomerAccount.DAL.Models;
-using CustomerAccount.DTO;
+﻿using CustomerAccount.DTO;
 
 namespace CustomerAccount.BL.Interfaces
 {
