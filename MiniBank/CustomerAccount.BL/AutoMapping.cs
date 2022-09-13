@@ -21,7 +21,17 @@ namespace CustomerAccount.BL
                 .ForMember(dest => dest.LastName, opts => opts
                     .MapFrom(src => src.Customer.LastName))
                 .ForMember(dest => dest.Balance, opts => opts
-                    .MapFrom(src => src.Balance / 100)); ;
+                    .MapFrom(src => src.Balance / 100));
+
+            CreateMap<AccountData, TransactionPartnerDetailsDTO>()
+                .ForMember(dest => dest.FirstName, opts => opts
+                    .MapFrom(src => src.Customer.FirstName))
+                .ForMember(dest => dest.LastName, opts => opts
+                    .MapFrom(src => src.Customer.LastName)).
+                    ForMember(dest => dest.Email, opts => opts
+                    .MapFrom(src => src.Customer.Email));
+
+
         }
     }
 }

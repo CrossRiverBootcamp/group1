@@ -69,7 +69,7 @@ namespace CustomerAccount.DAL
                return await context.AccountDatas
                 .Where(acc => acc.Id.Equals(accountDataId))
                 .Include(acc => acc.Customer)
-                .FirstOrDefaultAsync();
+                .FirstAsync();
             }
             catch(Exception ex)
             {
