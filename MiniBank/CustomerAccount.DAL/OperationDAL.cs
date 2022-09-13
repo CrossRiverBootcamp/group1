@@ -42,7 +42,7 @@ namespace CustomerAccount.DAL
 
             return pagedData ?? throw new KeyNotFoundException("data not found");
         }
-        public async Task PostOperation(OperationData operation )
+        public async Task PostOperation(OperationData operation)
         {
             using var context = _factory.CreateDbContext();
             try

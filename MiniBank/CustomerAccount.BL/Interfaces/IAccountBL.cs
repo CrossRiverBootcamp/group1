@@ -10,6 +10,8 @@ namespace CustomerAccount.BL.Interfaces
         Task<bool> CustumerAccountExists(Guid accountId);
         Task<bool> SenderHasEnoughBalance (Guid accountId, int amount);
         Task MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount);
-        Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId);
+
+        //moved to operation BL
+        //Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId);
     }
 }

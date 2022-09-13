@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CustomerAccount.DAL;
 
 namespace CustomerAccount.BL
 {
@@ -16,10 +17,13 @@ namespace CustomerAccount.BL
     {
         private readonly IMapper _mapper;
         private readonly IOperationDAL _operationDAL;
-        public OperationBL(IMapper mapper, IOperationDAL operationDAL)
+        private readonly ICustomerAccountDAL _CustomerAccountDAL;
+
+        public OperationBL(IMapper mapper, IOperationDAL operationDAL, ICustomerAccountDAL CustomerAccountDAL)
         {
             _mapper = mapper;
             _operationDAL = operationDAL;
+            _CustomerAccountDAL = CustomerAccountDAL;
         }
         public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
         {
@@ -58,6 +62,10 @@ namespace CustomerAccount.BL
             {
                 return false;
             }
+        }
+        public async Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId)
+        {
+            return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _CustomerAccountDAL.GetAccountData(transactionPartnerAccountId));
         }
     }
 }

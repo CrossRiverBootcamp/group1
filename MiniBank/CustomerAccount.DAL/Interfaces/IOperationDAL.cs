@@ -6,6 +6,6 @@ namespace CustomerAccount.DAL.Interfaces
     {
         Task<IEnumerable<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize);
 
-        Task<Guid> PostOperation(OperationData operation);
+        Task PostOperation(OperationData operation);
     }
 }

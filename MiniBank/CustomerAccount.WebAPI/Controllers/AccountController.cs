@@ -22,12 +22,14 @@ public class AccountController : ControllerBase
         return Ok(await accountBL.GetAccountInfo(accountId));
     }
 
-    // GET api/<AccountController>/5
-    [HttpGet("{transactionPartnerAccountId}")]
-    public async Task<ActionResult<TransactionPartnerDetailsDTO>> GetTransactionPartner(Guid transactionPartnerAccountId)
-    {
-        return Ok(await accountBL.GetTransactionPartnerAccountInfo(transactionPartnerAccountId));
-    }
+    //moved to operation BL
+
+    //// GET api/<AccountController>/5
+    //[HttpGet("{transactionPartnerAccountId}")]
+    //public async Task<ActionResult<TransactionPartnerDetailsDTO>> GetTransactionPartner(Guid transactionPartnerAccountId)
+    //{
+    //    return Ok(await accountBL.GetTransactionPartnerAccountInfo(transactionPartnerAccountId));
+    //}
 
     // POST api/<AccountController>
     [HttpPost]
