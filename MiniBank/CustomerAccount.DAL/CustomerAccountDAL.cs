@@ -31,7 +31,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task CreatesEmailVerification(EmailVerificationModel emailVerificationModel)
         {
             using var context = _factory.CreateDbContext();
@@ -62,7 +61,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<int> GetNumOfAttempts(string email)
         {
             using var context = _factory.CreateDbContext();
@@ -90,7 +88,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData)
         {
             using var context = _factory.CreateDbContext();
@@ -129,7 +126,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<AccountData> GetAccountData(Guid accountDataId)
         {
             using var context = _factory.CreateDbContext();
@@ -145,7 +141,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<bool> CustumerAccountExists(Guid accountId)
         {
             using var context = _factory.CreateDbContext();
@@ -158,7 +153,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
         {
             using var context = _factory.CreateDbContext();
@@ -172,7 +166,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<BalancesModel> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
         {
             using var context = _factory.CreateDbContext();

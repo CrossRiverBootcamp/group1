@@ -22,6 +22,14 @@ public class AccountController : ControllerBase
         return Ok(await accountBL.GetAccountInfo(accountId));
     }
 
+    // POST api/<AccountController>
+    [HttpPost]
+    public async Task<ActionResult<bool>> Post([FromBody] CustomerDTO customerDTO)
+    {
+        return Ok(await accountBL.HandleCreateAccountRequest(customerDTO));
+    }
+
+
     //moved to operation BL
 
     //// GET api/<AccountController>/5
@@ -30,11 +38,4 @@ public class AccountController : ControllerBase
     //{
     //    return Ok(await accountBL.GetTransactionPartnerAccountInfo(transactionPartnerAccountId));
     //}
-
-    // POST api/<AccountController>
-    [HttpPost]
-    public async Task<ActionResult<bool>> Post([FromBody] CustomerDTO customerDTO)
-    {
-        return Ok(await accountBL.HandleCreateAccountRequest(customerDTO));
-    }
 }
