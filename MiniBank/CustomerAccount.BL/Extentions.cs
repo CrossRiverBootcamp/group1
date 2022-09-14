@@ -16,14 +16,15 @@ namespace CustomerAccount.BL
             services.AddScoped<ICustomerAccountDAL, CustomerAccountDAL>();
             services.AddScoped<IOperationBL, OperationBL>();
             services.AddScoped<IOperationDAL, OperationDAL>();
-
+            services.AddScoped<IEmailVerificationBL, EmailVerificationBL>();
 
         }
         public static void AddDBContextService(this IServiceCollection services, string connection)
         {
             services.AddDbContextFactory<CustomerAccountDBContext>(item =>
-           item.UseSqlServer(connection));
+                item.UseSqlServer(connection));
         }
+        //מיותר????? 
         public static void AddDIServicesNSB(this IServiceCollection services)
         {
             services.AddScoped<IAccountBL, AccountBL>();

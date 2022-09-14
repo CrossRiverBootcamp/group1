@@ -4,15 +4,19 @@ using CustomerAccount.DAL.Entities;
 using ExtendedExceptions;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
+using AutoMapper;
 
 namespace CustomerAccount.DAL
 {
     public class CustomerAccountDAL : ICustomerAccountDAL
     {
         private readonly IDbContextFactory<CustomerAccountDBContext> _factory;
-        public CustomerAccountDAL(IDbContextFactory<CustomerAccountDBContext> factory)
+        private readonly IMapper _mapper;
+
+        public CustomerAccountDAL(IDbContextFactory<CustomerAccountDBContext> factory, IMapper mapper)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+            _mapper = mapper;
         }
         public async Task<bool> CustomerExists(string email)
         {
@@ -26,20 +30,54 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<bool> CreateCustomerAccount(Customer customer, AccountData accountData)
+
+        public async Task CreatesEmailVerification(EmailVerificationModel emailVerificationModel)
         {
             using var context = _factory.CreateDbContext();
 
             try
             {
-                await context.Customers.AddAsync(customer);
+                await context.EmailVerifications.AddAsync(_mapper.Map<EmailVerificationModel,EmailVerification>(emailVerificationModel));
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+        public async Task<bool> ValidateCodeAndTime(string email, string verificationCode)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                EmailVerification ev = await context.EmailVerifications.FindAsync(email);
+                return ev.VerificationCode.Equals(verificationCode) && ev.ExpirationTime >= DateTime.UtcNow;
+
+                //האם להפריד את המקרה של פג התוקף
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+
+        public async Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData)
+        {
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                //ככה?
+                Customer customer = _mapper.Map<CustomerModel,Customer>(customerModel);
+                accountData.Customer = customer;
+
+                await context.Customers.AddAsync(customer);              
                 await context.AccountDatas.AddAsync(accountData);
 
                 await context.SaveChangesAsync();
             }
             catch
             {
-                // throw new CreateUserException();
                 return false;
             }
             return true;
@@ -132,5 +170,7 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
+
+
     }
 }
