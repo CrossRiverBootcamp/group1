@@ -12,7 +12,8 @@ import { CustomerAccountService } from '../services/customer-account.service';
 })
 export class OpenAccountComponent implements OnInit {
 
-  form!: FormGroup;
+  accountDetailsForm!: FormGroup;
+  verificationForm!: FormGroup;
   loading = false;
   submitted = false;
 
@@ -24,18 +25,24 @@ export class OpenAccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+    this.accountDetailsForm = this.formBuilder.group({
       email: ['', Validators.required, Validators.email],
       password: ['', [Validators.required, Validators.minLength(4)]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-
-
     });
+
+    this.verificationForm=this.formBuilder.group({
+      verificationCode:['',[Validators.required, Validators.minLength(5),Validators.maxLength(5)]]
+    })
+
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.form.controls; }
+  // convenience getter for easy access to accountDetailsForm fields
+  get f() { return this.accountDetailsForm.controls; }
+
+  // convenience getter for easy access to verificationForm fields
+  get f2() { return this.accountDetailsForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -43,23 +50,35 @@ export class OpenAccountComponent implements OnInit {
     // reset alerts on submit
     //this.alertService.clear();
 
-    // stop here if form is invalid
-    if (this.form.invalid) {
+    // stop here if accountDetailsForm is invalid
+    if (this.accountDetailsForm.invalid) {
       return;
     }
-
-    this.loading = true;
-    this.accountService.createCustomerAccount(this.form.value)
-      .subscribe(
-        (isAdded: boolean) => {
-          isAdded?alert('added'):alert("an error occurred, please try again"); this.loading = false;
-          //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-          this.router.navigateByUrl('account/login');
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error);
-          //this.alertService.error(error.message);
-          this.loading = false;
-        });
   }
+
+  // onSubmit() {
+  //   this.submitted = true;
+
+  //   // reset alerts on submit
+  //   //this.alertService.clear();
+
+  //   // stop here if accountDetailsForm is invalid
+  //   if (this.accountDetailsForm.invalid) {
+  //     return;
+  //   }
+
+  //   this.loading = true;
+  //   this.accountService.createCustomerAccount(this.accountDetailsForm.value)
+  //     .subscribe(
+  //       (isAdded: boolean) => {
+  //         isAdded?alert('added'):alert("an error occurred, please try again"); this.loading = false;
+  //         //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
+  //         this.router.navigateByUrl('account/login');
+  //       },
+  //       (error: HttpErrorResponse) => {
+  //         console.log(error);
+  //         //this.alertService.error(error.message);
+  //         this.loading = false;
+  //       });
+  // }
 }

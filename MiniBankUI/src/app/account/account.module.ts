@@ -12,6 +12,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { ActionsComponent } from './actions/actions.component';
 import { DialogTransactionPartnerDetailsComponent } from './dialog-transaction-partner-details/dialog-transaction-partner-details.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -25,13 +27,15 @@ import { DialogTransactionPartnerDetailsComponent } from './dialog-transaction-p
     DialogTransactionPartnerDetailsComponent,
   ],
   imports: [
-    CommonModule,   
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatStepperModule,
+    MatButtonModule
   ],
   exports:[
     OpenAccountComponent,
