@@ -26,7 +26,7 @@ namespace CustomerAccount.BL
             if (isExists)
                 return false;
 
-            return await _CustomerAccountDAL.validateCodeAndTime(email, validatCode);
+            return await _CustomerAccountDAL.ValidateCodeAndTime(email, validatCode);
             //או אולי לזרוק פה שגיאה
         }
 

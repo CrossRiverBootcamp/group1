@@ -4,15 +4,19 @@ using CustomerAccount.DAL.Entities;
 using ExtendedExceptions;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
+using AutoMapper;
 
 namespace CustomerAccount.DAL
 {
     public class CustomerAccountDAL : ICustomerAccountDAL
     {
         private readonly IDbContextFactory<CustomerAccountDBContext> _factory;
-        public CustomerAccountDAL(IDbContextFactory<CustomerAccountDBContext> factory)
+        private readonly IMapper _mapper;
+
+        public CustomerAccountDAL(IDbContextFactory<CustomerAccountDBContext> factory, IMapper mapper)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+            _mapper = mapper;
         }
         public async Task<bool> CustomerExists(string email)
         {
@@ -26,6 +30,36 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
+
+        public async Task CreatesEmailVerification(EmailVerificationModel emailVerificationModel)
+        {
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                await context.EmailVerifications.AddAsync(_mapper.Map<EmailVerificationModel,EmailVerification>(emailVerificationModel));
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+        public async Task<bool> ValidateCodeAndTime(string email, string verificationCode)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                //האם להפריד את המקרה של פג התוקף
+                return await context.EmailVerifications.Where(ev =>
+                  ev.Email.Equals(email) && ev.VerificationCode.Equals(verificationCode) && ev.ExpirationTime <= DateTime.UtcNow
+                ).AnyAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+
         public async Task<bool> CreateCustomerAccount(Customer customer, AccountData accountData)
         {
             using var context = _factory.CreateDbContext();
@@ -132,24 +166,7 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<bool> validateCodeAndTime(string email,string ValidatCode)
-        {
-            using var context = _factory.CreateDbContext();
-            try
-            {
-                var b = await context.EmailVerifications.Findasync(email);
-                if(b.ValidatCode.Equals(ValidatCode) && b.ExpirationTime>DateTime.UtcNow)
-                    return true;
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new DBContextException(ex.Message);
-            }
-        }
-        //public async Task<bool> deletValidateCodeAndTime(string email)
-        //{
-          
-        //}
+
+
     }
 }
