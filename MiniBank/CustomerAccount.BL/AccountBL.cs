@@ -32,6 +32,10 @@ namespace CustomerAccount.BL
 
         public async Task<bool> CreateAccount(CustomerDTO customerDTO)
         {
+            bool isAuthorized = await ValidateCodeAndTime(customerDTO.Email, customerDTO.ValidatCode);
+            if (!isAuthorized)
+                return false;
+
             Customer customer = _mapper.Map<CustomerDTO, Customer>(customerDTO);
             AccountData accountData = new AccountData()
             {

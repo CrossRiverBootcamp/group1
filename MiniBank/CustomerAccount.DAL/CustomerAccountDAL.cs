@@ -38,6 +38,7 @@ namespace CustomerAccount.DAL
             try
             {
                 await context.EmailVerifications.AddAsync(_mapper.Map<EmailVerificationModel,EmailVerification>(emailVerificationModel));
+                await context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -49,10 +50,10 @@ namespace CustomerAccount.DAL
             using var context = _factory.CreateDbContext();
             try
             {
+                EmailVerification ev = await context.EmailVerifications.FindAsync(email);
+                return ev.VerificationCode.Equals(verificationCode) && ev.ExpirationTime <= DateTime.UtcNow;
+
                 //האם להפריד את המקרה של פג התוקף
-                return await context.EmailVerifications.Where(ev =>
-                  ev.Email.Equals(email) && ev.VerificationCode.Equals(verificationCode) && ev.ExpirationTime <= DateTime.UtcNow
-                ).AnyAsync();
             }
             catch (Exception ex)
             {
