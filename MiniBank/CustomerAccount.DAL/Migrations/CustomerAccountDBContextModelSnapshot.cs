@@ -81,7 +81,8 @@ namespace CustomerAccount.DAL.Migrations
             modelBuilder.Entity("CustomerAccount.DAL.Entities.EmailVerification", b =>
                 {
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("CodeNum")
                         .HasColumnType("int");

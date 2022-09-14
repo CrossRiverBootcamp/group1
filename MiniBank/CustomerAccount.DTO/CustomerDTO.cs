@@ -22,13 +22,12 @@ namespace CustomerAccount.DTO
         [MaxLength(25)]
         public string Email { get; set; }
         [Required]
-        [MaxLength(15)]
+        [MaxLength(8)]
         [MinLength(4)]
         public string Password { get; set; }
         [Required]
+        [StringLength(6)]
         public string ValidatCode { get; set; }
-
-        public string ValidatName { get; set; }
 
     }
 }

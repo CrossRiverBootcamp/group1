@@ -51,7 +51,7 @@ namespace CustomerAccount.DAL
             try
             {
                 EmailVerification ev = await context.EmailVerifications.FindAsync(email);
-                return ev.VerificationCode.Equals(verificationCode) && ev.ExpirationTime <= DateTime.UtcNow;
+                return ev.VerificationCode.Equals(verificationCode) && ev.ExpirationTime >= DateTime.UtcNow;
 
                 //האם להפריד את המקרה של פג התוקף
             }
@@ -61,20 +61,23 @@ namespace CustomerAccount.DAL
             }
         }
 
-        public async Task<bool> CreateCustomerAccount(Customer customer, AccountData accountData)
+        public async Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData)
         {
             using var context = _factory.CreateDbContext();
 
             try
             {
-                await context.Customers.AddAsync(customer);
+                //ככה?
+                Customer customer = _mapper.Map<CustomerModel,Customer>(customerModel);
+                accountData.Customer = customer;
+
+                await context.Customers.AddAsync(customer);              
                 await context.AccountDatas.AddAsync(accountData);
 
                 await context.SaveChangesAsync();
             }
             catch
             {
-                // throw new CreateUserException();
                 return false;
             }
             return true;
