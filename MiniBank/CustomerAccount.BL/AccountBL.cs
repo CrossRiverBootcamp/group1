@@ -3,11 +3,7 @@ using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL.Entities;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CustomerAccount.BL
 {
