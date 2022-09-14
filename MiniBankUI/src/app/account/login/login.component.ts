@@ -11,7 +11,7 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
+
   form!: FormGroup;
   loading = false;
   submitted = false;
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
