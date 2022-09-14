@@ -2,45 +2,66 @@
 using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL.Entities;
 using CustomerAccount.DAL.Interfaces;
+using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
 
 
 namespace CustomerAccount.BL
 {
-    public class AccountBL: IAccountBL
+    public class AccountBL : IAccountBL
     {
+        private static int NumOfAttemptsAllowed = 3;
+        private static int NumOfVerficationCodesAllowed = 2;
+
         private readonly IMapper _mapper;
         private readonly ICustomerAccountDAL _CustomerAccountDAL;
+
         public AccountBL(IMapper mapper, ICustomerAccountDAL CustomerAccountDAL)
         {
             _mapper = mapper;
             _CustomerAccountDAL = CustomerAccountDAL;
         }
-        public async Task<bool> ValidateCodeAndTime(string email, string validatCode)
+        public async Task<bool> HandleCreateAccountRequest(CustomerDTO customerDTO)
         {
-            bool isExists = await _CustomerAccountDAL.CustomerExists(email);
+            //check if email is in use
+            bool isExists = await _CustomerAccountDAL.CustomerExists(customerDTO.Email);
             if (isExists)
-                return false;
+                throw new EmailInUseException();
 
-            return await _CustomerAccountDAL.ValidateCodeAndTime(email, validatCode);
-            //או אולי לזרוק פה שגיאה
+            //verify code 
+            bool isAuthorized = await _CustomerAccountDAL.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);
+
+            //if not authorized: update number of attempts, throw error
+            if (!isAuthorized)
+            {
+                await UpdateAndLimitNumberOfAttempts(customerDTO.Email);
+                throw new UnauthorizedAccessException();
+            }
+
+            //if authorized: create customer account
+            return await CreateCustomerAccount(customerDTO);
         }
 
-        public async Task<bool> CreateAccount(CustomerDTO customerDTO)
+        public async Task<bool> CreateCustomerAccount(CustomerDTO customerDTO)
         {
-            bool isAuthorized = await ValidateCodeAndTime(customerDTO.Email, customerDTO.ValidatCode);
-            if (!isAuthorized)
-                return false;
-
-            Customer customer = _mapper.Map<CustomerDTO, Customer>(customerDTO);
+            CustomerModel customerModel = _mapper.Map<CustomerDTO, CustomerModel>(customerDTO);
             AccountData accountData = new AccountData()
             {
-                Customer = customer,
                 OpenDate = DateTime.UtcNow,
                 Balance = 100000
             };
 
-            return await _CustomerAccountDAL.CreateCustomerAccount(customer, accountData);
+            return await _CustomerAccountDAL.CreateCustomerAccount(customerModel, accountData);
+        }
+
+        //פה או emailverification controller???
+        public async Task UpdateAndLimitNumberOfAttempts(string email)
+        {
+            int numOtAttempts = (await _CustomerAccountDAL.GetNumOfAttempts(email)) + 1;
+            if (numOtAttempts == NumOfAttemptsAllowed)
+                throw new TooManyRetriesException();
+
+            await _CustomerAccountDAL.UpdateNumOfAttempts(email);
         }
 
         public Task<bool> CustumerAccountExists(Guid accountId)
@@ -51,7 +72,7 @@ namespace CustomerAccount.BL
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
             AccountData accountData = await _CustomerAccountDAL.GetAccountData(accountId);
-            return _mapper.Map<AccountData,CustomerAccountInfoDTO>(accountData) ;
+            return _mapper.Map<AccountData, CustomerAccountInfoDTO>(accountData);
         }
         //moved to operation BL
 
@@ -59,7 +80,6 @@ namespace CustomerAccount.BL
         //{
         //    return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _CustomerAccountDAL.GetAccountData(transactionPartnerAccountId));
         //}
-
         public async Task<BalancesDTO> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
         {
             return _mapper.Map<BalancesDTO>(await _CustomerAccountDAL.MakeBankTransfer(fromAccountId, toAccountId, amount));
