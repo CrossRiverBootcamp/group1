@@ -5,6 +5,7 @@ using ExtendedExceptions;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using AutoMapper;
+using System.Runtime.CompilerServices;
 
 namespace CustomerAccount.DAL
 {
@@ -25,7 +26,7 @@ namespace CustomerAccount.DAL
             {
                 return await context.Customers.AnyAsync(sub => sub.Email.Equals(email));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);
             }
@@ -37,7 +38,7 @@ namespace CustomerAccount.DAL
 
             try
             {
-                await context.EmailVerifications.AddAsync(_mapper.Map<EmailVerificationModel,EmailVerification>(emailVerificationModel));
+                await context.EmailVerifications.AddAsync(_mapper.Map<EmailVerificationModel, EmailVerification>(emailVerificationModel));
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -51,9 +52,38 @@ namespace CustomerAccount.DAL
             try
             {
                 EmailVerification ev = await context.EmailVerifications.FindAsync(email);
-                return ev.VerificationCode.Equals(verificationCode) && ev.ExpirationTime >= DateTime.UtcNow;
+                if (ev.ExpirationTime < DateTime.UtcNow)
+                    throw new VerificationCodeExpiredException();
 
-                //האם להפריד את המקרה של פג התוקף
+                return ev.VerificationCode.Equals(verificationCode);
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+
+        public async Task<int> GetNumOfAttempts(string email)
+        {
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                return (await context.EmailVerifications.FindAsync(email)).NumOfAttemps;
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+        public async Task UpdateNumOfAttempts(string email)
+        {
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                (await context.EmailVerifications.FindAsync(email)).NumOfAttemps++;
+                await context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -68,10 +98,10 @@ namespace CustomerAccount.DAL
             try
             {
                 //ככה?
-                Customer customer = _mapper.Map<CustomerModel,Customer>(customerModel);
+                Customer customer = _mapper.Map<CustomerModel, Customer>(customerModel);
                 accountData.Customer = customer;
 
-                await context.Customers.AddAsync(customer);              
+                await context.Customers.AddAsync(customer);
                 await context.AccountDatas.AddAsync(accountData);
 
                 await context.SaveChangesAsync();
@@ -87,14 +117,14 @@ namespace CustomerAccount.DAL
             using var context = _factory.CreateDbContext();
             try
             {
-               AccountData accountData = await context.AccountDatas
-                .Where(acc => acc.Customer.Email.Equals(email) && acc.Customer.Password.Equals(password))
-                .Include(acc => acc.Customer)
-                .FirstOrDefaultAsync();
+                AccountData accountData = await context.AccountDatas
+                 .Where(acc => acc.Customer.Email.Equals(email) && acc.Customer.Password.Equals(password))
+                 .Include(acc => acc.Customer)
+                 .FirstOrDefaultAsync();
 
-               return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed, your name or password are not correct:(");
+                return accountData?.Id ?? throw new UnauthorizedAccessException("Login failed, your name or password are not correct:(");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);
             }
@@ -105,14 +135,14 @@ namespace CustomerAccount.DAL
             using var context = _factory.CreateDbContext();
             try
             {
-               return await context.AccountDatas
-                .Where(acc => acc.Id.Equals(accountDataId))
-                .Include(acc => acc.Customer)
-                .FirstAsync();
+                return await context.AccountDatas
+                 .Where(acc => acc.Id.Equals(accountDataId))
+                 .Include(acc => acc.Customer)
+                 .FirstAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-               throw new DBContextException(ex.Message);
+                throw new DBContextException(ex.Message);
             }
         }
 
@@ -129,12 +159,12 @@ namespace CustomerAccount.DAL
             }
         }
 
-        public async Task<bool>  SenderHasEnoughBalance(Guid accountId, int amount)
+        public async Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
         {
             using var context = _factory.CreateDbContext();
             try
             {
-                var customerAccount= await context.AccountDatas.FindAsync(accountId);
+                var customerAccount = await context.AccountDatas.FindAsync(accountId);
                 return customerAccount.Balance >= amount;
             }
             catch (Exception ex)
@@ -164,7 +194,7 @@ namespace CustomerAccount.DAL
                     ToAccountBalance = toAccount.Balance
                 };
                 return balances;
-            } 
+            }
             catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);

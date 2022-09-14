@@ -35,6 +35,6 @@ public class AccountController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<bool>> Post([FromBody] CustomerDTO customerDTO)
     {
-        return Ok(await accountBL.CreateAccount(customerDTO));
+        return Ok(await accountBL.HandleCreateAccountRequest(customerDTO));
     }
 }

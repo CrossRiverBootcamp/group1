@@ -27,7 +27,7 @@ namespace CustomerAccount.DTO
         public string Password { get; set; }
         [Required]
         [StringLength(6)]
-        public string ValidatCode { get; set; }
+        public string VerificationCode { get; set; }
 
     }
 }

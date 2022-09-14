@@ -5,15 +5,16 @@ namespace CustomerAccount.DAL.Interfaces
 {
     public interface ICustomerAccountDAL
     {
-        Task<bool> CustomerExists(string email);
-        Task<bool> ValidateCodeAndTime(string email, string verificationCode);
+        Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData);
         Task CreatesEmailVerification(EmailVerificationModel emailVerificationModel);
-        Task<bool> CreateCustomerAccount(Customer customer, AccountData accountData);
-        Task<AccountData> GetAccountData(Guid accountDataId);
+        Task<bool> CustomerExists(string email);
         Task<bool> CustumerAccountExists(Guid accountId);
+        Task<AccountData> GetAccountData(Guid accountDataId);
+        Task<int> GetNumOfAttempts(string email);
         Task<Guid> Login(string email, string password);
-        Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
         Task<BalancesModel> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount);
-        //Task<Customer> GetCustomer(Guid customerId);
+        Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
+        Task UpdateNumOfAttempts(string email);
+        Task<bool> ValidateCodeAndTime(string email, string verificationCode);
     }
 }
