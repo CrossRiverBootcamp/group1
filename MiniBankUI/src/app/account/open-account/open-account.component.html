@@ -1,14 +1,17 @@
 <mat-stepper orientation="vertical" [linear]="true" #stepper>
   <mat-step [stepControl]="accountDetailsForm">
-    <form [formGroup]="accountDetailsForm" (ngSubmit)="getVerificationCodeByEmail()">
+    <form [formGroup]="accountDetailsForm">
       <ng-template matStepLabel>Fill out your personal details</ng-template>
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="text" formControlName="email" class="form-control"
+        <input (change)="checkIfEmailExists()" type="text" formControlName="email" class="form-control"
           [ngClass]="{ 'is-invalid':( f['email'].dirty || f['email'].touched) && f['email'].errors }" />
         <div *ngIf="( f['email'].dirty || f['email'].touched) && f['email'].errors" class="invalid-feedback">
           <div *ngIf="f['email'].errors['required']">Email required</div>
           <div *ngIf="f['email'].errors['email']">Please enter a valid email address</div>
+        </div>
+        <div *ngIf="f['email'].dirty  && emailExists" class="invalid-feedback">
+          Email address in use
         </div>
       </div>
       <div class="form-group">
@@ -25,7 +28,8 @@
         <label for="firstName">First Name</label>
         <input type="text" formControlName="firstName" class="form-control"
           [ngClass]="{ 'is-invalid': (f['firstName'].dirty || f['firstName'].touched)  && f['firstName'].errors }" />
-        <div *ngIf="(f['firstName'].dirty || f['firstName'].touched)   && f['firstName'].errors" class="invalid-feedback">
+        <div *ngIf="(f['firstName'].dirty || f['firstName'].touched)   && f['firstName'].errors"
+          class="invalid-feedback">
           <div *ngIf="f['firstName'].errors['required']">First Name required</div>
         </div>
       </div>
@@ -37,7 +41,31 @@
           <div *ngIf="f['lastName'].errors['required']">Last Name required</div>
         </div>
       </div>
-      <button class="btn btn-primary" mat-button matStepperNext>Next</button>
+      <button *ngIf="!accountDetailsFormSubmitted" class="btn btn-primary" mat-button matStepperNext>Next</button>
+    </form>
+  </mat-step>
+  <mat-step>
+    <form [formGroup]="accountDetailsViewForm" (ngSubmit)="getVerificationCodeByEmail()">
+      <ng-template matStepLabel>Make sure your details are correct</ng-template>
+      <br>
+      <div>
+        <ul class="list-unstyled mb-4">
+          <li>
+            <p><b>email: </b>{{f['email'].value}}</p>
+          </li>
+          <li>
+            <p><b>password: </b>{{f['password'].value}}</p>
+          </li>
+          <li>
+            <p><b>First Name: </b>{{f['firstName'].value}}</p>
+          </li>
+          <li>
+            <p><b>Last Name: </b>{{f['lastName'].value}}</p>
+          </li>
+        </ul>
+      </div>
+      <button *ngIf="!accountDetailsFormSubmitted" mat-button matStepperPrevious>Back</button>
+      <button *ngIf="!accountDetailsFormSubmitted" class="btn btn-primary" mat-button matStepperNext>Send me verification code</button>
     </form>
   </mat-step>
   <mat-step [stepControl]="verificationForm">
@@ -48,81 +76,25 @@
 
         <!-- <label for="verificationCode">Verification Code</label> -->
         <p class="text-muted">sent via email to {{f['email'].value}}</p>
-        <ng-otp-input [formCtrl]="$any(verificationForm.get('verificationCode'))" [config]="{allowNumbersOnly: true, length: 6,placeholder:'-'}"></ng-otp-input>
+        <ng-otp-input [formCtrl]="$any(verificationForm.get('verificationCode'))"
+          [config]="{allowNumbersOnly: true, length: 6,placeholder:'-'}"></ng-otp-input>
         <!-- <input type="text" formControlName="verificationCode" class="form-control"
           [ngClass]="{ 'is-invalid': (f2['verificationCode'].dirty || f2['verificationCode'].touched)  && f2['verificationCode'].errors }" /> -->
         <!-- <div *ngIf="(f2['verificationCode'].dirty || f2['verificationCode'].touched)  && f2['verificationCode'].errors" class="invalid-feedback">
           <div *ngIf="f2['verificationCode'].errors['required']">verification code required</div>
           <div *ngIf="f2['verificationCode'].errors['pattern']">please enter valid verification code of exactly 6 digits</div>
         </div> -->
-              <a (click)="resendVerificationCode()" class="btn btn-link">send me new code</a>
+        <a href="" (click)="resendVerificationCode()" class="btn btn-link">send me new code</a>
       </div>
       <div class="form-group">
         <div>
-        <button mat-button matStepperPrevious [disabled]="loading" >Back</button>
-        <button matStepperNext [disabled]="loading||!userVerified" class="btn btn-primary">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Submit
-        </button>
-      </div>
+          <button matStepperNext [disabled]="loading||!userVerified" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Submit
+          </button>
+        </div>
       </div>
     </form>
   </mat-step>
-  <mat-step>
-    <h4>Process Done!</h4>
-        <button  class="btn btn-primary">
-          Log In
-        </button>
 
-  </mat-step>
 </mat-stepper>
-
-
-
-
-
-<!-- <div class="card">
-    <h4 class="card-header">Open Account</h4>
-    <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
-            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                <div *ngIf="f['email'].errors['required']">Email is required</div>
-                <div *ngIf="f['email'].errors['email']">Please enter a valid email address</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
-            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                <div *ngIf="f['password'].errors['required']">Password is required</div>
-                <div *ngIf="f['password'].errors['minlength']">Password must be at least 4 characters</div>
-
-            </div>
-        </div>
-            <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" />
-                <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
-                    <div *ngIf="f['firstName'].errors['required']">First Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" />
-                <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
-                    <div *ngIf="f['lastName'].errors['required']">Last Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <button [disabled]="loading" class="btn btn-primary">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Register
-                </button>
-            </div>
-        </form>
-    </div>
-  </div>
- -->

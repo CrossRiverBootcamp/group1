@@ -16,11 +16,13 @@ export class OpenAccountComponent implements OnInit {
 
   accountDetailsForm!: FormGroup;
   verificationForm!:FormGroup;
+  accountDetailsViewForm!:FormGroup;
   loading = false;
-  // accountDetailsFormSubmitted = false;
+  accountDetailsFormSubmitted = false;
   // verificationFormSubmitted=false;
 
   userVerified:boolean=true;
+  emailExists: boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +46,8 @@ export class OpenAccountComponent implements OnInit {
       ]]
     })
 
+    this.accountDetailsViewForm=this.formBuilder.group({});
+
   }
 
   // convenience getter for easy access to accountDetailsForm fields
@@ -56,12 +60,29 @@ export class OpenAccountComponent implements OnInit {
     if (this.accountDetailsForm.invalid) {
       return;
     }
+    this.accountDetailsFormSubmitted=true;
+    this.accountDetailsForm.disable();
     this.emailVerificationService.createEmailVerification(this.f['email'].value)
       .subscribe(()=>{},
       (error)=>{
 
       }
       );
+  }
+
+  checkIfEmailExists(){
+    this.accountService.customerExists(this.accountDetailsForm.get('email')?.value)
+    .subscribe((res:boolean)=>{
+      if(res)
+        {
+          this.emailExists=true;
+          //this.f['email'].reset();
+        }
+        else
+        {
+          this.emailExists=false;
+        }
+    })
   }
 
   OpenNewAccount(){
