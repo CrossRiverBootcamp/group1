@@ -16,15 +16,15 @@ public class MakeTransferHandler :
 
     public MakeTransferHandler(IAccountBL accountBL, IOperationBL operationBL)
     {
-        this._accountBL = accountBL;
-        this._operationBL = operationBL;
+        _accountBL = accountBL;
+        _operationBL = operationBL;
     }
     static ILog log = LogManager.GetLogger<MakeTransferHandler>();
   
     public async Task Handle(MakeTransfer message, IMessageHandlerContext context)
     {
         TransactionDone transactionDoneMsg = new TransactionDone() { TransactionId= message.TransactionId };
-        //Check correctness of accounts ids 
+        //Check currectness of accounts ids 
         try 
         { 
             if (!(await _accountBL.CustumerAccountExists(message.FromAccountId)))
@@ -67,9 +67,6 @@ public class MakeTransferHandler :
         catch (DBContextException error)
         {
             log.Error($"Transfer failed, TransactionId = {message.TransactionId}. Exception: {error.Message}");
-        }
-        
-        
-       
+        }               
     }
 }
