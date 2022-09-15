@@ -113,13 +113,13 @@ namespace CustomerAccount.BL
         public async Task UpdateAndLimitNumberOfAttempts(string email)
         {
             int numOfAttempts = await _customerAccountDAL.UpdateAndGetNumOfAttempts(email);
-            if (numOfAttempts+1 == NumOfAttemptsAllowed)
+            if (numOfAttempts == NumOfAttemptsAllowed)
                 throw new TooManyRetriesException();
         }
         public async Task<int> UpdateLimitAndReturnNumberOfResends(string email)
         {
             int CodeNum = await _customerAccountDAL.UpdateAndGetNumOfResends(email);
-            if (CodeNum+1 == NumOfVerficationCodesAllowed)
+            if (CodeNum == NumOfVerficationCodesAllowed)
                 throw new TooManyRetriesException();
 
             return CodeNum;
