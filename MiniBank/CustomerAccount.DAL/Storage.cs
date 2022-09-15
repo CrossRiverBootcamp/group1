@@ -257,6 +257,28 @@ namespace CustomerAccount.DAL
             return pagedData ?? throw new KeyNotFoundException("data not found");
         }
 
-       
+        public async Task DeleteExpiredRows()
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                //implement delete
+                var existing = await context.EmailVerifications.Where(x => x.ExpirationTime < DateTime.UtcNow).ToListAsync();
+                if (existing.Any())
+                {
+                    context.EmailVerifications.RemoveRange(existing);
+                    await context.SaveChangesAsync();
+
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+
+
+        }
     }
 }
