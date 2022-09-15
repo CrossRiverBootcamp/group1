@@ -24,12 +24,10 @@ namespace CustomerAccount.BL
         private static readonly string _FromPassword = "dfgoasfhwgytqefi";
         //private static readonly int _VerificationCodeValidity = 360;
 
-        private readonly IAccountBL _accountBL;
         private readonly ICustomerAccountDAL _customerAccountDAL;
 
-        public EmailVerificationBL(IAccountBL accountBL, ICustomerAccountDAL customerAccountDAL)
+        public EmailVerificationBL(ICustomerAccountDAL customerAccountDAL)
         {
-            _accountBL = accountBL;
             _customerAccountDAL = customerAccountDAL;
         }
 
