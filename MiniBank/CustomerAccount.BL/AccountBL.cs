@@ -5,11 +5,7 @@ using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
 using ExtendedExceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CustomerAccount.BL
 {
