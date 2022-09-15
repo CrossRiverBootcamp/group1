@@ -13,9 +13,9 @@ namespace CustomerAccount.BL
         {
             services.AddScoped<IAccountBL, AccountBL>();
             services.AddScoped<ILoginBL, LoginBL>();
-            services.AddScoped<ICustomerAccountDAL, CustomerAccountDAL>();
+            services.AddScoped<IStorage, Storage>();
             services.AddScoped<IOperationBL, OperationBL>();
-            services.AddScoped<IOperationDAL, OperationDAL>();
+            services.AddScoped<IStorage, Storage>();
             services.AddScoped<IEmailVerificationBL, EmailVerificationBL>();
 
         }
@@ -28,7 +28,7 @@ namespace CustomerAccount.BL
         //public static void AddDIServicesNSB(this IServiceCollection services)
         //{
         //    services.AddScoped<IAccountBL, AccountBL>();
-        //    services.AddScoped<ICustomerAccountDAL, CustomerAccountDAL>();
+        //    services.AddScoped<IStorage, Storage>();
         //}
     }
 }

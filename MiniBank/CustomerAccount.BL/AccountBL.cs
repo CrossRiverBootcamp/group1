@@ -13,13 +13,13 @@ namespace CustomerAccount.BL
     {
         private readonly IMapper _mapper;
         private readonly IEmailVerificationBL _emailVerificationBL;
-        private readonly ICustomerAccountDAL _customerAccountDAL;
+        private readonly IStorage _Storage;
 
-        public AccountBL(IMapper mapper, IEmailVerificationBL emailVerificationBL, ICustomerAccountDAL CustomerAccountDAL)
+        public AccountBL(IMapper mapper, IEmailVerificationBL emailVerificationBL, IStorage Storage)
         {
             _mapper = mapper;
             _emailVerificationBL = emailVerificationBL;
-            _customerAccountDAL = CustomerAccountDAL;
+            _Storage = Storage;
         }
         private async Task<bool> CreateCustomerAccount(CustomerDTO customerDTO)
         {
@@ -30,11 +30,11 @@ namespace CustomerAccount.BL
                 Balance = 100000
             };
 
-            return await _customerAccountDAL.CreateCustomerAccount(customerModel, accountData);
+            return await _Storage.CreateCustomerAccount(customerModel, accountData);
         }
         public async Task<bool> CustomerExists(string email)
         {
-            return await _customerAccountDAL.CustomerExists(email);
+            return await _Storage.CustomerExists(email);
         }
         public async Task<bool> HandleCreateAccountRequest(CustomerDTO customerDTO)
         {
@@ -53,20 +53,20 @@ namespace CustomerAccount.BL
         }
         public Task<bool> CustumerAccountExists(Guid accountId)
         {
-            return _customerAccountDAL.CustumerAccountExists(accountId);
+            return _Storage.CustumerAccountExists(accountId);
         }
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
-            AccountData accountData = await _customerAccountDAL.GetAccountData(accountId);
+            AccountData accountData = await _Storage.GetAccountData(accountId);
             return _mapper.Map<AccountData, CustomerAccountInfoDTO>(accountData);
         }
-        public async Task<BalancesDTO> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
+        public async Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount)
         {
-            return _mapper.Map<BalancesDTO>(await _customerAccountDAL.MakeBankTransfer(fromAccountId, toAccountId, amount));
+             await _Storage.MakeBankTransferAndSaveOperationsToDB(transactionId,fromAccountId, toAccountId, amount);
         }
         public Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
         {
-            return _customerAccountDAL.SenderHasEnoughBalance(accountId, amount);
+            return _Storage.SenderHasEnoughBalance(accountId, amount);
         }
     }
 }

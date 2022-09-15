@@ -18,13 +18,13 @@ namespace Transaction.BL
 {
     public class TransactionBL : ITransactionBL
     {
-        private readonly ITransactionDAL _TransactionDAL;
+        private readonly IStorage _Storage;
         private readonly IMapper _mapper;
   
-        public TransactionBL(IMapper mapper, ITransactionDAL TransactionDAL)
+        public TransactionBL(IMapper mapper, IStorage Storage)
         {
             _mapper = mapper;
-            _TransactionDAL = TransactionDAL;
+            _Storage = Storage;
             
         }
         
@@ -36,7 +36,7 @@ namespace Transaction.BL
 
             try
             {
-                var transactionId = await _TransactionDAL.PostTransaction(transaction);
+                var transactionId = await _Storage.PostTransaction(transaction);
                 TransactionReqMade transactionReqMade = new TransactionReqMade()
                 {
                     TransactionId = transactionId,
@@ -56,7 +56,7 @@ namespace Transaction.BL
         }
         public async Task ChangeTransactionStatus(UpadateTransactionStatusDTO upadateTransactionStatusDTO)
         {
-            _TransactionDAL.ChangeTransactionStatus(upadateTransactionStatusDTO);
+            _Storage.ChangeTransactionStatus(upadateTransactionStatusDTO);
         }
 
     }

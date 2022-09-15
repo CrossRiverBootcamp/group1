@@ -11,7 +11,7 @@ namespace Transaction.BL
         public static void AddDIServices(this IServiceCollection services)
         {
             services.AddScoped<ITransactionBL, TransactionBL>();
-            services.AddScoped<ITransactionDAL, TransactionDAL>();
+            services.AddScoped<IStorage, Storage>();
 
         }
         public static void AddDBContextService(this IServiceCollection services, string connection)

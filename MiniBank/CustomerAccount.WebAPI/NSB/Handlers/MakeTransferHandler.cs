@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CustomerAccount.BL.Interfaces;
+﻿using CustomerAccount.BL.Interfaces;
 using CustomerAccount.Messeges;
 using ExtendedExceptions;
 using NServiceBus;
@@ -12,12 +11,10 @@ public class MakeTransferHandler :
     IHandleMessages<MakeTransfer>
 {
     private readonly IAccountBL _accountBL;
-    private readonly IOperationBL _operationBL;
 
-    public MakeTransferHandler(IAccountBL accountBL, IOperationBL operationBL)
+    public MakeTransferHandler(IAccountBL accountBL)
     {
         _accountBL = accountBL;
-        _operationBL = operationBL;
     }
     static ILog log = LogManager.GetLogger<MakeTransferHandler>();
   
@@ -53,8 +50,7 @@ public class MakeTransferHandler :
                     else
                     {
                         //Update receiver/sender balances (run in DB transaction) 
-                        var balances=await _accountBL.MakeBankTransfer(message.FromAccountId, message.ToAccountId, message.Amount);
-                        await _operationBL.PostOperations(message,balances);
+                        await _accountBL.MakeBankTransferAndSaveOperationsToDB(message.FromAccountId, message.ToAccountId, message.Amount);
                         log.Info($"Transfer succeded, TransactionId = {message.TransactionId} ");
                         transactionDoneMsg.IsDone = true;
                     }

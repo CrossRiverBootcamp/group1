@@ -8,6 +8,5 @@ namespace CustomerAccount.BL.Interfaces
     {
         Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountIdion, int PageNumber, int PageSize);
         Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId);
-        Task PostOperations(MakeTransfer makeTransferMsg, BalancesDTO balances);
     }
 }

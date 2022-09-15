@@ -12,10 +12,10 @@ using Transaction.DTO;
 
 namespace Transaction.DAL
 {
-    public class TransactionDAL : ITransactionDAL
+    public class Storage : IStorage
     {
         private readonly IDbContextFactory<TransactionDBContext> _factory;
-        public TransactionDAL(IDbContextFactory<TransactionDBContext> factory)
+        public Storage(IDbContextFactory<TransactionDBContext> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }

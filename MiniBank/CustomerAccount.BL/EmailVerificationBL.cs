@@ -24,11 +24,11 @@ namespace CustomerAccount.BL
         private static readonly string _FromPassword = "dfgoasfhwgytqefi";
         //private static readonly int _VerificationCodeValidity = 360;
 
-        private readonly ICustomerAccountDAL _customerAccountDAL;
+        private readonly IStorage _Storage;
 
-        public EmailVerificationBL(ICustomerAccountDAL customerAccountDAL)
+        public EmailVerificationBL(IStorage Storage)
         {
-            _customerAccountDAL = customerAccountDAL;
+            _Storage = Storage;
         }
 
         private async Task<string> CreateEmailVerification(string email, int codeNum)
@@ -46,7 +46,7 @@ namespace CustomerAccount.BL
                 CodeNum = codeNum
             };
 
-            await _customerAccountDAL.CreateEmailVerification(emailVerificationModel);
+            await _Storage.CreateEmailVerification(emailVerificationModel);
             return verificationCode;
         }
         private async Task<string[]> CreateVerificationEmailBodey(string verificationCode)
@@ -106,17 +106,17 @@ namespace CustomerAccount.BL
         }
         public Task<bool> ValidateCodeAndTime(CustomerDTO customerDTO)
         {
-            return _customerAccountDAL.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);
+            return _Storage.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);
         }
         public async Task UpdateAndLimitNumberOfAttempts(string email)
         {
-            int numOfAttempts = await _customerAccountDAL.UpdateAndGetNumOfAttempts(email);
+            int numOfAttempts = await _Storage.UpdateAndGetNumOfAttempts(email);
             if (numOfAttempts == NumOfAttemptsAllowed)
                 throw new TooManyRetriesException();
         }
         public async Task<int> UpdateLimitAndReturnNumberOfResends(string email)
         {
-            int CodeNum = await _customerAccountDAL.UpdateAndGetNumOfResends(email);
+            int CodeNum = await _Storage.UpdateAndGetNumOfResends(email);
             if (CodeNum == NumOfVerficationCodesAllowed)
                 throw new TooManyRetriesException();
 

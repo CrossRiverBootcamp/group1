@@ -8,7 +8,7 @@ namespace CustomerAccount.BL.Interfaces
         Task<bool> CustumerAccountExists(Guid accountId);
         Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId);
         Task<bool> HandleCreateAccountRequest(CustomerDTO customerDTO);
-        Task<BalancesDTO> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount);
+        Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount);
         Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
     }
 }
