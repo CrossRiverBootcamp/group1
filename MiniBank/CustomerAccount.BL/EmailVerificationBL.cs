@@ -24,16 +24,13 @@ namespace CustomerAccount.BL
         private readonly IStorage _storage;
 
         //add options
-        private readonly MiniBankEmailAddressDetailsOptions _fromDetailsOptions;
-        private readonly VerficationCodelimitationsOptions _limitationOptions;
+        private readonly EmailVerificationsOptions _options;
 
         public EmailVerificationBL(IStorage storage, 
-            IOptions<MiniBankEmailAddressDetailsOptions> fromDetailsOptions,
-            IOptions<VerficationCodelimitationsOptions> limitationOptions)
+            IOptions<EmailVerificationsOptions> options)
         {
             _storage = storage;
-            _fromDetailsOptions = fromDetailsOptions.Value;
-            _limitationOptions = limitationOptions.Value;
+            _options = options.Value;
         }
 
         private async Task<string> CreateEmailVerification(string email, int codeNum)
@@ -93,7 +90,7 @@ namespace CustomerAccount.BL
         {
             using (MailMessage mail = new MailMessage())
             {
-                mail.From = new MailAddress(_fromDetailsOptions.Email);
+                mail.From = new MailAddress(_options.Email);
                 mail.To.Add(email);
                 mail.Subject = subject;
                 mail.Body = body;
@@ -102,7 +99,7 @@ namespace CustomerAccount.BL
 
                 using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
-                    smtp.Credentials = new NetworkCredential(_fromDetailsOptions.Email, _fromDetailsOptions.Password);
+                    smtp.Credentials = new NetworkCredential(_options.Email, _options.Password);
                     smtp.UseDefaultCredentials = false;
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
@@ -116,20 +113,20 @@ namespace CustomerAccount.BL
         public async Task UpdateAndLimitNumberOfAttempts(string email)
         {
             int numOfAttempts = await _storage.UpdateAndGetNumOfAttempts(email);
-            if (numOfAttempts == _limitationOptions.NumOfAttemptsAllowed)
+            if (numOfAttempts == _options.NumOfAttemptsAllowed)
                 throw new TooManyRetriesException();
         }
         public async Task<int> UpdateLimitAndReturnNumberOfResends(string email)
         {
             int CodeNum = await _storage.UpdateAndGetNumOfResends(email);
-            if (CodeNum == _limitationOptions.NumOfVerficationCodesAllowed)
+            if (CodeNum == _options.NumOfVerficationCodesAllowed)
                 throw new TooManyRetriesException();
 
             return CodeNum;
         }
-        public Task<bool> DeleteExpiredRows()
+        public async Task DeleteExpiredRows()
         {
-            return _Storage.DeleteExpiredRows();
+            _storage.DeleteExpiredRows();
         }
     }
 }

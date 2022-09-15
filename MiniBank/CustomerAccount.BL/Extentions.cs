@@ -29,7 +29,7 @@ namespace CustomerAccount.BL
 
         //public static void AddOptionServices(this IServiceCollection services, JsonArray   )
         //{
-        //    services.Configure<MiniBankEmailAddressDetailsOptions>();
+        //    services.Configure<EmailVerificationsOptions>();
         //}
     }
 }

@@ -41,9 +41,8 @@ builder.Services.AddDBContextService(builder.Configuration.GetConnectionString("
 builder.Services.AddDIServices();
 
 //add options
-builder.Services.Configure<MiniBankEmailAddressDetailsOptions>(builder.Configuration.GetSection(
-        nameof(MiniBankEmailAddressDetailsOptions)));
-
+builder.Services.Configure<EmailVerificationsOptions>(builder.Configuration.GetSection(
+        nameof(EmailVerificationsOptions)));
 
 var app = builder.Build();
 
