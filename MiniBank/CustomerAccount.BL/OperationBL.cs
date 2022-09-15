@@ -15,14 +15,12 @@ namespace CustomerAccount.BL
     public class OperationBL : IOperationBL
     {
         private readonly IMapper _mapper;
-        private readonly IStorage _Storage;
-        private readonly IStorage _Storage;
+        private readonly IStorage _storage;
 
-        public OperationBL(IMapper mapper, IStorage Storage, IStorage Storage)
+        public OperationBL(IMapper mapper, IStorage storage)
         {
             _mapper = mapper;
-            _Storage = Storage;
-            _Storage = Storage;
+            _storage = storage;
         }
         public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
         {
