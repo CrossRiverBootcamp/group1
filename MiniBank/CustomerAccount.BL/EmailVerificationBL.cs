@@ -23,7 +23,7 @@ namespace CustomerAccount.BL
         //DI
         private readonly IStorage _storage;
 
-        //options
+        //add options
         private readonly MiniBankEmailAddressDetailsOptions _fromDetailsOptions;
         private readonly VerficationCodelimitationsOptions _limitationOptions;
 
