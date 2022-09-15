@@ -22,7 +22,7 @@ public class AccountController : ControllerBase
     {
         return Ok(await accountBL.GetAccountInfo(accountId));
     }
-    [HttpGet("{email}")]
+    [HttpGet("{email}/Exists")]
     public async Task<ActionResult<bool>> Get(string email)
     {
         return Ok(await accountBL.CustomerExists(email));
@@ -30,8 +30,9 @@ public class AccountController : ControllerBase
 
     // POST api/<AccountController>
     [HttpPost]
-    public async Task<ActionResult<bool>> Post([FromBody] CustomerDTO customerDTO)
+    public async Task<bool> Post([FromBody] CustomerDTO customerDTO)
     {
-        return Ok(await accountBL.HandleCreateAccountRequest(customerDTO));
-}
+        return await accountBL.HandleCreateAccountRequest(customerDTO);
+        throw new Exception("888");
+    }
 }
