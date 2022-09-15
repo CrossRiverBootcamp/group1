@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CustomerAccount } from 'src/app/models/customer-account.model';
@@ -12,8 +12,11 @@ export class EmailVerificationService {
 
   constructor(private _http: HttpClient) { }
 
-  createEmailVerification(email:string){
-    return this._http.post("api/EmailVerification",email);
+  createEmailVerification(email:string):Observable<void>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+  });
+    return this._http.post<void>("api/EmailVerification",JSON.stringify(email), {headers: headers});
   }
 
   resendEmailVerificationCode(email:string){

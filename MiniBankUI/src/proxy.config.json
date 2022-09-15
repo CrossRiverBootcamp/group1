@@ -14,5 +14,9 @@
     "/api/Operation": {
       "target": "http://localhost:17556",
       "secure": false
+    },
+    "/api/EmailVerification": {
+      "target": "http://localhost:17556",
+      "secure": false
     }
 }

@@ -67,7 +67,7 @@ export class OpenAccountComponent implements OnInit {
   OpenNewAccount(){
   this.loading = true;
   let customer=this.accountDetailsForm.value as Customer;
-  customer.verificationCode=this.verificationForm.value as string;
+  customer.verificationCode=this.verificationForm.get('verificationCode')?.value;
     this.accountService.createCustomerAccount(customer)
       .subscribe(
         (isAdded: boolean) => {
