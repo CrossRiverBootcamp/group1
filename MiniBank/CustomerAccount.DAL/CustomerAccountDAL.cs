@@ -31,13 +31,27 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task CreatesEmailVerification(EmailVerificationModel emailVerificationModel)
+        public async Task CreateEmailVerification(EmailVerificationModel emailVerificationModel)
         {
             using var context = _factory.CreateDbContext();
 
             try
             {
-                await context.EmailVerifications.AddAsync(_mapper.Map<EmailVerificationModel, EmailVerification>(emailVerificationModel));
+                //check if email in use
+                bool isEmailInUse = await context.Customers.AnyAsync(sub => sub.Email.Equals(emailVerificationModel.Email));
+                if (isEmailInUse)
+                    throw new EmailInUseException();
+
+                //if email was in verification use updates, otherwize inserts
+                //doesn't take care of a doube use request
+                EmailVerification newEmailVerification = _mapper.Map<EmailVerificationModel, EmailVerification>(emailVerificationModel);
+                EmailVerification oldEmailVerification = await context.EmailVerifications.FindAsync(emailVerificationModel.Email);
+
+                if (oldEmailVerification == null)
+                    await context.EmailVerifications.AddAsync(newEmailVerification);
+                else
+                    context.Entry(oldEmailVerification).CurrentValues.SetValues(newEmailVerification);
+
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -50,6 +64,10 @@ namespace CustomerAccount.DAL
             using var context = _factory.CreateDbContext();
             try
             {
+                //check if email in use
+                if (await context.Customers.AnyAsync(sub => sub.Email.Equals(email)))
+                    throw new EmailInUseException();
+
                 EmailVerification ev = await context.EmailVerifications.FindAsync(email);
                 if (ev.ExpirationTime < DateTime.UtcNow)
                     throw new VerificationCodeExpiredException();
@@ -61,27 +79,30 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<int> GetNumOfAttempts(string email)
+        public async Task<int> UpdateAndGetNumOfAttempts(string email)
         {
             using var context = _factory.CreateDbContext();
 
             try
             {
-                return (await context.EmailVerifications.FindAsync(email)).NumOfAttemps;
+                int numOfAttempts = (await context.EmailVerifications.FindAsync(email)).NumOfAttemps++;
+                await context.SaveChangesAsync();
+                return numOfAttempts;
             }
             catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task UpdateNumOfAttempts(string email)
+        public async Task<int> UpdateAndGetNumOfResends(string email)
         {
             using var context = _factory.CreateDbContext();
 
             try
             {
-                (await context.EmailVerifications.FindAsync(email)).NumOfAttemps++;
+                int CodeNum = (await context.EmailVerifications.FindAsync(email)).CodeNum++;
                 await context.SaveChangesAsync();
+                return CodeNum;
             }
             catch (Exception ex)
             {
@@ -94,7 +115,6 @@ namespace CustomerAccount.DAL
 
             try
             {
-                //ככה?
                 Customer customer = _mapper.Map<CustomerModel, Customer>(customerModel);
                 accountData.Customer = customer;
 

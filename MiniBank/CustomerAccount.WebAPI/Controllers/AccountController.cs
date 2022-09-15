@@ -21,6 +21,11 @@ public class AccountController : ControllerBase
     {
         return Ok(await accountBL.GetAccountInfo(accountId));
     }
+    [HttpGet("{email}")]
+    public async Task<ActionResult<bool>> Get(string email)
+    {
+        return Ok(await accountBL.CustomerExists(email));
+    }
 
     // POST api/<AccountController>
     [HttpPost]

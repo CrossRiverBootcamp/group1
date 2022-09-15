@@ -15,14 +15,18 @@ namespace CustomerAccount.WebAPI.Controllers
 
         //POST api/<EmailVerificationController>
         [HttpPost]
-        public void Post([FromBody] string email)
+        public async Task<bool> Post([FromBody] string email, bool isResendRequest)
         {
-            _emailVerificationBL.HandleEmailVerificationRequest(email);
-        }
-        [HttpPost]
-        public void PostResendEmailVerification([FromBody] string email)
-        {
-            _emailVerificationBL.HandleEmailVerificationRequest(email);
+            //catch here exception???????
+            try
+            {
+                await _emailVerificationBL.HandleEmailVerificationRequest(email, isResendRequest);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
