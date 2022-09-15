@@ -12,7 +12,7 @@ namespace CustomerAccount.DAL.Entities
     {
         [Key]
         [EmailAddress]
-        //[MaxLength(25)]
+        [MaxLength(25)]
         public string Email { get; set; }
         [Required]
         [StringLength(6)]

@@ -1,3 +1,4 @@
+
 ﻿using Microsoft.AspNetCore.Mvc;
 using CustomerAccount.DTO;
 using CustomerAccount.BL.Interfaces;
@@ -21,21 +22,16 @@ public class AccountController : ControllerBase
     {
         return Ok(await accountBL.GetAccountInfo(accountId));
     }
+    [HttpGet("{email}")]
+    public async Task<ActionResult<bool>> Get(string email)
+    {
+        return Ok(await accountBL.CustomerExists(email));
+    }
 
     // POST api/<AccountController>
     [HttpPost]
     public async Task<ActionResult<bool>> Post([FromBody] CustomerDTO customerDTO)
     {
         return Ok(await accountBL.HandleCreateAccountRequest(customerDTO));
-    }
-
-
-    //moved to operation BL
-
-    //// GET api/<AccountController>/5
-    //[HttpGet("{transactionPartnerAccountId}")]
-    //public async Task<ActionResult<TransactionPartnerDetailsDTO>> GetTransactionPartner(Guid transactionPartnerAccountId)
-    //{
-    //    return Ok(await accountBL.GetTransactionPartnerAccountInfo(transactionPartnerAccountId));
-    //}
+}
 }

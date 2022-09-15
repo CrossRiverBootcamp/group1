@@ -11,39 +11,17 @@ namespace CustomerAccount.BL
 {
     public class AccountBL : IAccountBL
     {
-        private static int NumOfAttemptsAllowed = 3;
-        private static int NumOfVerficationCodesAllowed = 2;
-
         private readonly IMapper _mapper;
-        private readonly ICustomerAccountDAL _CustomerAccountDAL;
+        private readonly IEmailVerificationBL _emailVerificationBL;
+        private readonly ICustomerAccountDAL _customerAccountDAL;
 
-        public AccountBL(IMapper mapper, ICustomerAccountDAL CustomerAccountDAL)
+        public AccountBL(IMapper mapper, IEmailVerificationBL emailVerificationBL, ICustomerAccountDAL CustomerAccountDAL)
         {
             _mapper = mapper;
-            _CustomerAccountDAL = CustomerAccountDAL;
+            _emailVerificationBL = emailVerificationBL;
+            _customerAccountDAL = CustomerAccountDAL;
         }
-        public async Task<bool> HandleCreateAccountRequest(CustomerDTO customerDTO)
-        {
-            //check if email is in use
-            bool isExists = await _CustomerAccountDAL.CustomerExists(customerDTO.Email);
-            if (isExists)
-                throw new EmailInUseException();
-
-            //verify code 
-            bool isAuthorized = await _CustomerAccountDAL.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);
-
-            //if not authorized: update number of attempts, throw error
-            if (!isAuthorized)
-            {
-                await UpdateAndLimitNumberOfAttempts(customerDTO.Email);
-                throw new UnauthorizedAccessException();
-            }
-
-            //if authorized: create customer account
-            return await CreateCustomerAccount(customerDTO);
-        }
-
-        public async Task<bool> CreateCustomerAccount(CustomerDTO customerDTO)
+        private async Task<bool> CreateCustomerAccount(CustomerDTO customerDTO)
         {
             CustomerModel customerModel = _mapper.Map<CustomerDTO, CustomerModel>(customerDTO);
             AccountData accountData = new AccountData()
@@ -52,43 +30,43 @@ namespace CustomerAccount.BL
                 Balance = 100000
             };
 
-            return await _CustomerAccountDAL.CreateCustomerAccount(customerModel, accountData);
+            return await _customerAccountDAL.CreateCustomerAccount(customerModel, accountData);
         }
-
-        //פה או emailverification controller???
-        public async Task UpdateAndLimitNumberOfAttempts(string email)
+        public async Task<bool> CustomerExists(string email)
         {
-            int numOtAttempts = (await _CustomerAccountDAL.GetNumOfAttempts(email)) + 1;
-            if (numOtAttempts == NumOfAttemptsAllowed)
-                throw new TooManyRetriesException();
-
-            await _CustomerAccountDAL.UpdateNumOfAttempts(email);
+            return await _customerAccountDAL.CustomerExists(email);
         }
+        public async Task<bool> HandleCreateAccountRequest(CustomerDTO customerDTO)
+        {
+            //verify code 
+            bool isAuthorized = await _emailVerificationBL.ValidateCodeAndTime(customerDTO);
 
+            //if not authorized: update number of attempts, throw error
+            if (!isAuthorized)
+            {
+                await _emailVerificationBL.UpdateAndLimitNumberOfAttempts(customerDTO.Email);
+                throw new UnauthorizedAccessException();
+            }
+
+            //if authorized: create customer account
+            return await CreateCustomerAccount(customerDTO);
+        }
         public Task<bool> CustumerAccountExists(Guid accountId)
         {
-            return _CustomerAccountDAL.CustumerAccountExists(accountId);
+            return _customerAccountDAL.CustumerAccountExists(accountId);
         }
-
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
-            AccountData accountData = await _CustomerAccountDAL.GetAccountData(accountId);
+            AccountData accountData = await _customerAccountDAL.GetAccountData(accountId);
             return _mapper.Map<AccountData, CustomerAccountInfoDTO>(accountData);
         }
-        //moved to operation BL
-
-        //public async Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId)
-        //{
-        //    return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _CustomerAccountDAL.GetAccountData(transactionPartnerAccountId));
-        //}
         public async Task<BalancesDTO> MakeBankTransfer(Guid fromAccountId, Guid toAccountId, int amount)
         {
-            return _mapper.Map<BalancesDTO>(await _CustomerAccountDAL.MakeBankTransfer(fromAccountId, toAccountId, amount));
+            return _mapper.Map<BalancesDTO>(await _customerAccountDAL.MakeBankTransfer(fromAccountId, toAccountId, amount));
         }
-
         public Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
         {
-            return _CustomerAccountDAL.SenderHasEnoughBalance(accountId, amount);
+            return _customerAccountDAL.SenderHasEnoughBalance(accountId, amount);
         }
     }
 }
