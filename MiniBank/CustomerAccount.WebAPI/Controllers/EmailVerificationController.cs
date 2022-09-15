@@ -19,7 +19,7 @@ namespace CustomerAccount.WebAPI.Controllers
         {
             _emailVerificationBL.HandleEmailVerificationRequest(email);
         }
-        [HttpPost]
+        [HttpPost("ResendEmail")]
         public void PostResendEmailVerification([FromBody] string email)
         {
             _emailVerificationBL.HandleEmailVerificationRequest(email);
