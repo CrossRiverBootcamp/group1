@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Messeges", "Tra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAccount.Messeges", "CustomerAccount.Messeges\CustomerAccount.Messeges.csproj", "{8BBBBA51-CBE1-43C4-91EC-8985AFA7EA32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler.NSB", "Scheduler.NSB\Scheduler.NSB.csproj", "{CAD70434-EB90-4D16-88C6-D37B1AA70718}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{8BBBBA51-CBE1-43C4-91EC-8985AFA7EA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BBBBA51-CBE1-43C4-91EC-8985AFA7EA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BBBBA51-CBE1-43C4-91EC-8985AFA7EA32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD70434-EB90-4D16-88C6-D37B1AA70718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD70434-EB90-4D16-88C6-D37B1AA70718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD70434-EB90-4D16-88C6-D37B1AA70718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD70434-EB90-4D16-88C6-D37B1AA70718}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{9D38B054-D217-4751-AC52-F058C504B738} = {F7F713EF-A8F7-47D7-BA45-0516A035D117}
 		{EBAFA5D4-9AA3-4CD8-82D4-BD21D22C30FA} = {F7F713EF-A8F7-47D7-BA45-0516A035D117}
 		{8BBBBA51-CBE1-43C4-91EC-8985AFA7EA32} = {9AD5D93B-45FD-4023-AAF9-9246BBE6FFB6}
+		{CAD70434-EB90-4D16-88C6-D37B1AA70718} = {9AD5D93B-45FD-4023-AAF9-9246BBE6FFB6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E0B8F62-58D2-4BF1-A95E-CA0F39CFD7C0}
