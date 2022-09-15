@@ -18,9 +18,6 @@ namespace CustomerAccount.DAL
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _mapper = mapper;
         }
-        #region customer
-
-        #endregion
 
         public async Task<bool> CustomerExists(string email)
         {
@@ -72,6 +69,7 @@ namespace CustomerAccount.DAL
                     throw new EmailInUseException();
 
                 EmailVerification ev = await context.EmailVerifications.FindAsync(email);
+
                 if (ev.ExpirationTime < DateTime.UtcNow)
                     throw new VerificationCodeExpiredException();
 
@@ -188,8 +186,7 @@ namespace CustomerAccount.DAL
             {
                 throw new DBContextException(ex.Message);
             }
-        } 
-    
+        }  
         public async Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount)
         {
             using var context = _factory.CreateDbContext();
@@ -203,6 +200,7 @@ namespace CustomerAccount.DAL
 
                 var toAccount = await context.AccountDatas.FindAsync(toAccountId);
                 toAccount.Balance += amount;
+
                 OperationData creditOperation = new OperationData()
                 {
                     AccountId = fromAccountId,

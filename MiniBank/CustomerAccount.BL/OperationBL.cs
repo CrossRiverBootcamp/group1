@@ -16,18 +16,15 @@ namespace CustomerAccount.BL
     {
         private readonly IMapper _mapper;
         private readonly IStorage _Storage;
-        private readonly IStorage _Storage;
 
-        public OperationBL(IMapper mapper, IStorage Storage, IStorage Storage)
+        public OperationBL(IMapper mapper, IStorage Storage)
         {
             _mapper = mapper;
-            _Storage = Storage;
             _Storage = Storage;
         }
         public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
         {
             return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _Storage.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
-
         }
 
         public async Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId)

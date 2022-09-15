@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using CustomerAccount.WebAPI.Middlewares;
 using NServiceBus;
 using Microsoft.Data.SqlClient;
+using CustomerAccount.WebAPI.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseNServiceBus(context =>
@@ -29,11 +30,8 @@ builder.Host.UseNServiceBus(context =>
     return endpointConfiguration;
 });
 
-
 // Add services to the container.
-
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -41,6 +39,11 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //call extention methods
 builder.Services.AddDBContextService(builder.Configuration.GetConnectionString("myconn"));
 builder.Services.AddDIServices();
+
+//add options
+builder.Services.Configure<MiniBankEmailAddressDetailsOptions>(builder.Configuration.GetSection(
+        nameof(MiniBankEmailAddressDetailsOptions)));
+
 
 var app = builder.Build();
 
