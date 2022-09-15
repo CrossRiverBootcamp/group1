@@ -26,6 +26,8 @@ builder.Host.UseNServiceBus(context =>
     transport.ConnectionString(builder.Configuration.GetConnectionString("rabbitMQconn"));
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
 
+    
+
     return endpointConfiguration;
 });
 

@@ -4,6 +4,7 @@ using CustomerAccount.DAL.Entities;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
+using ExtendedExceptions;
 
 
 namespace CustomerAccount.BL
