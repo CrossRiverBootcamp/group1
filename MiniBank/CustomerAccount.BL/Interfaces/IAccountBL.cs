@@ -10,5 +10,6 @@ namespace CustomerAccount.BL.Interfaces
         Task<bool> HandleCreateAccountRequest(CustomerDTO customerDTO);
         Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount);
         Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
+        Task DeleteExpiredRows();
     }
 }
