@@ -10,7 +10,7 @@ import { Customer } from 'src/app/models/customer.model';
 
 export class CustomerAccountService {
   customerExists(email:string) {
-    return this._http.get<boolean>(`api/Account/${email}`);
+    return this._http.get<boolean>(`api/Account/${email}/Exists`);
   }
 
   constructor(private _http: HttpClient) { }

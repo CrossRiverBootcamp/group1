@@ -62,7 +62,7 @@ export class OpenAccountComponent implements OnInit {
     }
     this.accountDetailsFormSubmitted=true;
     this.accountDetailsForm.disable();
-    this.emailVerificationService.createEmailVerification(this.f['email'].value)
+    this.emailVerificationService.sendEmailVerification(this.f['email'].value,false)
       .subscribe(()=>{},
       (error)=>{
 
@@ -71,16 +71,17 @@ export class OpenAccountComponent implements OnInit {
   }
 
   checkIfEmailExists(){
+    this.emailExists=false;
+    if(this.f['email'].invalid)
+      {
+        return;
+      }
     this.accountService.customerExists(this.accountDetailsForm.get('email')?.value)
     .subscribe((res:boolean)=>{
       if(res)
         {
           this.emailExists=true;
           //this.f['email'].reset();
-        }
-        else
-        {
-          this.emailExists=false;
         }
     })
   }
@@ -94,6 +95,7 @@ export class OpenAccountComponent implements OnInit {
         (isAdded: boolean) => {
           if(!isAdded)
             alert('handle all possible options')
+            this.router.navigateByUrl('account/login');
              //this.accountDetailsForm.reset
           this.loading = false;
           //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
@@ -114,7 +116,7 @@ export class OpenAccountComponent implements OnInit {
   }
 
   resendVerificationCode(){
-    this.emailVerificationService.resendEmailVerificationCode(this.f['email'].value)
+    this.emailVerificationService.sendEmailVerification(this.f['email'].value,true)
     .subscribe(()=>{},
     (error)=>{
 

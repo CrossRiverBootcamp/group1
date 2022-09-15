@@ -12,14 +12,11 @@ export class EmailVerificationService {
 
   constructor(private _http: HttpClient) { }
 
-  createEmailVerification(email:string):Observable<void>{
+  sendEmailVerification(email:string,isResendRequest:boolean):Observable<void>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
   });
-    return this._http.post<void>("api/EmailVerification",JSON.stringify(email), {headers: headers});
+    return this._http.post<void>(`api/EmailVerification?isResendRequest=${isResendRequest}`,JSON.stringify(email), {headers: headers});
   }
 
-  resendEmailVerificationCode(email:string){
-    return this._http.put("api/EmailVerification",email);
-  }
 }
