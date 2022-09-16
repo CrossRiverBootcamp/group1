@@ -38,15 +38,15 @@ namespace CustomerAccount.BL
         }
         public async Task<bool> HandleCreateAccountRequest(CustomerDTO customerDTO)
         {
+            //update number of attempts
+            await _emailVerificationBL.UpdateAndLimitNumberOfAttempts(customerDTO.Email);
+
             //verify code 
             bool isAuthorized = await _emailVerificationBL.ValidateCodeAndTime(customerDTO);
 
-            //if not authorized: update number of attempts, throw error
+            //if not authorized: throw error
             if (!isAuthorized)
-            {
-                await _emailVerificationBL.UpdateAndLimitNumberOfAttempts(customerDTO.Email);
                 throw new UnauthorizedAccessException();
-            }
 
             //if authorized: create customer account
             return await CreateCustomerAccount(customerDTO);
