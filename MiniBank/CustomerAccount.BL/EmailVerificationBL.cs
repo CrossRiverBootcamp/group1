@@ -3,7 +3,9 @@ using CustomerAccount.DAL.Entities;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
+using CustomerAccount.WebAPI.Options;
 using ExtendedExceptions;
+using Microsoft.Extensions.Options;
 using NServiceBus.Features;
 using System;
 using System.Collections.Generic;
@@ -17,18 +19,17 @@ namespace CustomerAccount.BL
 {
     public class EmailVerificationBL : IEmailVerificationBL
     {
-        //move to options
-        private static int NumOfAttemptsAllowed = 3;
-        private static int NumOfVerficationCodesAllowed = 2;
-        private static readonly string _FromEmail = "crssrvrminibank@gmail.com";
-        private static readonly string _FromPassword = "dfgoasfhwgytqefi";
-        //private static readonly int _VerificationCodeValidity = 360;
+        //DI
+        private readonly IStorage _storage;
 
-        private readonly IStorage _Storage;
+        //add options
+        private readonly EmailVerificationsOptions _options;
 
-        public EmailVerificationBL(IStorage Storage)
+        public EmailVerificationBL(IStorage storage, 
+            IOptions<EmailVerificationsOptions> options)
         {
-            _Storage = Storage;
+            _storage = storage;
+            _options = options.Value;
         }
 
         private async Task<string> CreateEmailVerification(string email, int codeNum)
@@ -46,7 +47,7 @@ namespace CustomerAccount.BL
                 CodeNum = codeNum
             };
 
-            await _Storage.CreateEmailVerification(emailVerificationModel);
+            await _storage.CreateEmailVerification(emailVerificationModel);
             return verificationCode;
         }
         private async Task<string[]> CreateVerificationEmailBodey(string verificationCode)
@@ -56,7 +57,7 @@ namespace CustomerAccount.BL
 
             string subject = "Email Verification | Mini-Bank CR";
             string body = "Your verfication code is: " + verificationCode +
-                "The code is valid for 5 minutes <br> If this wasn't you- note someone is trying to use your email";
+                "<br> The code is valid for 5 minutes <br> If this wasn't you- note someone is trying to use your email";
 
             string[] content = new string[2];
             content[0] = subject;
@@ -88,7 +89,7 @@ namespace CustomerAccount.BL
         {
             using (MailMessage mail = new MailMessage())
             {
-                mail.From = new MailAddress(_FromEmail);
+                mail.From = new MailAddress(_options.Email);
                 mail.To.Add(email);
                 mail.Subject = subject;
                 mail.Body = body;
@@ -97,7 +98,7 @@ namespace CustomerAccount.BL
 
                 using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
-                    smtp.Credentials = new NetworkCredential(_FromEmail, _FromPassword);
+                    smtp.Credentials = new NetworkCredential(_options.Email, _options.Password);
                     smtp.UseDefaultCredentials = false;
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
@@ -106,25 +107,26 @@ namespace CustomerAccount.BL
         }
         public Task<bool> ValidateCodeAndTime(CustomerDTO customerDTO)
         {
-            return _Storage.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);
+            return _storage.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);
         }
         public async Task UpdateAndLimitNumberOfAttempts(string email)
         {
-            int numOfAttempts = await _Storage.UpdateAndGetNumOfAttempts(email);
-            if (numOfAttempts == NumOfAttemptsAllowed)
+            int numOfAttempts = await _storage.UpdateAndGetNumOfAttempts(email);
+            if (numOfAttempts == _options.NumOfAttemptsAllowed)
                 throw new TooManyRetriesException();
         }
         public async Task<int> UpdateLimitAndReturnNumberOfResends(string email)
         {
-            int CodeNum = await _Storage.UpdateAndGetNumOfResends(email);
-            if (CodeNum == NumOfVerficationCodesAllowed)
+            int CodeNum = await _storage.UpdateAndGetNumOfResends(email);
+            if (CodeNum == _options.NumOfVerficationCodesAllowed)
                 throw new TooManyRetriesException();
 
             return CodeNum;
         }
+        public async Task DeleteExpiredRows()
         public Task DeleteExpiredRows()
         {
-            return _Storage.DeleteExpiredRows();
+            _storage.DeleteExpiredRows();
         }
     }
 }

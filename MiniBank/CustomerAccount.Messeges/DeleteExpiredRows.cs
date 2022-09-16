@@ -9,7 +9,6 @@ namespace CustomerAccount.Messeges
 {
     public class DeleteExpiredRows : ICommand
     {
-
         public DateTime Date { get; set; }
     }
 }

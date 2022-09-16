@@ -4,6 +4,8 @@ using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL;
 using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Interfaces;
+using CustomerAccount.WebAPI.Options;
+using System.Text.Json.Nodes;
 
 namespace CustomerAccount.BL
 {
@@ -24,11 +26,10 @@ namespace CustomerAccount.BL
             services.AddDbContextFactory<CustomerAccountDBContext>(item =>
                 item.UseSqlServer(connection));
         }
-         
-        //public static void AddDIServicesNSB(this IServiceCollection services)
+
+        //public static void AddOptionServices(this IServiceCollection services, JsonArray   )
         //{
-        //    services.AddScoped<IAccountBL, AccountBL>();
-        //    services.AddScoped<IStorage, Storage>();
+        //    services.Configure<EmailVerificationsOptions>();
         //}
     }
 }
