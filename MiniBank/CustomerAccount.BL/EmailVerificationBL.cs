@@ -65,6 +65,14 @@ namespace CustomerAccount.BL
 
             return content;
         }
+        private async Task<int> UpdateLimitAndReturnNumberOfResends(string email)
+        {
+            int CodeNum = await _storage.UpdateAndGetNumOfResends(email);
+            if (CodeNum > _options.NumOfVerficationCodesAllowed)
+                throw new TooManyRetriesException();
+
+            return CodeNum;
+        }
         public async Task HandleEmailVerificationRequest(string email, bool isResendRequest)
         {
             int codeNum;
@@ -112,16 +120,8 @@ namespace CustomerAccount.BL
         public async Task UpdateAndLimitNumberOfAttempts(string email)
         {
             int numOfAttempts = await _storage.UpdateAndGetNumOfAttempts(email);
-            if (numOfAttempts == _options.NumOfAttemptsAllowed)
+            if (numOfAttempts > _options.NumOfAttemptsAllowed)
                 throw new TooManyRetriesException();
-        }
-        public async Task<int> UpdateLimitAndReturnNumberOfResends(string email)
-        {
-            int CodeNum = await _storage.UpdateAndGetNumOfResends(email);
-            if (CodeNum == _options.NumOfVerficationCodesAllowed)
-                throw new TooManyRetriesException();
-
-            return CodeNum;
         }
         public async Task DeleteExpiredRows()
         {

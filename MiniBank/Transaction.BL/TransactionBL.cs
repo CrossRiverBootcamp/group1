@@ -24,8 +24,7 @@ namespace Transaction.BL
         public TransactionBL(IMapper mapper, IStorage Storage)
         {
             _mapper = mapper;
-            _Storage = Storage;
-            
+            _Storage = Storage;        
         }
         
         public async Task<bool> PostTransactionStartSaga(TransactionDTO transactionDTO, IMessageSession _messageSession)
