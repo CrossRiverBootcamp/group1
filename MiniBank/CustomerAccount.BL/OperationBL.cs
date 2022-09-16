@@ -24,12 +24,12 @@ namespace CustomerAccount.BL
         }
         public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
         {
-            return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _Storage.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
+            return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _storage.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
         }
 
         public async Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId)
         {
-            return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _Storage.GetAccountData(transactionPartnerAccountId));
+            return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _storage.GetAccountData(transactionPartnerAccountId));
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CustomerAccount.BL.Interfaces;
-using CustomerAccount.BL.Options;
 using CustomerAccount.DAL.Entities;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;

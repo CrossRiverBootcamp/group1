@@ -12,7 +12,7 @@ namespace Scheduler.NSB
             while (true)
             {
                 await endpointInstance.ScheduleEvery(
-                        timeSpan: TimeSpan.FromHours(24),
+                        timeSpan: TimeSpan.FromMinutes(1),
                         task: pipelineContext =>
                         {
                             return pipelineContext.Send(new DeleteExpiredRows()
