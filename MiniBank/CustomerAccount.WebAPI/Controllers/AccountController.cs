@@ -33,6 +33,5 @@ public class AccountController : ControllerBase
     public async Task<bool> Post([FromBody] CustomerDTO customerDTO)
     {
         return await accountBL.HandleCreateAccountRequest(customerDTO);
-        throw new Exception("888");
     }
 }

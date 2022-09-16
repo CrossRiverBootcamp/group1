@@ -122,7 +122,7 @@ namespace CustomerAccount.BL
 
             return CodeNum;
         }
-        public Task<bool> DeleteExpiredRows()
+        public Task DeleteExpiredRows()
         {
             return _Storage.DeleteExpiredRows();
         }

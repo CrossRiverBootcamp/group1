@@ -9,5 +9,7 @@ namespace CustomerAccount.BL.Interfaces
         Task UpdateAndLimitNumberOfAttempts(string email);
         Task<int> UpdateLimitAndReturnNumberOfResends(string email);
         Task<bool> ValidateCodeAndTime(CustomerDTO customerDTO);
+        Task DeleteExpiredRows();
+
     }
 }

@@ -13,4 +13,4 @@ namespace CustomerAccount.Messeges
         public DateTime Date { get; set; }
     }
 }
-}
+

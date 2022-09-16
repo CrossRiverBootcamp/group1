@@ -271,14 +271,10 @@ namespace CustomerAccount.DAL
 
                 }
             }
-
-
             catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);
             }
-
-
         }
     }
 }
