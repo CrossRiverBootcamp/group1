@@ -7,23 +7,21 @@ namespace Scheduler.NSB
 {
     public class Program
     {
-
         static async Task RunLoop(IEndpointInstance endpointInstance)
         {
             while (true)
             {
-                //after workins- change to 24 hours
+                //after working- change to 24 hours
                 await endpointInstance.ScheduleEvery(
-                        timeSpan: TimeSpan.FromSeconds(20),
-                        task: pipelineContext =>
-                        {
-                            return pipelineContext.Send(new DeleteExpiredRows()
-                            {
-                                Date = DateTime.UtcNow
-                            });
+                    timeSpan: TimeSpan.FromSeconds(5),
+                    task: pipelineContext =>
+                    {
+                        return pipelineContext.Send(new DeleteExpiredRows()
+                         {
+                            Date = DateTime.UtcNow
                         });
+                    });
             }
-
         }
         static async Task Main()
         {
@@ -35,7 +33,7 @@ namespace Scheduler.NSB
             transport.UseConventionalRoutingTopology(QueueType.Quorum);
             transport.ConnectionString("host=localhost");
             var routing = transport.Routing();
-            routing.RouteToEndpoint(typeof(DeleteExpiredRows), "CustomerAccount.WebAPI");
+            routing.RouteToEndpoint(typeof(DeleteExpiredRows), "CustomerAccount");
 
             var endpointInstance = await Endpoint.Start(endpointConfiguration);
             var defaultFactory = LogManager.Use<DefaultFactory>();

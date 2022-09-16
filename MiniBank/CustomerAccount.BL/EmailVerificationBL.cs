@@ -124,7 +124,6 @@ namespace CustomerAccount.BL
                 throw new TooManyRetriesException();
         }
         public async Task DeleteExpiredRows()
-        public Task DeleteExpiredRows()
         {
             _storage.DeleteExpiredRows();
         }
