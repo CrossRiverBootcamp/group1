@@ -15,7 +15,6 @@ namespace CustomerAccount.BL
         public AutoMapping() 
         {
             CreateMap<CustomerDTO, CustomerModel>();
-            //CreateMap<BalancesModel, BalancesDTO>();
 
             CreateMap<AccountData, CustomerAccountInfoDTO>()
                 .ForMember(dest => dest.FirstName, opts => opts

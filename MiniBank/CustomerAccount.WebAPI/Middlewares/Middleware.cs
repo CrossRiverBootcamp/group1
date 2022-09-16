@@ -31,6 +31,7 @@ public class Middleware
             var response = httpContext.Response;
             response.ContentType = "application/json";
             _logger.LogError(error, error.Message);
+
             switch (error)
             {
                 //case CreateUserException ex:
@@ -41,26 +42,27 @@ public class Middleware
                 //    break;
                 case DBContextException ex:
                     //Other DBContext Exceptions
-                    await response.WriteAsync("Ooops... \n DBContext issue:" + ex.Message);
+                    await response.WriteAsync("DBContext issue:" + ex.Message);
                     response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
                     break;
                 case ArgumentNullException ex:
-                    await response.WriteAsync("Ooops... \n the argument " + ex.Message + "is null!");
+                    await response.WriteAsync("the argument " + ex.Message + "is null!");
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
                 case UnauthorizedAccessException ex:
-                    await response.WriteAsync("Ooops... \n " + ex.Message);
+                    await response.WriteAsync("" + ex.Message);
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
                 case KeyNotFoundException ex:
-                    await response.WriteAsync("Ooops... \n key not found!");
+                    await response.WriteAsync("key not found!");
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
                 default:
                     // unhandled error
-                    await response.WriteAsync("Ooops... \n unknown problem:(");
+                    await response.WriteAsync("unknown problem:(");
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
+
             }
         }
     }
