@@ -31,17 +31,17 @@ namespace CustomerAccount.BL
 
          public async Task <string> Login(LoginDTO loginDTO)
          {
-            Guid id = await _Storage.Login(loginDTO.Email, loginDTO.Password);
-            string token = CreateToken(id);
+            Guid AccountId = await _Storage.Login(loginDTO.Email, loginDTO.Password);
+            string token = CreateToken(AccountId);
             return token;
          }
-        public string CreateToken(Guid id)
+        public string CreateToken(Guid AccountId)
         {
             var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("UserId",id.ToString()),
+                        new Claim("AccountId",AccountId.ToString()),
 
                     };
 
