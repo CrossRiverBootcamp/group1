@@ -3,11 +3,13 @@ using CustomerAccount.BL.Interfaces;
 using CustomerAccount.Messeges;
 using NServiceBus;
 using NServiceBus.Logging;
-namespace CustomerAccount.WebAPI.NSB.Handlers
-{
-   
-        public class DeleteExpiredRowsHandler :
-         IHandleMessages<DeleteExpiredRows>
+
+namespace CustomerAccount.WebAPI.NSB.Handlers;
+
+
+ public class DeleteExpiredRowsHandler :  IHandleMessages<DeleteExpiredRows>
+    
+         
         {
             private readonly IAccountBL _accountBL;
             static readonly ILog log = LogManager.GetLogger<DeleteExpiredRowsHandler>();
@@ -34,4 +36,4 @@ namespace CustomerAccount.WebAPI.NSB.Handlers
             }
         }
     
-}
+
