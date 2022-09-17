@@ -230,10 +230,10 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<IEnumerable<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize)
+        public async Task<List<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize)
         {
             using var context = _factory.CreateDbContext();
-            IEnumerable<OperationData> pagedData;
+            List<OperationData> pagedData;
 
             // if (sortDirection.Equals(SortDirection.Ascending))
             //{

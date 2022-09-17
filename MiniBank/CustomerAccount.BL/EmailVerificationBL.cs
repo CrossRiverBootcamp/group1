@@ -123,10 +123,10 @@ namespace CustomerAccount.BL
             if (numOfAttempts > _options.NumOfAttemptsAllowed)
                 throw new TooManyRetriesException();
         }
-        public async Task DeleteExpiredRows()
+   
         public Task DeleteExpiredRows()
         {
-            _storage.DeleteExpiredRows();
+            return _storage.DeleteExpiredRows();
         }
     }
 }
