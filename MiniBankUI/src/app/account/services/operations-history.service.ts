@@ -15,7 +15,7 @@ export class OperationsHistoryService {
 
   getOperationsHistory(accountId:string, PageNumber: number, PageSize:number): Observable<OperationData[]> {
     return this._http.get<OperationData[]>
-      (`api/Operation/${accountId}?PageNumber=${PageNumber + 1}&PageSize=${PageSize}`);
+      (`api/Operation/${accountId}/getOperations?PageNumber=${PageNumber + 1}&PageSize=${PageSize}`);
   }
 
   getTransactionPartnerDetails(accountId:string): Observable<TransactionPartner> {

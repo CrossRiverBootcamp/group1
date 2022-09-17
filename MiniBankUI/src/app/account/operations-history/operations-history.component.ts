@@ -10,6 +10,7 @@ import { OperationData } from 'src/app/models/operation-data';
 import { TransactionPartner } from 'src/app/models/transaction-partner';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogTransactionPartnerDetailsComponent } from '../dialog-transaction-partner-details/dialog-transaction-partner-details.component';
+import { LoginService } from '../services/login.service';
 
 export interface DialogTransactionPartnerDetailsData {
   transactionPartner: TransactionPartner;
@@ -31,14 +32,17 @@ export class OperationsHistoryComponent implements OnInit {
   isRateLimitReached: boolean = false;
 
   numOfRecords: number = 5;
-  accountId = sessionStorage.getItem('accountId');
+  accountId :string;
+  //accountId = sessionStorage.getItem('accountId');
   transactionPartner!:TransactionPartner;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _operationsHistoryService: OperationsHistoryService, private _dialog: MatDialog,
-    ) { }
+  constructor(private _operationsHistoryService: OperationsHistoryService,private _loginService:LoginService, private _dialog: MatDialog,
+    ) {
+     this.accountId = _loginService.accountId
+    }
 
     openTransactionPartnerDetailsDialog(): void {
       const RBdialogRef = this._dialog.open(DialogTransactionPartnerDetailsComponent, {
@@ -48,7 +52,7 @@ export class OperationsHistoryComponent implements OnInit {
           transactionPartner: this.transactionPartner
         },
       });
-  
+
       RBdialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
       });
@@ -63,7 +67,7 @@ export class OperationsHistoryComponent implements OnInit {
     //If the user changes the sort order, reset back to the first page.
    // this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {

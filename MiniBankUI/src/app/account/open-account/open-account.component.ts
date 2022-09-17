@@ -23,7 +23,7 @@ export class OpenAccountComponent implements OnInit {
 
   userVerified:boolean=true;
   emailExists: boolean=false;
-
+  numOfAttempts:number=5;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -93,20 +93,27 @@ export class OpenAccountComponent implements OnInit {
     this.accountService.createCustomerAccount(customer)
       .subscribe(
         (isAdded: boolean) => {
-          if(!isAdded)
-            alert('handle all possible options')
-            this.router.navigateByUrl('account/login');
-             //this.accountDetailsForm.reset
+          if(isAdded)
+          this.router.navigateByUrl('account/login');
+          else
+            {
+              alert(`wrong code. you have ${this.numOfAttempts} attempts left`);
+              this.verificationForm.reset();
+            }
           this.loading = false;
           //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
 
         },
         (error: HttpErrorResponse) => {
           switch (error.status) {
-            case 400:
-              console.log(`some data`);
+            case 200:
+              if(error.error)
+              {
+                alert(`code expired :(`);
+                this.verificationForm.reset();
+              }
               break;
-            default:console.log(`some default data`);
+              case 500:alert('unresolved error!!');
               break;
           }
           console.log(error);

@@ -15,6 +15,7 @@ import { DialogTransactionPartnerDetailsComponent } from './dialog-transaction-p
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import { NgOtpInputModule } from 'ng-otp-input';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -38,7 +39,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     MatProgressSpinnerModule,
     MatStepperModule,
     MatButtonModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    MatDialogModule
   ],
   exports:[
     OpenAccountComponent,
