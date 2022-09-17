@@ -32,6 +32,7 @@ builder.Host.UseNServiceBus(context =>
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
 
     return endpointConfiguration;
+
 });
 
 // Add services to the container.

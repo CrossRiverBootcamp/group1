@@ -5,6 +5,7 @@ using ExtendedExceptions;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using AutoMapper;
+using System.Linq;
 
 namespace CustomerAccount.DAL
 {
@@ -240,17 +241,6 @@ namespace CustomerAccount.DAL
         {
             using var context = _factory.CreateDbContext();
             IEnumerable<OperationData> pagedData;
-
-            // if (sortDirection.Equals(SortDirection.Ascending))
-            //{
-            //    pagedData = await context.Operations.Where(Operation => Operation.AccountId == AccountId)
-            //     .OrderBy(Operat => Operat.OperationTime)
-            //     .Skip((PageNumber - 1) * PageSize)
-            //     .Take(PageSize)
-            //     .ToListAsync();
-            //}
-            //else
-            //{
 
             try
             {
