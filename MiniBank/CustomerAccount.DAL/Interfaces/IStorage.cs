@@ -21,7 +21,7 @@ namespace CustomerAccount.DAL.Interfaces
         Task<Guid> Login(string email, string password);
 
         //FOR: operation BL
-        Task<List<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize);
+        Task<IEnumerable<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize);
         Task DeleteExpiredRows();
     }
 }

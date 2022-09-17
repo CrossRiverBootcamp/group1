@@ -22,9 +22,9 @@ namespace CustomerAccount.BL
             _mapper = mapper;
             _storage = storage;
         }
-        public async Task<List<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
+        public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
         {
-            return _mapper.Map<List<OperationData>, List<OperationDTO>>(await _storage.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
+            return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _storage.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
         }
 
         public async Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId)
