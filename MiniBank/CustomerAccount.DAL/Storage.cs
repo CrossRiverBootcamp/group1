@@ -241,17 +241,6 @@ namespace CustomerAccount.DAL
             using var context = _factory.CreateDbContext();
             IEnumerable<OperationData> pagedData;
 
-            // if (sortDirection.Equals(SortDirection.Ascending))
-            //{
-            //    pagedData = await context.Operations.Where(Operation => Operation.AccountId == AccountId)
-            //     .OrderBy(Operat => Operat.OperationTime)
-            //     .Skip((PageNumber - 1) * PageSize)
-            //     .Take(PageSize)
-            //     .ToListAsync();
-            //}
-            //else
-            //{
-
             try
             {
                 pagedData = await context.Operations.Where(Operation => Operation.AccountId.Equals(AccountId))
