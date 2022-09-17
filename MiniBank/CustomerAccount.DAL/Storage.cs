@@ -257,6 +257,13 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
+        public async Task<IEnumerable<OperationData>> GetMatchedOperations(List<Guid> operations)
+        {
+            using var context = _factory.CreateDbContext();
+
+            //selects double amount rows...
+            return await context.Operations.Where(op => operations.Contains(op.TransactionId)).ToListAsync();
+        }
         public async Task DeleteExpiredRows()
         {
             using var context = _factory.CreateDbContext();

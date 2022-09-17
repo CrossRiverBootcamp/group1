@@ -24,9 +24,29 @@ namespace CustomerAccount.BL
         }
         public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
         {
-            IEnumerable<OperationDTO> operations = _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _storage.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
+            IEnumerable<OperationData> operations = await _storage.GetByPageAndAccountId(AccountId, PageNumber, PageSize);
 
-            return operations;
+            //create list with all TransactionIds
+            List<Guid> operationsTransactionIds = new List<Guid>(); 
+            foreach(var op in operations)
+            {
+                operationsTransactionIds.Add(op.TransactionId);
+            }
+
+            //get list of all partner operations
+            IEnumerable<OperationData> partnerOperations = await _storage.GetMatchedOperations(operationsTransactionIds);
+
+            //fill partnerTransactionId field
+            foreach (var op in operations)
+            {
+                foreach(var partnerOp in partnerOperations)
+                {
+                    if(partnerOp.TransactionId.Equals(op.TransactionId))
+                        op.TransactionPartnerId = partnerOp.AccountId;
+                }
+            }
+
+            return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(operations);
         }
 
         public async Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId)

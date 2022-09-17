@@ -31,5 +31,8 @@ namespace CustomerAccount.DAL.Entities
         public int Balance { get; set; }
         [Required]
         public DateTime OperationTime { get; set; }
+
+        [NotMapped]
+        public Guid TransactionPartnerId { get; set; }
     }
 }
