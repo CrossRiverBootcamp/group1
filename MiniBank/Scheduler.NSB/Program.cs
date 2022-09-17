@@ -11,26 +11,20 @@ namespace Scheduler.NSB
         {
             while (true)
             {
-
                 await endpointInstance.ScheduleEvery(
-                        timeSpan: TimeSpan.FromMinutes(5),
+                        timeSpan: TimeSpan.FromMinutes(1),
                         task: pipelineContext =>
                         {
-                  
-
                             return pipelineContext.Send(new DeleteExpiredRows()
                             {
-                                Date = DateTime.Now
+                                Date = DateTime.UtcNow
                             });
-                        })
-                    .ConfigureAwait(false);
+                        });
             }
 
         }
         static async Task Main()
         {
-
-
             var endpointConfiguration = new EndpointConfiguration("scheduler");
             endpointConfiguration.SendOnly();
             endpointConfiguration.EnableInstallers();
@@ -46,14 +40,9 @@ namespace Scheduler.NSB
             var defaultFactory = LogManager.Use<DefaultFactory>();
             defaultFactory.Level(LogLevel.Info);
 
-            await RunLoop(endpointInstance)
-                .ConfigureAwait(false);
+            await RunLoop(endpointInstance);
 
-            await endpointInstance.Stop()
-                .ConfigureAwait(false);
-
-
+            await endpointInstance.Stop();
         }
-
     }
 }

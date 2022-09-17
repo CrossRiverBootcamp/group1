@@ -18,9 +18,6 @@ namespace CustomerAccount.DAL
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _mapper = mapper;
         }
-        #region customer
-
-        #endregion
 
         public async Task<bool> CustomerExists(string email)
         {
@@ -72,6 +69,7 @@ namespace CustomerAccount.DAL
                     throw new EmailInUseException();
 
                 EmailVerification ev = await context.EmailVerifications.FindAsync(email);
+
                 if (ev.ExpirationTime < DateTime.UtcNow)
                     throw new VerificationCodeExpiredException();
 
@@ -79,6 +77,7 @@ namespace CustomerAccount.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }
@@ -94,6 +93,7 @@ namespace CustomerAccount.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }
@@ -109,6 +109,7 @@ namespace CustomerAccount.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }
@@ -154,10 +155,12 @@ namespace CustomerAccount.DAL
             using var context = _factory.CreateDbContext();
             try
             {
-                return await context.AccountDatas
+                AccountData accountData = await context.AccountDatas
                  .Where(acc => acc.Id.Equals(accountDataId))
                  .Include(acc => acc.Customer)
                  .FirstAsync();
+                
+                 return accountData ?? throw new KeyNotFoundException();
             }
             catch (Exception ex)
             {
@@ -186,10 +189,10 @@ namespace CustomerAccount.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
-        } 
-    
+        }  
         public async Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount)
         {
             using var context = _factory.CreateDbContext();
@@ -203,6 +206,7 @@ namespace CustomerAccount.DAL
 
                 var toAccount = await context.AccountDatas.FindAsync(toAccountId);
                 toAccount.Balance += amount;
+
                 OperationData creditOperation = new OperationData()
                 {
                     AccountId = fromAccountId,
@@ -247,38 +251,39 @@ namespace CustomerAccount.DAL
             //}
             //else
             //{
-            pagedData = await context.Operations.Where(Operation => Operation.AccountId.Equals(AccountId))
-             .OrderByDescending(Operat => Operat.OperationTime)
-             .Skip((PageNumber - 1) * PageSize)
-             .Take(PageSize)
-             .ToListAsync();
-            //}
 
-            return pagedData ?? throw new KeyNotFoundException("data not found");
+            try
+            {
+                pagedData = await context.Operations.Where(Operation => Operation.AccountId.Equals(AccountId))
+                  .OrderByDescending(Operat => Operat.OperationTime)
+                  .Skip((PageNumber - 1) * PageSize)
+                  .Take(PageSize)
+                  .ToListAsync();
+
+                return pagedData ?? throw new KeyNotFoundException("data not found");
+            }
+            catch(Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
         }
-
         public async Task DeleteExpiredRows()
         {
             using var context = _factory.CreateDbContext();
+
             try
             {
-                //implement delete
-                var existing = await context.EmailVerifications.Where(x => x.ExpirationTime < DateTime.UtcNow).ToListAsync();
-                if (existing.Any())
+                var expired = await context.EmailVerifications.Where(x => x.ExpirationTime < DateTime.UtcNow).ToListAsync();
+                if (expired.Any())
                 {
-                    context.EmailVerifications.RemoveRange(existing);
+                    context.EmailVerifications.RemoveRange(expired);
                     await context.SaveChangesAsync();
-
                 }
             }
-
-
             catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);
             }
-
-
         }
     }
 }

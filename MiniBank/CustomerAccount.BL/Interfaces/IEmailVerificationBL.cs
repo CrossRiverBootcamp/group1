@@ -7,7 +7,10 @@ namespace CustomerAccount.BL.Interfaces
         Task HandleEmailVerificationRequest(string email, bool isResendRequest);
         void SendEmail(string email, string subject, string body);
         Task UpdateAndLimitNumberOfAttempts(string email);
-        Task<int> UpdateLimitAndReturnNumberOfResends(string email);
+        //private?!
+        //Task<int> UpdateLimitAndReturnNumberOfResends(string email);
         Task<bool> ValidateCodeAndTime(CustomerDTO customerDTO);
+        Task DeleteExpiredRows();
+
     }
 }

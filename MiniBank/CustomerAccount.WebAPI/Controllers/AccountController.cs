@@ -18,20 +18,20 @@ public class AccountController : ControllerBase
 
     // GET api/<AccountController>/5
     [HttpGet("{accountId}")]
-    public async Task<ActionResult<CustomerAccountInfoDTO>> Get(Guid accountId)
+    public async Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
-        return Ok(await accountBL.GetAccountInfo(accountId));
+        return await accountBL.GetAccountInfo(accountId);
     }
-    [HttpGet("{email}")]
-    public async Task<ActionResult<bool>> Get(string email)
+    [HttpGet("{email}/Exists")]
+    public async Task<bool> Get(string email)
     {
-        return Ok(await accountBL.CustomerExists(email));
+        return await accountBL.CustomerExists(email);
     }
 
     // POST api/<AccountController>
     [HttpPost]
-    public async Task<ActionResult<bool>> Post([FromBody] CustomerDTO customerDTO)
+    public async Task<bool> Post([FromBody] CustomerDTO customerDTO)
     {
-        return Ok(await accountBL.HandleCreateAccountRequest(customerDTO));
-}
+        return await accountBL.HandleCreateAccountRequest(customerDTO);
+    }
 }

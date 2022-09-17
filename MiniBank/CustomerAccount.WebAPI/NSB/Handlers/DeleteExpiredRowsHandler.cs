@@ -1,39 +1,34 @@
 ﻿
 using CustomerAccount.BL.Interfaces;
 using CustomerAccount.Messeges;
+using ExtendedExceptions;
 using NServiceBus;
 using NServiceBus.Logging;
-
-namespace CustomerAccount.WebAPI.NSB.Handlers;
-
-
- public class DeleteExpiredRowsHandler :  IHandleMessages<DeleteExpiredRows>
-    
-         
+namespace CustomerAccount.WebAPI.NSB.Handlers
+{
+   
+        public class DeleteExpiredRowsHandler :
+            IHandleMessages<DeleteExpiredRows>
         {
-            private readonly IAccountBL _accountBL;
-            static readonly ILog log = LogManager.GetLogger<DeleteExpiredRowsHandler>();
+            private readonly IEmailVerificationBL _emailverificationBL;
+            static ILog log = LogManager.GetLogger<DeleteExpiredRowsHandler>();
 
-            public DeleteExpiredRowsHandler(IAccountBL accountBL)
+            public DeleteExpiredRowsHandler(IEmailVerificationBL emailverificationBL)
             {
-                _accountBL = accountBL;
+                _emailverificationBL = emailverificationBL;
             }
-            public async Task Handler(DeleteExpiredRows message, IMessageHandlerContext context)
+            public async Task Handle(DeleteExpiredRows message, IMessageHandlerContext context)
             {
-
                 try
                 {
-                    await _accountBL.DeleteExpiredRows();
-                    log.Info($"delete expired rows , day = {message.Date}");
-
+                    await _emailverificationBL.DeleteExpiredRows();
+                    log.Info($"delete expired rows succsesfuly, Date: {message.Date}");
                 }
-                catch (Exception ex)
+                catch (DBContextException ex)
                 {
-                    //מה לעשות פה
+                    log.Info($"delete expired failed with message: {ex.Message}, Date: {message.Date}");
                 }
-
-
-            }
+             }
         }
     
-
+}

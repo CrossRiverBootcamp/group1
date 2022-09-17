@@ -26,37 +26,11 @@ namespace CustomerAccount.BL
         {
             _mapper = mapper;
             _Storage = Storage;
-            _configuration = configuration;
+        }
 
-        }
-        //מה הפונקציה מחזירה
-         public async Task<Guid> Login(LoginDTO loginDTO)
+         public Task <Guid> Login(LoginDTO loginDTO)
          {
-            string token =  await GetToken();
-            Guid accountId =  await  _Storage.Login( loginDTO.Email , loginDTO.Password);
-            return new idWithToken()
-            {
-                token = token,
-                accountId = accountId,
-            };
-            //ליצור אובייקט ולהחזיר את הטוקן והאקאונט
-        }
-        public async Task<string> GetToken()
-        {
-            //create claims details based on the user information
-            var claims = new[] {
-                        new Claim("Role", "user")
-                    };
-            var issuer = "https://exemple.com";
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
-            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(
-                issuer,
-                issuer,
-                claims,
-                expires: DateTime.UtcNow.AddMinutes(10),
-                signingCredentials: signIn);
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+            return _Storage.Login( loginDTO.Email , loginDTO.Password);
+         }
     }
 }

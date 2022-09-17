@@ -31,36 +31,44 @@ public class Middleware
             var response = httpContext.Response;
             response.ContentType = "application/json";
             _logger.LogError(error, error.Message);
+
             switch (error)
-            {
-                //case CreateUserException ex:
-                //    //CreateCustomerAccount failed
-                //    await response.WriteAsync("Ooops... \n Create customerAccount failed!");
-                //    response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
-                //    //need to return false
-                //    break;
-                case DBContextException ex:
-                    //Other DBContext Exceptions
-                    await response.WriteAsync("Ooops... \n DBContext issue:" + ex.Message);
-                    response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
-                    break;
+            {             
                 case ArgumentNullException ex:
-                    await response.WriteAsync("Ooops... \n the argument " + ex.Message + "is null!");
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    await response.WriteAsync("" + ex.Message);
                     break;
                 case UnauthorizedAccessException ex:
-                    await response.WriteAsync("Ooops... \n " + ex.Message);
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    await response.WriteAsync("Ooops your email or password isn't currect.. " + ex.Message);
                     break;
                 case KeyNotFoundException ex:
-                    await response.WriteAsync("Ooops... \n key not found!");
                     response.StatusCode = (int)HttpStatusCode.NotFound;
+                    await response.WriteAsync("key not found!");                   
+                    break;
+                case EmailInUseException ex:
+                    response.StatusCode = (int)HttpStatusCode.NotAcceptable;
+                    await response.WriteAsync("Email address in use");
+                    break;
+                case VerificationCodeExpiredException ex:
+                    response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    await response.WriteAsync("Verification code expired..:(");
+                    break;
+                case TooManyRetriesException ex:
+                    response.StatusCode = (int)HttpStatusCode.TooManyRequests;
+                    await response.WriteAsync("too many retries requests..:(");
+                    break;
+                case DBContextException ex:
+                    //Other DBContext Exceptions
+                    response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
+                    await response.WriteAsync("DBContext issue:" + ex.Message);
                     break;
                 default:
                     // unhandled error
-                    await response.WriteAsync("Ooops... \n unknown problem:(");
+                    await response.WriteAsync("unknown problem:(");
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
+
             }
         }
     }

@@ -13,13 +13,13 @@ namespace CustomerAccount.BL
     {
         private readonly IMapper _mapper;
         private readonly IEmailVerificationBL _emailVerificationBL;
-        private readonly IStorage _Storage;
+        private readonly IStorage _storage;
 
         public AccountBL(IMapper mapper, IEmailVerificationBL emailVerificationBL, IStorage Storage)
         {
             _mapper = mapper;
             _emailVerificationBL = emailVerificationBL;
-            _Storage = Storage;
+            _storage = Storage;
         }
         private async Task<bool> CreateCustomerAccount(CustomerDTO customerDTO)
         {
@@ -30,43 +30,43 @@ namespace CustomerAccount.BL
                 Balance = 100000
             };
 
-            return await _Storage.CreateCustomerAccount(customerModel, accountData);
+            return await _storage.CreateCustomerAccount(customerModel, accountData);
         }
         public async Task<bool> CustomerExists(string email)
         {
-            return await _Storage.CustomerExists(email);
+            return await _storage.CustomerExists(email);
         }
         public async Task<bool> HandleCreateAccountRequest(CustomerDTO customerDTO)
         {
+            //update number of attempts
+            await _emailVerificationBL.UpdateAndLimitNumberOfAttempts(customerDTO.Email);
+
             //verify code 
             bool isAuthorized = await _emailVerificationBL.ValidateCodeAndTime(customerDTO);
 
-            //if not authorized: update number of attempts, throw error
+            //if not authorized: throw error
             if (!isAuthorized)
-            {
-                await _emailVerificationBL.UpdateAndLimitNumberOfAttempts(customerDTO.Email);
                 throw new UnauthorizedAccessException();
-            }
 
             //if authorized: create customer account
             return await CreateCustomerAccount(customerDTO);
         }
         public Task<bool> CustumerAccountExists(Guid accountId)
         {
-            return _Storage.CustumerAccountExists(accountId);
+            return _storage.CustumerAccountExists(accountId);
         }
         public async Task<CustomerAccountInfoDTO> GetAccountInfo(Guid accountId)
         {
-            AccountData accountData = await _Storage.GetAccountData(accountId);
+            AccountData accountData = await _storage.GetAccountData(accountId);
             return _mapper.Map<AccountData, CustomerAccountInfoDTO>(accountData);
         }
         public async Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount)
         {
-             await _Storage.MakeBankTransferAndSaveOperationsToDB(transactionId,fromAccountId, toAccountId, amount);
+             await _storage.MakeBankTransferAndSaveOperationsToDB(transactionId,fromAccountId, toAccountId, amount);
         }
         public Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
         {
-            return _Storage.SenderHasEnoughBalance(accountId, amount);
+            return _storage.SenderHasEnoughBalance(accountId, amount);
         }
     }
 }
