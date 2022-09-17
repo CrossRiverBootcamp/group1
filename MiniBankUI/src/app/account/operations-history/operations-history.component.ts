@@ -24,7 +24,6 @@ export interface DialogTransactionPartnerDetailsData {
 
 export class OperationsHistoryComponent implements OnInit {
   displayedColumns: string[] = ['Credit/Debit', 'From whom/to whom', 'Amount', 'Balance', 'Date'];
-  //exampleDatabase?: ExampleHttpDatabase;
   data: OperationData[] = [];
 
   resultsLength: number = 0;
@@ -96,7 +95,6 @@ export class OperationsHistoryComponent implements OnInit {
           return data;
         }),
       )
-      .subscribe(data => (this.data = data));
   }
 
   viewTransactionPartnerDetails(accountId:string){
@@ -107,29 +105,3 @@ export class OperationsHistoryComponent implements OnInit {
   }
 }
 
-
-// export interface GithubIssue {
-//   created_at: string;
-//   number: string;
-//   state: string;
-//   title: string;
-// }
-
-// export interface GithubApi {
-//   items: GithubIssue[];
-//   total_count: number;
-// }
-
-/** An example database that the data source uses to retrieve data for the table. */
-// export class ExampleHttpDatabase {
-//   constructor(private _httpClient: HttpClient) {}
-
-//   getRepoIssues(sort: string, order: SortDirection, page: number): Observable<GithubApi> {
-//     const href = 'https://api.github.com/search/issues';
-//     const requestUrl = `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${
-//       page + 1
-//     }`;
-
-//     return this._httpClient.get<GithubApi>(requestUrl);
-//   }
-// }
