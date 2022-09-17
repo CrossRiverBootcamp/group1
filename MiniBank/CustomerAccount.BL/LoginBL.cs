@@ -13,16 +13,16 @@ namespace CustomerAccount.BL
     public class LoginBL:ILoginBL
     {
         private readonly IMapper _mapper;
-        private readonly IStorage _Storage;
-        public LoginBL(IMapper mapper, IStorage Storage)
+        private readonly IStorage _storage;
+        public LoginBL(IMapper mapper, IStorage storage)
         {
             _mapper = mapper;
-            _Storage = Storage;
+            _storage = storage;
         }
 
          public Task <Guid> Login(LoginDTO loginDTO)
          {
-            return _Storage.Login( loginDTO.Email , loginDTO.Password);
+             return _storage.Login( loginDTO.Email ,loginDTO.Password);
          }
     }
 }

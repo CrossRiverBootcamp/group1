@@ -64,7 +64,7 @@ namespace Scheduler.NSB
         {
            // while (true)
             {
-                //after workins- change to 24 hours
+                //after working- change to 24 hours
                 await endpointInstance.ScheduleEvery(
                         timeSpan: TimeSpan.FromSeconds(30),
                         task: pipelineContext =>

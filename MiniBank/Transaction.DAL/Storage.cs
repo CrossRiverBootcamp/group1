@@ -48,6 +48,7 @@ namespace Transaction.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }

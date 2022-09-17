@@ -77,6 +77,7 @@ namespace CustomerAccount.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }
@@ -92,6 +93,7 @@ namespace CustomerAccount.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }
@@ -107,6 +109,7 @@ namespace CustomerAccount.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }
@@ -152,10 +155,12 @@ namespace CustomerAccount.DAL
             using var context = _factory.CreateDbContext();
             try
             {
-                return await context.AccountDatas
+                AccountData accountData = await context.AccountDatas
                  .Where(acc => acc.Id.Equals(accountDataId))
                  .Include(acc => acc.Customer)
                  .FirstAsync();
+                
+                 return accountData ?? throw new KeyNotFoundException();
             }
             catch (Exception ex)
             {
@@ -184,6 +189,7 @@ namespace CustomerAccount.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }  
@@ -230,10 +236,10 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<List<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize)
+        public async Task<IEnumerable<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize)
         {
             using var context = _factory.CreateDbContext();
-            List<OperationData> pagedData;
+            IEnumerable<OperationData> pagedData;
 
             // if (sortDirection.Equals(SortDirection.Ascending))
             //{
@@ -245,16 +251,22 @@ namespace CustomerAccount.DAL
             //}
             //else
             //{
-            pagedData = await context.Operations.Where(Operation => Operation.AccountId.Equals(AccountId))
-             .OrderByDescending(Operat => Operat.OperationTime)
-             .Skip((PageNumber - 1) * PageSize)
-             .Take(PageSize)
-             .ToListAsync();
-            //}
 
-            return pagedData ?? throw new KeyNotFoundException("data not found");
+            try
+            {
+                pagedData = await context.Operations.Where(Operation => Operation.AccountId.Equals(AccountId))
+                  .OrderByDescending(Operat => Operat.OperationTime)
+                  .Skip((PageNumber - 1) * PageSize)
+                  .Take(PageSize)
+                  .ToListAsync();
+
+                return pagedData ?? throw new KeyNotFoundException("data not found");
+            }
+            catch(Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
         }
-
         public async Task DeleteExpiredRows()
         {
             using var context = _factory.CreateDbContext();

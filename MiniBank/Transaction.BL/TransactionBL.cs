@@ -57,6 +57,10 @@ namespace Transaction.BL
         {
             _Storage.ChangeTransactionStatus(upadateTransactionStatusDTO);
         }
+        //public async Task InformCustomerWithTrasactionStatus(Guid transactionId, StatusEnum status)
+        //{
+
+        //}
 
     }
 }
