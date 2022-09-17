@@ -26,11 +26,35 @@ namespace CustomerAccount.BL
         {
             _mapper = mapper;
             _Storage = Storage;
+            _configuration = configuration;
         }
 
-         public Task <Guid> Login(LoginDTO loginDTO)
+         public async Task <string> Login(LoginDTO loginDTO)
          {
-            return _Storage.Login( loginDTO.Email , loginDTO.Password);
+            Guid AccountId = await _Storage.Login(loginDTO.Email, loginDTO.Password);
+            string token = CreateToken(AccountId);
+            return token;
          }
+        public string CreateToken(Guid AccountId)
+        {
+            var claims = new[] {
+                        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                        new Claim("AccountId",AccountId.ToString()),
+
+                    };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(10),
+                signingCredentials: signIn);
+            string accountToken = new JwtSecurityTokenHandler().WriteToken(token);
+            return accountToken;
+        }
     }
 }
