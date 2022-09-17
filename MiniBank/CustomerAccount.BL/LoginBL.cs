@@ -53,8 +53,8 @@ namespace CustomerAccount.BL
                 claims,
                 expires: DateTime.UtcNow.AddMinutes(10),
                 signingCredentials: signIn);
-            string userToken = new JwtSecurityTokenHandler().WriteToken(token);
-            return userToken;
+            string accountToken = new JwtSecurityTokenHandler().WriteToken(token);
+            return accountToken;
         }
     }
 }
