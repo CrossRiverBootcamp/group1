@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Messeges", "Tra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAccount.Messeges", "CustomerAccount.Messeges\CustomerAccount.Messeges.csproj", "{8BBBBA51-CBE1-43C4-91EC-8985AFA7EA32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeneralScheduler.NSB", "JeneralScheduler.NSB\JeneralScheduler.NSB.csproj", "{B88AF4FD-D660-4920-8FF5-DA2EF02A3EF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneralScheduler.NSB", "JeneralScheduler.NSB\GeneralScheduler.NSB.csproj", "{B88AF4FD-D660-4920-8FF5-DA2EF02A3EF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{7C548AFC-93DA-4092-93E9-BB0A4795A672}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSender", "EmailSender\EmailSender.csproj", "{7C548AFC-93DA-4092-93E9-BB0A4795A672}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

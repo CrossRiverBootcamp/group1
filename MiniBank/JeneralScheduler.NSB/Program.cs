@@ -7,22 +7,7 @@ namespace Scheduler.NSB
 {
     public class Program
     {
-        static async Task RunLoop(IEndpointInstance endpointInstance)
-        {
-            while (true)
-            {
-                //after working- change to 24 hours
-                await endpointInstance.ScheduleEvery(
-                    timeSpan: TimeSpan.FromSeconds(5),
-                    task: pipelineContext =>
-                    {
-                        return pipelineContext.Send(new DeleteExpiredRows()
-                         {
-                            Date = DateTime.UtcNow
-                        });
-                    });
-            }
-        }
+
         static async Task Main()
         {
             var endpointConfiguration = new EndpointConfiguration("JeneralScheduler");
@@ -32,6 +17,7 @@ namespace Scheduler.NSB
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology(QueueType.Quorum);
             transport.ConnectionString("host=localhost");
+
             var routing = transport.Routing();
             routing.RouteToEndpoint(typeof(DeleteExpiredRows), "CustomerAccount");
 
@@ -39,8 +25,17 @@ namespace Scheduler.NSB
             var defaultFactory = LogManager.Use<DefaultFactory>();
             defaultFactory.Level(LogLevel.Info);
 
-            await RunLoop(endpointInstance);
+            await endpointInstance.ScheduleEvery(
+                  timeSpan: TimeSpan.FromMinutes(5),
+                  task: pipelineContext =>
+                  {
+                      return pipelineContext.Send(new DeleteExpiredRows()
+                      {
+                          Date = DateTime.UtcNow
+                      });
+                  });
 
+            Console.ReadKey();
             await endpointInstance.Stop();
         }
     }

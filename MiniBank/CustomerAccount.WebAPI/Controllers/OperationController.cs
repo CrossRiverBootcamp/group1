@@ -17,7 +17,7 @@ namespace CustomerAccount.WebAPI.Controllers
         }
 
         // GET api/<OperationController>/5
-        [HttpGet("{AccountId}")]
+        [HttpGet("{AccountId}/getOperations")]
         public Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId, [FromQuery] int PageNumber, [FromQuery] int PageSize)
         {
             return _operationBL.GetByPageAndAccountId(AccountId, PageNumber, PageSize);

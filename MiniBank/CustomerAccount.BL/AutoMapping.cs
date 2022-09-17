@@ -31,6 +31,8 @@ namespace CustomerAccount.BL
                     .MapFrom(src => src.Customer.LastName)).
                     ForMember(dest => dest.Email, opts => opts
                     .MapFrom(src => src.Customer.Email));
+
+            CreateMap<OperationData, OperationDTO>();
         }
     }
 }

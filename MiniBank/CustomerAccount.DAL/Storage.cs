@@ -5,6 +5,7 @@ using ExtendedExceptions;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using AutoMapper;
+using System.Linq;
 
 namespace CustomerAccount.DAL
 {
