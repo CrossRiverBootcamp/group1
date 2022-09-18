@@ -6,6 +6,9 @@ import { Customer } from 'src/app/models/customer.model';
 import { CustomerAccountService } from '../services/customer-account.service';
 import { EmailVerificationService } from '../services/email-verification.service';
 
+const ATTEMPTS_ALLOWED=5;
+const NUM_OF_VERIFY_CODES_ALLOWED=2;
+
 
 @Component({
   selector: 'app-open-account',
@@ -23,7 +26,9 @@ export class OpenAccountComponent implements OnInit {
 
   userVerified:boolean=true;
   emailExists: boolean=false;
-  numOfAttempts:number=5;
+  numOfAttempts:number=0;
+  NumOfVerificationCodesSent:number=0;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -62,6 +67,7 @@ export class OpenAccountComponent implements OnInit {
     }
     this.accountDetailsFormSubmitted=true;
     this.accountDetailsForm.disable();
+    this.NumOfVerificationCodesSent++;
     this.emailVerificationService.sendEmailVerification(this.f['email'].value,false)
       .subscribe(()=>{},
       (error)=>{
@@ -96,25 +102,30 @@ export class OpenAccountComponent implements OnInit {
           if(isAdded)
           this.router.navigateByUrl('account/login');
           else
-            {
-              alert(`wrong code. you have ${this.numOfAttempts} attempts left`);
-              this.verificationForm.reset();
-            }
+          {
+            debugger;
+          }
           this.loading = false;
           //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
 
         },
         (error: HttpErrorResponse) => {
           switch (error.status) {
-            case 200:
-              if(error.error)
+            case 401:
               {
-                alert(`code expired :(`);
-                this.verificationForm.reset();
+                //if(this.numOfAttempts<ATTEMPTS_ALLOWED)
+                  {alert(`wrong code. you have ${ATTEMPTS_ALLOWED-(this.numOfAttempts++)} attempts left`);
+                  this.verificationForm.get('verificationCode')?.setValue('88888');}
               }
               break;
-              case 500:alert('unresolved error!!');
+              case 417:alert('code expired. you should ask for new one');
               break;
+              case 429:{
+                alert(`wrong code. no more attempts left`)
+                this.router.navigateByUrl('account');
+              }
+              break;
+              default:alert('unresolved error!!');
           }
           console.log(error);
           //this.alertService.error(error.message);
@@ -123,10 +134,13 @@ export class OpenAccountComponent implements OnInit {
   }
 
   resendVerificationCode(){
-    this.emailVerificationService.sendEmailVerification(this.f['email'].value,true)
-    .subscribe(()=>{},
-    (error)=>{
+    //this.NumOfVerificationCodesSent<NUM_OF_VERIFY_CODES_ALLOWED?this.NumOfVerificationCodesSent++: this.router.navigateByUrl('account/open-account');
 
+    this.emailVerificationService.sendEmailVerification(this.f['email'].value,true).subscribe(()=>{
+      debugger;
+    },
+    (error)=>{
+      debugger;
     }
     );
   }
