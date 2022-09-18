@@ -74,7 +74,7 @@ export class OpenAccountComponent implements OnInit {
       },
       (error)=>{
         alert("can not resend a code... sorry:(")
-        this.router.navigateByUrl('account/login');
+        window.location.reload()
       }
       );
   }
