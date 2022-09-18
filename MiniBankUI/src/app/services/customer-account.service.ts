@@ -13,6 +13,10 @@ export class CustomerAccountService {
     return this._http.get<boolean>(`api/Account/${email}/Exists`);
   }
 
+  accountExists(accountId:string) {
+    return this._http.get<boolean>(`api/Account/${accountId}/AccountExists`);
+  }
+
   constructor(private _http: HttpClient) { }
 
   getAccountInfo(accountId:string): Observable<CustomerAccount>{

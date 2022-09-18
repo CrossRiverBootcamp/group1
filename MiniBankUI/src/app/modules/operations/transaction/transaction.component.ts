@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Transaction } from 'src/app/models/transaction.model';
+import { CustomerAccountService } from 'src/app/services/customer-account.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { TransactionService } from '../../../services/transaction.service';
 
@@ -16,18 +17,20 @@ export class TransactionComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
+  toAccountIdExists: boolean=true;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private transactionService: TransactionService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private accountService: CustomerAccountService
     // private alertService: AlertService
   ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      toAccountId: ['', Validators.required],
+      toAccountId: ['', [Validators.required,Validators.pattern("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$")]],
       amount: ['', [Validators.required, Validators.min(1), Validators.max(1000000)]]
     });
   }
@@ -56,6 +59,27 @@ export class TransactionComponent implements OnInit {
           alert(`error of type ${error.statusText} ocurred `);
           this.form.reset();
         });
+  }
+
+  checkIfToAccountIdExists(){
+    this.toAccountIdExists=true;
+    if(this.f['toAccountId'].invalid)
+      {
+        return;
+      }
+    this.accountService.accountExists(this.form.get('toAccountId')?.value)
+    .subscribe(
+      ((res:boolean)=>{
+      if(res)
+        {
+          this.toAccountIdExists=true;
+        }
+        else{
+          this.toAccountIdExists=false;
+        }
+    }),(err:HttpErrorResponse)=>
+        this.f['toAccountId'].reset()
+      )
   }
 
   // convenience getter for easy access to form fields
