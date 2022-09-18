@@ -11,6 +11,8 @@ import { LoginReturn } from 'src/app/models/loginReturn.model';
 
 export class AuthenticationService {
 
+  isInActions:boolean=false;
+
   isLogged:boolean=false;
 
   private currentUserSubject: BehaviorSubject<LoginReturn | any>;

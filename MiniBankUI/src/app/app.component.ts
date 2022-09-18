@@ -22,15 +22,8 @@ export class AppComponent {
     this.router.navigateByUrl('account/actions')
   }
 
-  checkIfUserLoggedIn() {
-    return this._authenticationService.isLogged;
+  showDiv() {
+    return this._authenticationService.isLogged&&this._authenticationService.isInActions;
   }
 
-  // openTransactionView(){
-  //   this.router.navigateByUrl('account/transaction')
-  // }
-
-  // openOperationsHistory(){
-  //   this.router.navigateByUrl('account/operationHistory')
-  // }
 }
