@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CustomerAccount.DAL\CustomerAccount.DAL.csproj" />
     <ProjectReference Include="..\CustomerAccount.DTO\CustomerAccount.DTO.csproj" />
+    <ProjectReference Include="..\EmailSender\EmailSender.Service.csproj" />
     <ProjectReference Include="..\Transaction.Messeges\Transaction.Messeges.csproj" />
   </ItemGroup>
 

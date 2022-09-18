@@ -33,6 +33,22 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
+        public async Task<string> GetCustomersEmail(Guid accountId)
+        {
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                return (await context.AccountDatas
+                    .Where(acc => acc.Id.Equals(accountId))
+                    .Include(acc => acc.Customer)
+                    .FirstOrDefaultAsync()).Customer.Email;
+            }
+            catch(Exception ex)
+            {
+               throw new DBContextException(ex.Message);
+            }
+        }
 
         public async Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData)
         {

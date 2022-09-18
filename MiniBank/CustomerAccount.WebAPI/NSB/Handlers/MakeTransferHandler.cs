@@ -1,4 +1,5 @@
-﻿using CustomerAccount.BL.Interfaces;
+﻿using CustomerAccount.BL;
+using CustomerAccount.BL.Interfaces;
 using CustomerAccount.Messeges;
 using ExtendedExceptions;
 using NServiceBus;
@@ -32,6 +33,9 @@ public class MakeTransferHandler :
             }
             else
             {
+                //If he exists: get senders email 
+                transactionDoneMsg.SendersEmail = await _accountBL.GetCustomersEmail(message.FromAccountId);
+
                 if (!(await _accountBL.CustumerAccountExists(message.ToAccountId)))
                 {
                     log.Error($"Transfer failed, TransactionId = {message.TransactionId} - ToAccountId does not exist...");
@@ -53,6 +57,9 @@ public class MakeTransferHandler :
                         await _accountBL.MakeBankTransferAndSaveOperationsToDB(message.TransactionId,message.FromAccountId, message.ToAccountId, message.Amount);
                         log.Info($"Transfer succeded, TransactionId = {message.TransactionId} ");
                         transactionDoneMsg.IsDone = true;
+
+                        //Success: Get recievers email
+                        transactionDoneMsg.RecieversEmail = await _accountBL.GetCustomersEmail(message.ToAccountId);  
                     }
                 }
             }

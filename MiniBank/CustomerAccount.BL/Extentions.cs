@@ -6,6 +6,7 @@ using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.WebAPI.Options;
 using System.Text.Json.Nodes;
+using EmailSender.Service;
 
 namespace CustomerAccount.BL
 {
@@ -19,6 +20,7 @@ namespace CustomerAccount.BL
             services.AddScoped<IOperationBL, OperationBL>();
             services.AddScoped<IStorage, Storage>();
             services.AddScoped<IEmailVerificationBL, EmailVerificationBL>();
+            services.AddScoped<ISendsEmail, SendsEmail>();
 
         }
         public static void AddDBContextService(this IServiceCollection services, string connection)

@@ -70,7 +70,6 @@ namespace CustomerAccount.BL
             int CodeNum = await _storage.UpdateAndGetNumOfResends(email);
             if (CodeNum > _options.NumOfVerficationCodesAllowed)
                 throw new TooManyRetriesException();
-
             return CodeNum;
         }
         public async Task HandleEmailVerificationRequest(string email, bool isResendRequest)
@@ -124,7 +123,6 @@ namespace CustomerAccount.BL
                 throw new TooManyRetriesException();
             return numOfAttempts;
         }
-  
         public Task DeleteExpiredRows()
         {
             return _storage.DeleteExpiredRows();

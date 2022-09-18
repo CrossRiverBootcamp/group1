@@ -14,6 +14,9 @@ using NServiceBus;
 using Transaction.Messeges;
 using ExtendedExceptions;
 using System.Security.Claims;
+using EmailSender;
+using System.Net.NetworkInformation;
+using EmailSender.Service;
 
 namespace Transaction.BL
 {
@@ -21,13 +24,27 @@ namespace Transaction.BL
     {
         private readonly IStorage _Storage;
         private readonly IMapper _mapper;
-  
-        public TransactionBL(IMapper mapper, IStorage Storage)
+        private readonly ISendsEmail _emailSender;
+        public TransactionBL(IMapper mapper, IStorage Storage, ISendsEmail emailSender)
         {
             _mapper = mapper;
-            _Storage = Storage;        
+            _Storage = Storage; 
+            _emailSender = emailSender;
         }
-        
+        private Task<string[]> CreateTransactionDoneBodey(StatusEnum status)
+        {
+            // string link = "<a href= http://localhost:4200/#/guest-confirm/?id="
+            // + g.Id + ">Confirm your email here</a>";
+
+            string subject = "Your transaction Update | Mini-Bank CR";
+            string body = "Your transfer request had returned with status: "+ status;
+
+            string[] content = new string[2];
+            content[0] = subject;
+            content[1] = body;
+
+            return content;
+        }
         public async Task<bool> PostTransactionStartSaga(TransactionDTO transactionDTO, IMessageSession _messageSession)
         {
             
@@ -64,10 +81,12 @@ namespace Transaction.BL
             var accountID = User.Claims.First(x => x.Type.Equals("AccountID", StringComparison.InvariantCultureIgnoreCase)).Value;
             return Guid.Parse(accountID);
         }
-        //public async Task InformCustomerWithTrasactionStatus(Guid transactionId, StatusEnum status)
-        //{
 
-        //}
+        public async Task InformCustomerWithTrasactionStatus(string email, StatusEnum status)
+        {
+            string[] content = await CreateTransactionDoneBodey(status);
+            _emailSender.SendEmail(, email, content[0], content[1]);
+        }
 
     }
 }

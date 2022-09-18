@@ -13,11 +13,12 @@ namespace CustomerAccount.DAL.Interfaces
         Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
         Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId, Guid fromAccountId, Guid toAccountId, int amount);
         Task<bool> CustumerAccountExists(Guid accountId);
+        Task<string> GetCustomersEmail(Guid accountId);
         #endregion
 
         #region EmailVerification
 
-      
+
         Task CreateEmailVerification(EmailVerificationModel emailVerificationModel);
         Task<bool> ValidateCodeAndTime(string email, string verificationCode);
         Task<int> UpdateAndGetNumOfAttempts(string email);
@@ -35,7 +36,5 @@ namespace CustomerAccount.DAL.Interfaces
         Task<int> GetCountOperations(Guid AccountId);
         Task<IEnumerable<OperationData>> GetMatchedOperations(List<Guid> operations);
         #endregion
-
-
     }
 }

@@ -68,5 +68,9 @@ namespace CustomerAccount.BL
         {
             return _storage.SenderHasEnoughBalance(accountId, amount);
         }
+        public Task<string> GetCustomersEmail(Guid accountId)
+        {
+            return _storage.GetCustomersEmail(accountId);
+        }
     }
 }
