@@ -53,9 +53,9 @@ export class LoginComponent implements OnInit {
           //   this.alertService.error(error.message);
           this.loading = false;
           if (error.status == 417)
-            alert("email or password uncurrect:(");
+            alert("email or password incorrect:(");
           else
-            alert("unexpcted errur accured, please try again")
+            alert("unexpected error occurred, please try again")
         });
   }
 
