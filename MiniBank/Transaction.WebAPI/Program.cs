@@ -108,8 +108,8 @@ app.UseCors(options => {
     options.AllowAnyMethod();
     options.AllowAnyHeader();
 });
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
