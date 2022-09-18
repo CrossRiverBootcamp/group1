@@ -11,6 +11,7 @@ namespace CustomerAccount.DAL
 {
     public class Storage : IStorage
     {
+        
         private readonly IDbContextFactory<CustomerAccountDBContext> _factory;
         private readonly IMapper _mapper;
 
@@ -19,7 +20,7 @@ namespace CustomerAccount.DAL
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _mapper = mapper;
         }
-
+        #region Account
         public async Task<bool> CustomerExists(string email)
         {
             using var context = _factory.CreateDbContext();
@@ -32,6 +33,119 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
+
+        public async Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData)
+        {
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                Customer customer = _mapper.Map<CustomerModel, Customer>(customerModel);
+                accountData.Customer = customer;
+
+                await context.Customers.AddAsync(customer);
+                await context.AccountDatas.AddAsync(accountData);
+
+                await context.SaveChangesAsync();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<AccountData> GetAccountData(Guid accountDataId)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                AccountData accountData = await context.AccountDatas
+                 .Where(acc => acc.Id.Equals(accountDataId))
+                 .Include(acc => acc.Customer)
+                 .FirstAsync();
+
+                return accountData ?? throw new KeyNotFoundException();
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+        public async Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                var customerAccount = await context.AccountDatas.FindAsync(accountId);
+                return customerAccount.Balance >= amount;
+            }
+            catch (Exception ex)
+            {
+                //includes if key not found
+                throw new DBContextException(ex.Message);
+            }
+        }
+        public async Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId, Guid fromAccountId, Guid toAccountId, int amount)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                //we don't check here for nullability of the accounts
+                //because we already have checked it in the previous funcs
+
+                var fromAccount = await context.AccountDatas.FindAsync(fromAccountId);
+                fromAccount.Balance -= amount;
+
+                var toAccount = await context.AccountDatas.FindAsync(toAccountId);
+                toAccount.Balance += amount;
+
+                OperationData creditOperation = new OperationData()
+                {
+                    AccountId = fromAccountId,
+                    TransactionId = transactionId,
+                    IsCredit = true,
+                    TransactionAmount = amount,
+                    Balance = fromAccount.Balance,
+                    OperationTime = DateTime.UtcNow
+                };
+                OperationData debitOperation = new OperationData()
+                {
+                    AccountId = toAccountId,
+                    TransactionId = transactionId,
+                    IsCredit = false,
+                    TransactionAmount = amount,
+                    Balance = toAccount.Balance,
+                    OperationTime = DateTime.UtcNow
+                };
+
+                await context.Operations.AddAsync(creditOperation);
+                await context.Operations.AddAsync(debitOperation);
+
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+
+        public async Task<bool> CustumerAccountExists(Guid accountId)
+        {
+            using var context = _factory.CreateDbContext();
+            try
+            {
+                return await context.AccountDatas.AnyAsync(account => account.Id.Equals(accountId));
+            }
+            catch (Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+        #endregion
+
+        #region EmailVerification
+
         public async Task CreateEmailVerification(EmailVerificationModel emailVerificationModel)
         {
             using var context = _factory.CreateDbContext();
@@ -82,22 +196,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<int> UpdateAndGetNumOfAttempts(string email)
-        {
-            using var context = _factory.CreateDbContext();
-
-            try
-            {
-                int numOfAttempts = (await context.EmailVerifications.FindAsync(email)).NumOfAttemps++;
-                await context.SaveChangesAsync();
-                return numOfAttempts;
-            }
-            catch (Exception ex)
-            {
-                //includes if key not found
-                throw new DBContextException(ex.Message);
-            }
-        }
         public async Task<int> UpdateAndGetNumOfResends(string email)
         {
             using var context = _factory.CreateDbContext();
@@ -114,26 +212,44 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData)
+        public async Task DeleteExpiredRows()
         {
             using var context = _factory.CreateDbContext();
 
             try
             {
-                Customer customer = _mapper.Map<CustomerModel, Customer>(customerModel);
-                accountData.Customer = customer;
-
-                await context.Customers.AddAsync(customer);
-                await context.AccountDatas.AddAsync(accountData);
-
-                await context.SaveChangesAsync();
+                var expired = await context.EmailVerifications.Where(x => x.ExpirationTime < DateTime.UtcNow).ToListAsync();
+                if (expired.Any())
+                {
+                    context.EmailVerifications.RemoveRange(expired);
+                    await context.SaveChangesAsync();
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                throw new DBContextException(ex.Message);
             }
-            return true;
         }
+
+        public async Task<int> UpdateAndGetNumOfAttempts(string email)
+        {
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                int numOfAttempts = (await context.EmailVerifications.FindAsync(email)).NumOfAttemps++;
+                await context.SaveChangesAsync();
+                return numOfAttempts;
+            }
+            catch (Exception ex)
+            {
+                //includes if key not found
+                throw new DBContextException(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Login
         public async Task<Guid> Login(string email, string password)
         {
             using var context = _factory.CreateDbContext();
@@ -151,86 +267,31 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<AccountData> GetAccountData(Guid accountDataId)
+        #endregion
+
+        #region Operation
+        public async Task<IEnumerable<OperationData>> GetMatchedOperations(List<Guid> operations)
         {
-            using var context = _factory.CreateDbContext();
             try
             {
-                AccountData accountData = await context.AccountDatas
-                 .Where(acc => acc.Id.Equals(accountDataId))
-                 .Include(acc => acc.Customer)
-                 .FirstAsync();
-                
-                 return accountData ?? throw new KeyNotFoundException();
+                using var context = _factory.CreateDbContext();
+
+                //selects double amount rows...
+                return await context.Operations.Where(op => operations.Contains(op.TransactionId)).ToListAsync();
             }
             catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<bool> CustumerAccountExists(Guid accountId)
+
+        public async Task<int> GetCountOperations(Guid AccountId)
         {
             using var context = _factory.CreateDbContext();
+
             try
             {
-                return await context.AccountDatas.AnyAsync(account => account.Id.Equals(accountId));
-            }
-            catch (Exception ex)
-            {
-                throw new DBContextException(ex.Message);
-            }
-        }
-        public async Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
-        {
-            using var context = _factory.CreateDbContext();
-            try
-            {
-                var customerAccount = await context.AccountDatas.FindAsync(accountId);
-                return customerAccount.Balance >= amount;
-            }
-            catch (Exception ex)
-            {
-                //includes if key not found
-                throw new DBContextException(ex.Message);
-            }
-        }  
-        public async Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount)
-        {
-            using var context = _factory.CreateDbContext();
-            try
-            {
-                //we don't check here for nullability of the accounts
-                //because we already have checked it in the previous funcs
-
-                var fromAccount = await context.AccountDatas.FindAsync(fromAccountId);
-                fromAccount.Balance -= amount;
-
-                var toAccount = await context.AccountDatas.FindAsync(toAccountId);
-                toAccount.Balance += amount;
-
-                OperationData creditOperation = new OperationData()
-                {
-                    AccountId = fromAccountId,
-                    TransactionId = transactionId,
-                    IsCredit = true,
-                    TransactionAmount = amount,
-                    Balance = fromAccount.Balance,
-                    OperationTime = DateTime.UtcNow
-                };
-                OperationData debitOperation = new OperationData()
-                {
-                    AccountId = toAccountId,
-                    TransactionId = transactionId,
-                    IsCredit = false,
-                    TransactionAmount = amount,
-                    Balance = toAccount.Balance,
-                    OperationTime = DateTime.UtcNow
-                };
-
-                await context.Operations.AddAsync(creditOperation);
-                await context.Operations.AddAsync(debitOperation);
-
-                await context.SaveChangesAsync();
+                return (await context.Operations.Where(op => op.AccountId.Equals(AccountId)).ToListAsync()).Count;
             }
             catch (Exception ex)
             {
@@ -252,56 +313,19 @@ namespace CustomerAccount.DAL
 
                 return pagedData ?? throw new KeyNotFoundException("data not found");
             }
-            catch(Exception ex)
-            {
-                throw new DBContextException(ex.Message);
-            }
-        }
-        public async Task<IEnumerable<OperationData>> GetMatchedOperations(List<Guid> operations)
-        {
-            try
-            {
-                using var context = _factory.CreateDbContext();
-
-                //selects double amount rows...
-                return await context.Operations.Where(op => operations.Contains(op.TransactionId)).ToListAsync();
-            }
-            catch(Exception ex)
-            {
-                throw new DBContextException(ex.Message);
-            }  
-        }
-        public async Task DeleteExpiredRows()
-        {
-            using var context = _factory.CreateDbContext();
-
-            try
-            {
-                var expired = await context.EmailVerifications.Where(x => x.ExpirationTime < DateTime.UtcNow).ToListAsync();
-                if (expired.Any())
-                {
-                    context.EmailVerifications.RemoveRange(expired);
-                    await context.SaveChangesAsync();
-                }
-            }
             catch (Exception ex)
             {
                 throw new DBContextException(ex.Message);
             }
         }
-        public async Task<int> GetCountOperations(Guid AccountId)
-        {
-            using var context = _factory.CreateDbContext();
 
-            try
-            {
-                return (await context.Operations.Where(op=> op.AccountId.Equals(AccountId)).ToListAsync()).Count;
-            }
-            catch(Exception ex)
-            {
-                throw new DBContextException(ex.Message);
-            }
-        }
+        #endregion
+
+
+
+
+
+
 
     }
 }
