@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CustomerAccountInfo } from 'src/app/models/customer-account.model';
 import { CustomerAccountService } from '../services/customer-account.service';
-import { AuthenticationService } from '../services/login.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-account-details',

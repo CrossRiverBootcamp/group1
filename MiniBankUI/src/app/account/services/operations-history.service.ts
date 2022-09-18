@@ -11,7 +11,19 @@ import { TransactionPartner } from 'src/app/models/transaction-partner';
 
 export class OperationsHistoryService {
 
+  transactionPartners:TransactionPartner[]=[];
+
   constructor(private _http: HttpClient) { }
+
+  getTransactionParnerByAccountId(accountId:string)
+  {
+     return this.transactionPartners.find(tp=> tp.email = accountId);
+  }
+
+  addTransactionParner(transactionPartner: TransactionPartner)
+  {
+    this.transactionPartners.push(transactionPartner);
+  }
 
   getOperationsHistory(accountId:string, PageNumber: number, PageSize:number): Observable<OperationData[]> {
     return this._http.get<OperationData[]>
