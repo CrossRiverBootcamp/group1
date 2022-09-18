@@ -28,7 +28,8 @@ export class OperationsHistoryComponent implements OnInit {
   isLoadingResults: boolean = true;
   //isRateLimitReached: boolean = false;
   currentPage: number = 0;
-  numOfRecords: number = 5;
+  numOfRecords: number = 3;
+  pageSizeOptions:number[]=[3,5];
   accountId: string;
   //accountId = sessionStorage.getItem('accountId');
   transactionPartner?: TransactionPartner;
@@ -36,15 +37,15 @@ export class OperationsHistoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //@ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _operationsHistoryService: OperationsHistoryService,private _loginService:AuthenticationService, private _dialog: MatDialog,
+  constructor(private _operationsHistoryService: OperationsHistoryService,private _authenticationService :AuthenticationService, private _dialog: MatDialog,
     ) {
-     this.accountId = _loginService.currentUserValue.accountId;
+     this.accountId = _authenticationService.currentUserValue.accountId;
     }
 
   openTransactionPartnerDetailsDialog(): void {
     const RBdialogRef = this._dialog.open(DialogTransactionPartnerDetailsComponent, {
-      width: '50%',
-      height: '80%',
+      width: '20%',
+      height: '50%',
       data: {
         transactionPartner: this.transactionPartner
       },
@@ -56,38 +57,22 @@ export class OperationsHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCountOperations();
     this.loadOperations();
+
   }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  // ngAfterViewInit() {;
-  //   merge(this.paginator.page)
-  //     .pipe(
-  //       startWith({}),
-  //       switchMap(() => {
-  //         this.isLoadingResults = true;
-  //         return this._operationsHistoryService.getOperationsHistory(
-  //           this.accountId!,
-  //           // ובסרביס גם כסטרינגthis.sort.active,
-  //           //this.sort.direction,
-  //           this.paginator.pageIndex,
-  //           this.numOfRecords
-  //         ).pipe(catchError(() => observableOf(null)));
-  //       }),
-  //       map(data => {
-  //         // Flip flag to show that loading has finished.
-  //         this.isLoadingResults = false;
-  //         this.isRateLimitReached = data === null;
-  //         if (data === null) {
-  //           return [];
-  //         }
-  //         this.resultsLength = data.length;
-  //         return data;
-  //       }),
-  //     )
-  //     .subscribe(data => (this.data = data));
-  // }
+
+  getCountOperations()
+  {
+    this._operationsHistoryService.getCountOperations(this.accountId).subscribe(res=>{
+      this.resultsLength = res;
+    });
+  }
+
   loadOperations() {
     this.isLoadingResults = true;
     this._operationsHistoryService.getOperationsHistory(
@@ -99,7 +84,7 @@ export class OperationsHistoryComponent implements OnInit {
       this.dataSource = new MatTableDataSource<OperationData>(this.data);
 
       this.isLoadingResults = false;
-      this.resultsLength = result.length;
+      //this.resultsLength = result.length;
       //updates???
       this.paginator.pageIndex = this.currentPage;
     }, err => {
@@ -107,15 +92,18 @@ export class OperationsHistoryComponent implements OnInit {
     })
   }
   pageChanged(event: PageEvent) {
-    //this.currentPage = event.pageIndex;
+    this.currentPage = event.pageIndex;
+    this.numOfRecords = event.pageSize;
+
     this.loadOperations();
   }
 
-  viewTransactionPartnerDetails(transactionPartnerId: string) {
-    this.transactionPartner = this._operationsHistoryService.getTransactionParnerByAccountId(transactionPartnerId);
+  viewTransactionPartnerDetails(transactionPartnerAccountId: string) {
+    this.transactionPartner = this._operationsHistoryService.getTransactionParnerByAccountId(transactionPartnerAccountId);
     if (!this.transactionPartner) {
-      this._operationsHistoryService.getTransactionPartnerDetails(transactionPartnerId).subscribe(res => {
+      this._operationsHistoryService.getTransactionPartnerDetails(transactionPartnerAccountId).subscribe(res => {
         this.transactionPartner = res;
+        this.transactionPartner.accountId = transactionPartnerAccountId;
         this._operationsHistoryService.addTransactionParner(res);
         this.openTransactionPartnerDetailsDialog();
       })

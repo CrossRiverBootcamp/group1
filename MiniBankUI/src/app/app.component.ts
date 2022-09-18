@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from './account/services/authentication.service';
+import { AuthenticationService } from './modules/account/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent {
 
   viewActionsNav: boolean = false;
 
-  constructor(private router: Router, private loginService:AuthenticationService) { }
+  constructor(private router: Router, private _authenticationService:AuthenticationService) { }
 
   changeViewActionsNav() {
     this.viewActionsNav = !this.viewActionsNav;
@@ -23,8 +23,7 @@ export class AppComponent {
   }
 
   checkIfUserLoggedIn() {
-  return this.loginService.currentUser;
-   // return sessionStorage.getItem('currentUser')!=null
+    return this._authenticationService.currentUser;
   }
 
   // openTransactionView(){

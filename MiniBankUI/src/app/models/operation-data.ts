@@ -1,6 +1,6 @@
 export interface OperationData {
     isCredit: boolean;
-    transactionPartnerId: string;
+    transactionPartnerAccountId: string;
     amount: number;
     balance:number;
     date: Date;

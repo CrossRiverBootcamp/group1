@@ -13,10 +13,10 @@ export class AccountDetailsComponent  {
 
   accountInfo!:CustomerAccountInfo;
 
-  constructor(private _accountService:CustomerAccountService,_loginService:AuthenticationService
+  constructor(private _accountService:CustomerAccountService,_authenticationService:AuthenticationService
     // private alertService: AlertService
     ) {
-      let accountId = _loginService.currentUserValue.accountId;
+      let accountId = _authenticationService.currentUserValue.accountId;
       //מיותר?- תמיד מגיע רק חארי לוגין
      // if(accountId)
         _accountService.getAccountInfo(accountId)

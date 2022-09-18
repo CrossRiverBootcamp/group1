@@ -9,7 +9,7 @@ import { LoginReturn } from 'src/app/models/loginReturn.model';
   providedIn: 'root'
 })
 
-export class AuthenticationService  {
+export class AuthenticationService {
 
   private currentUserSubject: BehaviorSubject<LoginReturn | any>;
   public currentUser: Observable<LoginReturn>;
