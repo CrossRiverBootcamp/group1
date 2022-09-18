@@ -69,10 +69,12 @@ export class OpenAccountComponent implements OnInit {
     this.accountDetailsForm.disable();
     //this.NumOfVerificationCodesSent++;
     this.emailVerificationService.sendEmailVerification(this.f['email'].value,isResend)
-      .subscribe(()=>{},
+      .subscribe(()=>{
+        alert("verification code sent. check you email")
+      },
       (error)=>{
         alert("can not resend a code... sorry:(")
-        this.router.navigateByUrl('account');
+        this.router.navigateByUrl('account/login');
       }
       );
   }
@@ -106,8 +108,8 @@ export class OpenAccountComponent implements OnInit {
           }
           else
           {
-            alert("ooop error acured, please try again");
-            this.router.navigateByUrl('account');
+            alert("ooops error acured, please try again");
+            this.router.navigateByUrl('account/login');
           }
           this.loading = false;
           //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
@@ -124,8 +126,8 @@ export class OpenAccountComponent implements OnInit {
               case 417:alert('code expired. Try a resend requst');
               break;
               case 429:{
-                alert(`wrong code. no more attempts שךךםקג`)
-                this.router.navigateByUrl('account');
+                alert(`wrong code. no more attempts`)
+                this.router.navigateByUrl('account/login');
               }
               break;
               default:alert('Unresolved error:( Please try again later..');

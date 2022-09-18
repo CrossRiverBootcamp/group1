@@ -20,11 +20,11 @@
           [ngClass]="{ 'is-invalid':( f['toAccountId'].dirty || f['toAccountId'].touched) && f['toAccountId'].errors ||!toAccountIdExists}" />
         <div *ngIf="( f['toAccountId'].dirty || f['toAccountId'].touched) && f['toAccountId'].errors"
           class="invalid-feedback">
-          <div *ngIf="f['toAccountId'].errors['required']">to account ID is required</div>
-          <div *ngIf="f['toAccountId'].errors['pattern']">to account ID has to be of GUID type</div>
+          <div *ngIf="f['toAccountId'].errors['required']">to accountID is required</div>
+          <div *ngIf="f['toAccountId'].errors['pattern']">accountID must be of GUID type</div>
         </div>
         <div *ngIf="!toAccountIdExists" class="invalid-feedback">
-          <div>No such user with this account Id</div>
+          <div>accountId does not exist</div>
         </div>
       </div>
       <div class="form-group">
