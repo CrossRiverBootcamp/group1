@@ -24,6 +24,7 @@ namespace CustomerAccount.DAL.Interfaces
         Task<IEnumerable<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize);
         Task DeleteExpiredRows();
         Task<IEnumerable<OperationData>> GetMatchedOperations(List<Guid> operations);
+        Task<int> GetCountOperations(Guid AccountId);
 
     }
 }

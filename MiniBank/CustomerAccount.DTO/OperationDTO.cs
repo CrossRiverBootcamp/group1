@@ -13,7 +13,7 @@ namespace CustomerAccount.DTO
         public Boolean IsCredit { get; set; }
 
         [Required]
-        public Guid TransactionPartnerId { get; set; }
+        public Guid TransactionPartnerAccountId { get; set; }
 
         [Required]
         public int  Amount { get; set; }

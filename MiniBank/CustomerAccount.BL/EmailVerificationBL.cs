@@ -117,11 +117,12 @@ namespace CustomerAccount.BL
         {
             return _storage.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);
         }
-        public async Task UpdateAndLimitNumberOfAttempts(string email)
+        public async Task<int> UpdateAndLimitNumberOfAttempts(string email)
         {
             int numOfAttempts = await _storage.UpdateAndGetNumOfAttempts(email);
             if (numOfAttempts > _options.NumOfAttemptsAllowed)
                 throw new TooManyRetriesException();
+            return numOfAttempts;
         }
    
         public Task DeleteExpiredRows()

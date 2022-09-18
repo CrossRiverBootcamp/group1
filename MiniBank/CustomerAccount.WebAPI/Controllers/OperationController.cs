@@ -25,10 +25,16 @@ namespace CustomerAccount.WebAPI.Controllers
         }
 
         // GET api/<AccountController>/5
-        [HttpGet("{transactionPartnerAccountId}")]
+        [HttpGet("{transactionPartnerAccountId}/transactionPartnerAccountId")]
         public async Task<ActionResult<TransactionPartnerDetailsDTO>> GetTransactionPartner(Guid transactionPartnerAccountId)
         {
             return Ok(await _operationBL.GetTransactionPartnerAccountInfo(transactionPartnerAccountId));
+        }
+
+        [HttpGet("{AccountId}/getCountOperations")]
+        public async Task<ActionResult<int>> GetCountOprations(Guid AccountId)
+        {
+            return Ok(await _operationBL.GetCountOperations(AccountId));
         }
     }
 }

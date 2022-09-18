@@ -42,7 +42,7 @@ namespace CustomerAccount.BL
                 foreach(var partnerOp in partnerOperations)
                 {
                     if(partnerOp.TransactionId.Equals(op.TransactionId))
-                        op.TransactionPartnerId = partnerOp.AccountId;
+                        op.TransactionPartnerAccountId = partnerOp.AccountId;
                 }
             }
 
@@ -53,5 +53,10 @@ namespace CustomerAccount.BL
         {
             return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _storage.GetAccountData(transactionPartnerAccountId));
         }
+        public Task<int> GetCountOperations(Guid AccountId)
+        {
+            return _storage.GetCountOperations(AccountId);
+        }
+
     }
 }

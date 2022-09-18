@@ -33,6 +33,6 @@ namespace CustomerAccount.DAL.Entities
         public DateTime OperationTime { get; set; }
 
         [NotMapped]
-        public Guid TransactionPartnerId { get; set; }
+        public Guid TransactionPartnerAccountId { get; set; }
     }
 }
