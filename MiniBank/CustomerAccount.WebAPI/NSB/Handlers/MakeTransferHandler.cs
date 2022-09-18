@@ -37,6 +37,7 @@ public class MakeTransferHandler :
                     log.Error($"Transfer failed, TransactionId = {message.TransactionId} - ToAccountId does not exist...");
                     transactionDoneMsg.IsDone = false;
                     transactionDoneMsg.FailureReason += " Transfer failed, ToAccountId does not exist...";
+                    throw new KeyNotFoundException();
                 }
                 else
                 {
@@ -46,6 +47,7 @@ public class MakeTransferHandler :
                         log.Error($"Transfer failed, TransactionId = {message.TransactionId} - FromAccountId = {message.FromAccountId} does not Have Enough Balance");
                         transactionDoneMsg.IsDone = false;
                         transactionDoneMsg.FailureReason += " Transfer failed, sender does not Have Enough Balance";
+                        throw new OverdepartDanger();
                     }
                     else
                     {
