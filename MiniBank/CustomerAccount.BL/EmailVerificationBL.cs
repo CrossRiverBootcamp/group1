@@ -68,7 +68,7 @@ namespace CustomerAccount.BL
         private async Task<int> UpdateLimitAndReturnNumberOfResends(string email)
         {
             int CodeNum = await _storage.UpdateAndGetNumOfResends(email);
-            if (CodeNum > _options.NumOfVerficationCodesAllowed)
+            if (CodeNum > _options.NumOfResendsAllowed)
                 throw new TooManyRetriesException();
 
             return CodeNum;
@@ -120,7 +120,7 @@ namespace CustomerAccount.BL
         public async Task<int> UpdateAndLimitNumberOfAttempts(string email)
         {
             int numOfAttempts = await _storage.UpdateAndGetNumOfAttempts(email);
-            if (numOfAttempts > _options.NumOfAttemptsAllowed)
+            if (numOfAttempts > _options.NumOfGuessingAttemptsAllowed)
                 throw new TooManyRetriesException();
             return numOfAttempts;
         }
