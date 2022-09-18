@@ -34,29 +34,9 @@ public class Middleware
 
             switch (error)
             {             
-                case ArgumentNullException ex:
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    await response.WriteAsync("" + ex.Message);
-                    break;
                 case UnauthorizedAccessException ex:
                     response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     await response.WriteAsync("Ooops your email or password isn't currect.. " + ex.Message);
-                    break;
-                case KeyNotFoundException ex:
-                    response.StatusCode = (int)HttpStatusCode.NotFound;
-                    await response.WriteAsync("key not found!");                   
-                    break;
-                case EmailInUseException ex:
-                    response.StatusCode = (int)HttpStatusCode.NotAcceptable;
-                    await response.WriteAsync("Email address in use");
-                    break;
-                case VerificationCodeExpiredException ex:
-                    response.StatusCode = (int)HttpStatusCode.Forbidden;
-                    await response.WriteAsync("Verification code expired..:(");
-                    break;
-                case TooManyRetriesException ex:
-                    response.StatusCode = (int)HttpStatusCode.TooManyRequests;
-                    await response.WriteAsync("too many retries requests..:(");
                     break;
                 case DBContextException ex:
                     //Other DBContext Exceptions

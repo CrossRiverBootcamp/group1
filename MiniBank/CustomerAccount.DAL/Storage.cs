@@ -202,7 +202,7 @@ namespace CustomerAccount.DAL
 
             try
             {
-                int CodeNum = (await context.EmailVerifications.FindAsync(email)).CodeNum++;
+                int CodeNum = ((await context.EmailVerifications.FindAsync(email)).CodeNum++);
                 await context.SaveChangesAsync();
                 return CodeNum;
             }

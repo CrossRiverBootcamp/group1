@@ -41,7 +41,7 @@ namespace CustomerAccount.BL
             {
                 foreach(var partnerOp in partnerOperations)
                 {
-                    if(partnerOp.TransactionId.Equals(op.TransactionId))
+                    if(partnerOp.TransactionId.Equals(op.TransactionId) && partnerOp.Id!= op.AccountId)
                         op.TransactionPartnerAccountId = partnerOp.AccountId;
                 }
             }

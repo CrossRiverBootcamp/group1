@@ -9,6 +9,7 @@ using Transaction.DTO;
 
 namespace Transaction.WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
   

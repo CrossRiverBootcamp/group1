@@ -57,12 +57,10 @@ public class TransactionPolicy :
         try
         {
             await _transactionBL.ChangeTransactionStatus(upadateTransactionStatusDTO);
-            //inform customers about it!!!?!
         }
         catch(DBContextException ex)
         {
             log.Info($"Updating transactions status failed with message: {ex.Message}. TransactionId: {message.TransactionId}");
-            //infom customer
         }
         MarkAsComplete();
     }
