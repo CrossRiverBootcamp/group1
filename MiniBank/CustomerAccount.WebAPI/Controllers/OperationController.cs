@@ -2,6 +2,7 @@
 using CustomerAccount.DTO;
 using CustomerAccount.BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using CustomerAccount.BL;
 
 namespace CustomerAccount.WebAPI.Controllers
 {
