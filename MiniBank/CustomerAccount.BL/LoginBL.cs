@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAccount.BL
 {
-    public class LoginBL:ILoginBL
+    public class LoginBL :  ILoginBL
     {
         private readonly IMapper _mapper;
         private readonly IStorage _Storage;
@@ -29,12 +29,18 @@ namespace CustomerAccount.BL
             _configuration = configuration;
         }
 
-         public async Task <string> Login(LoginDTO loginDTO)
-         {
-            Guid AccountId = await _Storage.Login(loginDTO.Email, loginDTO.Password);
-            string token = CreateToken(AccountId);
-            return token;
-         }
+        public async Task<loginReturnDTO> Login(LoginDTO loginDTO)
+        {
+
+            Guid accountId = await _Storage.Login(loginDTO.Email, loginDTO.Password);
+            string token = CreateToken(accountId);
+
+            return new loginReturnDTO()
+            {
+                AccountId = accountId,
+                Token = token
+            };
+        }
         public string CreateToken(Guid AccountId)
         {
             var claims = new[] {

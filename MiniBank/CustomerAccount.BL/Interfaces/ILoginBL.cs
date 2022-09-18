@@ -4,6 +4,7 @@ namespace CustomerAccount.BL.Interfaces
 {
     public interface ILoginBL
     {
-        Task<string> Login(LoginDTO loginDTO);
+        string CreateToken(Guid AccountId);
+        Task<loginReturnDTO> Login(LoginDTO loginDTO);
     }
 }
