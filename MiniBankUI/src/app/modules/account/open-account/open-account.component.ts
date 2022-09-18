@@ -88,7 +88,6 @@ export class OpenAccountComponent implements OnInit {
       if(res)
         {
           this.emailExists=true;
-          //this.f['email'].reset();
         }
     })
   }

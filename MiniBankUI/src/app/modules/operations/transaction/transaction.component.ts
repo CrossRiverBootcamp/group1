@@ -28,17 +28,12 @@ export class TransactionComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       toAccountId: ['', Validators.required],
-      amount: ['', Validators.required, Validators.min(1), Validators.max(1000000)]
+      amount: ['', [Validators.required, Validators.min(1), Validators.max(1000000)]]
     });
   }
 
   onSubmit() {
     this.submitted = true;
-
-    // reset alerts on submit
-    //this.alertService.clear();
-
-    // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
@@ -58,22 +53,8 @@ export class TransactionComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           this.loading = false;
-          //לא צריך- זה מה שמחכה למייל או יראה בטבלה...
-          // switch (error.status) {
-          //   case 400:
-          //     {
-          //       alert("addressee not fount");
-          //       break;
-          //     }
-          //   case 403:
-          //     {
-          //       alert("Decline: Overdraft danger");
-          //       break;
-          //     }
-          //   default:
-          //     alert("error accured, please try again later");
-          // }
-          //   this.alertService.error(error.message);
+          alert(`error of type ${error.statusText} ocurred `);
+          this.form.reset();
         });
   }
 

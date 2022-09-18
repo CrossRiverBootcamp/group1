@@ -4,19 +4,23 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="form-group">
               <label for="amount">amount</label>
-              <input type="number" formControlName="amount" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['amount'].errors }" />
-              <div *ngIf="submitted && f['amount'].errors" class="invalid-feedback">
+              <input type="number" formControlName="amount" class="form-control" [ngClass]="{ 'is-invalid': ( f['amount'].dirty || f['amount'].touched) && f['amount'].errors}" />
+              <div *ngIf="( f['amount'].dirty || f['amount'].touched) && f['amount'].errors" class="invalid-feedback">
                   <div *ngIf="f['amount'].errors['required']">amount is required</div>
                   <div *ngIf="f['amount'].errors['min']">amount has to be positive</div>
                   <div *ngIf="f['amount'].errors['max']">amount is limited to a million</div>
               </div>
+
           </div>
           <div class="form-group">
               <label for="toAccountId">to account ID</label>
-              <input type="toAccountId" formControlName="toAccountId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['toAccountId'].errors }" />
-              <div *ngIf="submitted && f['toAccountId'].errors" class="invalid-feedback">
+              <input (change)="checkIfToAccountIdExists()" type="toAccountId" formControlName="toAccountId" class="form-control"
+              [ngClass]="{ 'is-invalid':( f['toAccountId'].dirty || f['toAccountId'].touched) && f['toAccountId'].errors ||toAccountIdDoesNotExist}" />
+              <div *ngIf="( f['toAccountId'].dirty || f['toAccountId'].touched) && f['toAccountId'].errors" class="invalid-feedback">
                   <div *ngIf="f['toAccountId'].errors['required']">to account ID is required</div>
               </div>
+              <div *ngIf="toAccountIdDoesNotExist" class="invalid-feedback">
+                <div>No such user with this account Id</div>              </div>
           </div>
           <div class="form-group">
               <button [disabled]="loading" class="btn btn-primary">
