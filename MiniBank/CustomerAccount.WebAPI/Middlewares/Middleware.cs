@@ -38,14 +38,6 @@ public class Middleware
                     response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     await response.WriteAsync("Ooops your email or password isn't currect.. " + ex.Message);
                     break;
-                case KeyNotFoundException ex:
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    await response.WriteAsync("addressee not found");
-                    break;
-                case OverdraftDanger ex:
-                    response.StatusCode = (int)HttpStatusCode.Forbidden;
-                    await response.WriteAsync("Overdraft danger");                   
-                    break;
                 case DBContextException ex:
                     //Other DBContext Exceptions
                     response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
