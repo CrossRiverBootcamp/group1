@@ -58,7 +58,7 @@ namespace CustomerAccount.BL
         {
             return _storage.GetCountOperations(AccountId);
         }
-        public Guid getAccountIDFromToken(ClaimsPrincipal User)
+        public Guid GetAccountIDFromToken(ClaimsPrincipal User)
         {
             var accountID = User.Claims.First(x => x.Type.Equals("AccountID", StringComparison.InvariantCultureIgnoreCase)).Value;
             return Guid.Parse(accountID);

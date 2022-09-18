@@ -21,7 +21,7 @@ public class AccountController : ControllerBase
     [HttpGet("{accountId}")]
     public async Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
-        if (accountBL.getAccountIDFromToken(User).Equals(accountId))
+        if (accountBL.GetAccountIDFromToken(User).Equals(accountId))
             return await accountBL.GetAccountInfo(accountId);
         throw new UnauthorizedAccessException();
 
@@ -33,7 +33,7 @@ public class AccountController : ControllerBase
     }
 
 
-    [HttpGet("{AccountId}/Exists")]
+    [HttpGet("{AccountId}/AccountExists")]
     public async Task<bool> CustumrAccountExists(Guid AccountId)
     {
         return await accountBL.CustumerAccountExists(AccountId);

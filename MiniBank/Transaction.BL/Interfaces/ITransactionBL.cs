@@ -9,7 +9,7 @@ namespace Transaction.BL.Interfaces
     {
         Task<bool> PostTransactionStartSaga(TransactionDTO TransactionDTO, IMessageSession _messageSession);
         Task ChangeTransactionStatus(UpadateTransactionStatusDTO upadateTransactionStatusDTO);
-        public Guid getAccountIDFromToken(ClaimsPrincipal User);
+        public Guid GetAccountIDFromToken(ClaimsPrincipal User);
         void InformCustomerWithTrasactionStatus(string email, bool isDone);
         void InformAccuntCredited(string email);
     }

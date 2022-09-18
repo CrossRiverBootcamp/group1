@@ -29,8 +29,8 @@ namespace Transaction.WebAPI.Controllers
         public async Task<ActionResult<bool>> Post([FromBody] TransactionDTO transactionDTO)
         {
 
-             //Guid id = _transactionBL.getAccountIDFromToken(User);
-            if (_transactionBL.getAccountIDFromToken(User).Equals(transactionDTO.FromAccountId))
+             //Guid id = _transactionBL.GetAccountIDFromToken(User);
+            if (_transactionBL.GetAccountIDFromToken(User).Equals(transactionDTO.FromAccountId))
             {
                var  result = await _transactionBL.PostTransactionStartSaga(transactionDTO, _messageSession);
                 return Ok(result);

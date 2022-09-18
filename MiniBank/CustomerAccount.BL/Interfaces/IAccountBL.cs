@@ -12,7 +12,7 @@ namespace CustomerAccount.BL.Interfaces
         Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount);
         Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
         Task<string> GetCustomersEmail(Guid accountId);
-        public Guid getAccountIDFromToken(ClaimsPrincipal User);
+        public Guid GetAccountIDFromToken(ClaimsPrincipal User);
       
 
     }
