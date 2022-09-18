@@ -23,8 +23,6 @@ export class AppComponent {
   }
 
   showDiv() {
-    console.log('act?: '+!this._authenticationService.isInActions);
-
     return this._authenticationService.isLogged&&(!this._authenticationService.isInActions);
 
   }

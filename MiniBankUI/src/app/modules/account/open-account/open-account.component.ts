@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgOtpInputComponent } from 'ng-otp-input';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerAccountService } from '../../../services/customer-account.service';
 import { EmailVerificationService } from '../../../services/email-verification.service';
 
 const ATTEMPTS_ALLOWED=4;
-//const NUM_OF_VERIFY_CODES_ALLOWED=2;
 
 
 @Component({
@@ -22,22 +22,25 @@ export class OpenAccountComponent implements OnInit {
   accountDetailsViewForm!:FormGroup;
   loading = false;
   accountDetailsFormSubmitted = false;
-  // verificationFormSubmitted=false;
 
   userVerified:boolean=true;
   emailExists: boolean=false;
   numOfAttempts:number=0;
   NumOfVerificationCodesSent:number=0;
 
+  @ViewChild(NgOtpInputComponent, { static: false}) ngOtpInput:NgOtpInputComponent | undefined;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private accountService: CustomerAccountService,
     private emailVerificationService: EmailVerificationService
-   // private alertService: AlertService
   ) { }
 
   ngOnInit() {
+
+    this.ngOtpInput?.otpForm.disable();
+
     this.accountDetailsForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(4)]],
@@ -46,9 +49,7 @@ export class OpenAccountComponent implements OnInit {
     });
 
     this.verificationForm=this.formBuilder.group({
-      verificationCode:['',[Validators.required
-        // , Validators.pattern("[0-9]{6}")
-      ]]
+      verificationCode:['',[Validators.required]]
     })
 
     this.accountDetailsViewForm=this.formBuilder.group({});
@@ -69,7 +70,9 @@ export class OpenAccountComponent implements OnInit {
     this.accountDetailsForm.disable();
     //this.NumOfVerificationCodesSent++;
     this.emailVerificationService.sendEmailVerification(this.f['email'].value,isResend)
-      .subscribe(()=>{},
+      .subscribe(()=>{
+        this.ngOtpInput?.otpForm.enable();
+      },
       (error)=>{
         alert("can not resend a code... sorry:(")
         window.location.reload()
@@ -116,15 +119,15 @@ export class OpenAccountComponent implements OnInit {
         (error: HttpErrorResponse) => {
           switch (error.status) {
             case 401:
-              {
-                  {alert(`wrong code. you have ${ATTEMPTS_ALLOWED-(this.numOfAttempts++)} attempts left`);
-                  this.verificationForm.get('verificationCode')?.setValue('88888');}
-              }
-              break;
-              case 417:alert('code expired. Try a resend requst');
+                  {
+                    alert(`wrong code. you have ${ATTEMPTS_ALLOWED-(this.numOfAttempts++)} attempts left`);
+                    this.ngOtpInput?.setValue('');
+                    break;
+                  }
+              case 417:alert('code expired. Try a resend request');
               break;
               case 429:{
-                alert(`wrong code. no more attempts שךךםקג`)
+                alert(`wrong code. no more attempts left`)
                 this.router.navigateByUrl('account');
               }
               break;
@@ -137,24 +140,9 @@ export class OpenAccountComponent implements OnInit {
   }
 
   onSubmit() {
-
-    //this.submitted = true;
-    // reset alerts on submit
-    //this.alertService.clear();
-    // stop here if accountDetailsForm is invalid
     if (this.accountDetailsForm.invalid) {
       return;
     }
   }
 
-  // onSubmit() {
-  //   this.submitted = true;
-
-  //   // reset alerts on submit
-  //   //this.alertService.clear();
-
-  //   // stop here if accountDetailsForm is invalid
-  //   if (this.accountDetailsForm.invalid) {
-  //     return;
-  //   }
 }
