@@ -22,7 +22,10 @@ namespace CustomerAccount.WebAPI.Controllers
         [HttpGet("{AccountId}/getOperations")]
         public Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId, [FromQuery] int PageNumber, [FromQuery] int PageSize)
         {
-            return _operationBL.GetByPageAndAccountId(AccountId, PageNumber, PageSize);
+            if (_operationBL.getAccountIDFromToken(User).Equals(AccountId))
+                return _operationBL.GetByPageAndAccountId(AccountId, PageNumber, PageSize);
+            throw new UnauthorizedAccessException();
+           
         }
 
         // GET api/<AccountController>/5
@@ -35,7 +38,9 @@ namespace CustomerAccount.WebAPI.Controllers
         [HttpGet("{AccountId}/getCountOperations")]
         public async Task<ActionResult<int>> GetCountOprations(Guid AccountId)
         {
-            return Ok(await _operationBL.GetCountOperations(AccountId));
+            if (_operationBL.getAccountIDFromToken(User).Equals(AccountId))
+               return Ok(await _operationBL.GetCountOperations(AccountId));
+            return Unauthorized();
         }
     }
 }

@@ -22,7 +22,10 @@ public class AccountController : ControllerBase
     [HttpGet("{accountId}")]
     public async Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
-        return await accountBL.GetAccountInfo(accountId);
+        if (accountBL.getAccountIDFromToken(User).Equals(accountId))
+            return await accountBL.GetAccountInfo(accountId);
+        throw new UnauthorizedAccessException();
+
     }
     [HttpGet("{email}/Exists")]
     public async Task<bool> Get(string email)
