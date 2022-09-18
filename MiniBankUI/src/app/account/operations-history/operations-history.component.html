@@ -1,0 +1,49 @@
+<div class="example-container mat-elevation-z8">
+    <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+            GitHub's API rate limit has been reached. It will be reset in one minute.
+        </div>
+    </div>
+
+    <div class="example-table-container">
+
+        <table mat-table [dataSource]="data" class="example-table">
+         <!-- matSort matSortActive="Date" matSortDisableClear matSortDirection="desc" -->
+
+            <ng-container matColumnDef="Credit/Debit">
+                <th mat-header-cell *matHeaderCellDef>Credit/Debit</th>
+                <td mat-cell *matCellDef="let row">{{row.CreditOrDebit}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="From whom/to whom">
+                <th mat-header-cell *matHeaderCellDef>From whom/to whom</th>
+                <td mat-cell *matCellDef="let row">{{row.FromWhomToWhom}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Amount">
+                <th mat-header-cell *matHeaderCellDef>Amount</th>
+                <td mat-cell *matCellDef="let row">{{row.Amount}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Balance">
+                <th mat-header-cell *matHeaderCellDef>Balance</th>
+                <td mat-cell *matCellDef="let row">{{row.Balance}}</td>
+            </ng-container>
+
+            <!-- Date Column -->
+            <ng-container matColumnDef="Date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+                    Date
+                </th>
+                <td mat-cell *matCellDef="let row">{{row.Date | date}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewTransactionPartnerDetails(row.FromWhomToWhom)"></tr>
+        </table>
+    </div>
+
+    <mat-paginator [length]="resultsLength" [pageSize]="numOfRecords" aria-label="Select page of GitHub search results">
+    </mat-paginator>
+</div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from './account/services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,28 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'MiniBankUI';
-  /**
-   *
-   */
-  constructor(private router:Router) {  }
-  openTransactionView(){
-    this.router.navigateByUrl('account/transaction')
+
+  viewActionsNav: boolean = false;
+
+  constructor(private router: Router, private loginService:LoginService) { }
+
+  changeViewActionsNav() {
+    this.viewActionsNav = !this.viewActionsNav;
   }
+
+  openActions() {
+    this.router.navigateByUrl('account/actions')
+  }
+
+  checkIfUserLoggedIn() {
+    return this.loginService.isUserLoggedIn;
+  }
+
+  // openTransactionView(){
+  //   this.router.navigateByUrl('account/transaction')
+  // }
+
+  // openOperationsHistory(){
+  //   this.router.navigateByUrl('account/operationHistory')
+  // }
 }
