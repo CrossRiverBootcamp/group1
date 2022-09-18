@@ -5,7 +5,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 
 const routes: Routes = [
   {path:'transaction',component:TransactionComponent},
-  {path:'operationHistory',component:OperationsHistoryComponent}
+  {path:'operation-history',component:OperationsHistoryComponent}
 ];
 
 @NgModule({

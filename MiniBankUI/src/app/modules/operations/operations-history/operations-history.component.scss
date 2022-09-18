@@ -12,6 +12,35 @@
 
 table {
   width: 100%;
+  text-align: center;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 20%;
+}
+
+.table-div{
+
+  text-align: center;
+  position: absolute;
+
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+
+tr.example-element-row:hover {
+background: rgb(222, 236, 251);
+}
+
+tr.example-element-row-choosed {
+background: rgb(132, 176, 223);
 }
 
 .example-loading-shade {
@@ -35,9 +64,9 @@ table {
 /* Column Widths */
 .mat-column-number,
 .mat-column-state {
-  max-width: 64px;
+  max-width: 300px;
 }
 
 .mat-column-created {
-  max-width: 124px;
+  max-width: 300px;
 }

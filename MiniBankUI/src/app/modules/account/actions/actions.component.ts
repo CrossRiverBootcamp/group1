@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./actions.component.scss']
 })
 export class ActionsComponent implements OnInit {
-  
+
   @Output() viewActionsNav = new EventEmitter();
 
   constructor(private router:Router) { }
@@ -18,11 +18,11 @@ export class ActionsComponent implements OnInit {
 
   openTransactionView(){
     this.viewActionsNav.emit();
-    this.router.navigateByUrl('account/transaction')
+    this.router.navigate(['./transaction'])
   }
 
     openOperationsHistory(){
       this.viewActionsNav.emit();
-    this.router.navigateByUrl('account/operationHistory')
+      this.router.navigate(['./operation-history'])
   }
 }
