@@ -56,6 +56,7 @@ ngOnInit() {
             (isAdded: boolean) => {
               alert(`Your request has been accepted in the system. The transfer will be made as soon as possible `)
                 this.loading = false;
+                this.router.navigateByUrl('account/actions');
             },
             (error: HttpErrorResponse) => {
               //   this.alertService.error(error.message);
