@@ -17,12 +17,17 @@ export class OperationsHistoryService {
 
   getTransactionParnerByAccountId(accountId:string)
   {
-     return this.transactionPartners.find(tp=> tp.email = accountId);
+     return this.transactionPartners.find(tp=> tp.accountId = accountId);
   }
 
   addTransactionParner(transactionPartner: TransactionPartner)
   {
     this.transactionPartners.push(transactionPartner);
+  }
+
+  getCountOperations(accountId:string): Observable<number> {
+    return this._http.get<number>
+      (`api/Operation/${accountId}/getCountOperations`);
   }
 
   getOperationsHistory(accountId:string, PageNumber: number, PageSize:number): Observable<OperationData[]> {
@@ -31,7 +36,7 @@ export class OperationsHistoryService {
   }
 
   getTransactionPartnerDetails(accountId:string): Observable<TransactionPartner> {
-    return this._http.get<TransactionPartner>(`api/Operation/${accountId}`);
+    return this._http.get<TransactionPartner>(`api/Operation/${accountId}/transactionPartnerAccountId`);
   }
 
   // getOperationsHistory(accountId:string, order: SortDirection, page: number, numOfRecords:number): Observable<OperationData[]> {

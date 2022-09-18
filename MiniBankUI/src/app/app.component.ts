@@ -12,7 +12,7 @@ export class AppComponent {
 
   viewActionsNav: boolean = false;
 
-  constructor(private router: Router, private loginService:AuthenticationService) { }
+  constructor(private router: Router, private _authenticatioService:AuthenticationService) { }
 
   changeViewActionsNav() {
     this.viewActionsNav = !this.viewActionsNav;
@@ -23,7 +23,7 @@ export class AppComponent {
   }
 
   checkIfUserLoggedIn() {
-    return this.loginService.isUserLoggedIn;
+    return this._authenticatioService.isUserLoggedIn;
   }
 
   // openTransactionView(){
