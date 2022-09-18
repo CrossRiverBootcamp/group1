@@ -21,7 +21,6 @@ export interface DialogTransactionPartnerDetailsData {
 
 export class OperationsHistoryComponent implements OnInit {
   displayedColumns: string[] = ['Credit/Debit', 'From whom/to whom', 'Amount', 'Balance', 'Date'];
-  //exampleDatabase?: ExampleHttpDatabase;
   data: OperationData[] = [];
   dataSource = new MatTableDataSource<OperationData>(this.data);
 
