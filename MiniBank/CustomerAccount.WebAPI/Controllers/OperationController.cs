@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CustomerAccount.DTO;
 using CustomerAccount.BL.Interfaces;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerAccount.WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OperationController : ControllerBase

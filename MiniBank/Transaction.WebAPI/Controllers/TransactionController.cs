@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
 using Transaction.BL.Interfaces;
 using Transaction.DTO;
@@ -6,6 +7,7 @@ using Transaction.DTO;
 
 namespace Transaction.WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TransactionController : ControllerBase
