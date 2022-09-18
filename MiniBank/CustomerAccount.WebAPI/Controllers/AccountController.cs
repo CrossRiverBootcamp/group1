@@ -5,7 +5,7 @@ using CustomerAccount.BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerAccount.WebAPI.Controllers;
-
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class AccountController : ControllerBase
@@ -18,7 +18,6 @@ public class AccountController : ControllerBase
     }
 
     // GET api/<AccountController>/5
-    [Authorize]
     [HttpGet("{accountId}")]
     public async Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
@@ -33,6 +32,7 @@ public class AccountController : ControllerBase
         return await accountBL.CustomerExists(email);
     }
 
+
     [HttpGet("{AccountId}/Exists")]
     public async Task<bool> CustumrAccountExists(Guid AccountId)
     {
@@ -40,6 +40,7 @@ public class AccountController : ControllerBase
     }
 
     // POST api/<AccountController>
+    [AllowAnonymous]
     [HttpPost]
     public async Task<bool> Post([FromBody] CustomerDTO customerDTO)
     {
