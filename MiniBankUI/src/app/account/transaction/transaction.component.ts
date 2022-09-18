@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Transaction } from 'src/app/models/transaction.model';
+import { AuthenticationService } from '../services/authentication.service';
 import { TransactionService } from '../services/transaction.service';
 
 @Component({
@@ -20,12 +21,12 @@ export class TransactionComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private transactionService: TransactionService,
+    private authenticationService: AuthenticationService
    // private alertService: AlertService
   ) { }
 
 ngOnInit() {
   this.form = this.formBuilder.group({
-    fromAccountId: ['', Validators.required],
     toAccountId: ['', Validators.required],
     amount:['',Validators.required,Validators.min(1),Validators.max(1000000)]
   });
@@ -47,9 +48,8 @@ ngOnInit() {
     this.loading = true;
 
     let trans=this.form.value as Transaction;
-    let accountId=sessionStorage.getItem('accountId');
-    accountId?trans.fromAccountId=accountId:this.router.navigateByUrl('account/logins')
-
+    let accountId=this.authenticationService.currentUserValue.accountId;
+    accountId?trans.fromAccountId=accountId:this.router.navigateByUrl('account/login')
 
     this.transactionService.createTransaction(this.form.value as Transaction)
         .subscribe(
