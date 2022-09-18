@@ -5,13 +5,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { LoginComponent } from './account/login/login.component';
-import { AccountDetailsComponent } from './account/account-details/account-details.component';
-import { OpenAccountComponent } from './account/open-account/open-account.component';
-import { AccountModule } from './account/account.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { AccountModule } from './modules/account/account.module';
 
 @NgModule({
   declarations: [
@@ -31,3 +28,4 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
