@@ -72,7 +72,7 @@ export class OpenAccountComponent implements OnInit {
       .subscribe(()=>{},
       (error)=>{
         alert("can not resend a code... sorry:(")
-        this.router.navigateByUrl('account');
+        window.location.reload()
       }
       );
   }
