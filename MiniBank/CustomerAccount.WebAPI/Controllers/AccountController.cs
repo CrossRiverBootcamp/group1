@@ -5,7 +5,7 @@ using CustomerAccount.BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerAccount.WebAPI.Controllers;
-//[Authorize]
+
 [Route("api/[controller]")]
 [ApiController]
 public class AccountController : ControllerBase
@@ -18,6 +18,7 @@ public class AccountController : ControllerBase
     }
 
     // GET api/<AccountController>/5
+    [Authorize]
     [HttpGet("{accountId}")]
     public async Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
