@@ -23,8 +23,8 @@ export class AppComponent {
   }
 
   checkIfUserLoggedIn() {
-    //return this.loginService.isUserLoggedIn;
-    return sessionStorage.getItem('currentUser')!=null
+  return this.loginService.currentUser;
+   // return sessionStorage.getItem('currentUser')!=null
   }
 
   // openTransactionView(){
