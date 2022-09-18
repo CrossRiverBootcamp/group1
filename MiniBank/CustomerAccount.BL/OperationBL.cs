@@ -9,56 +9,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CustomerAccount.DAL;
+using System.Security.Claims;
 
 namespace CustomerAccount.BL
 {
     public class OperationBL : IOperationBL
     {
         private readonly IMapper _mapper;
-        private readonly IOperationDAL _operationDAL;
-        private readonly ICustomerAccountDAL _CustomerAccountDAL;
+        private readonly IStorage _storage;
 
-        public OperationBL(IMapper mapper, IOperationDAL operationDAL, ICustomerAccountDAL CustomerAccountDAL)
+        public OperationBL(IMapper mapper, IStorage storage)
         {
             _mapper = mapper;
-            _operationDAL = operationDAL;
-            _CustomerAccountDAL = CustomerAccountDAL;
+            _storage = storage;
         }
         public async Task<IEnumerable<OperationDTO>> GetByPageAndAccountId(Guid AccountId,int PageNumber, int PageSize)
         {
-            return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(await _operationDAL.GetByPageAndAccountId(AccountId, PageNumber, PageSize));
+            IEnumerable<OperationData> operations = await _storage.GetByPageAndAccountId(AccountId, PageNumber, PageSize);
 
-        }
-        public async Task PostOperations(MakeTransfer makeTransferMsg, BalancesDTO balances)
-        {
-           
-            OperationData creditOperation = new OperationData()
+            //create list with all TransactionIds
+            List<Guid> operationsTransactionIds = new List<Guid>(); 
+            foreach(var op in operations)
             {
-                AccountId = makeTransferMsg.FromAccountId,
-                TransactionId = makeTransferMsg.TransactionId,
-                IsCredit = true,
-                TransactionAmount = makeTransferMsg.Amount,
-                Balance=balances.FromAccountBalance,
-                OperationTime = DateTime.UtcNow
-            };
-            OperationData debitOperation = new OperationData()
-            {
-                AccountId = makeTransferMsg.ToAccountId,
-                TransactionId = makeTransferMsg.TransactionId,
-                IsCredit = false,
-                TransactionAmount = makeTransferMsg.Amount,
-                Balance=balances.ToAccountBalance,
-                OperationTime = DateTime.UtcNow
-            };
-           
-             await _operationDAL.PostOperation(creditOperation);
-             await _operationDAL.PostOperation(debitOperation);
+                operationsTransactionIds.Add(op.TransactionId);
+            }
 
+            //get list of all partner operations
+            IEnumerable<OperationData> partnerOperations = await _storage.GetMatchedOperations(operationsTransactionIds);
+
+            //fill partnerTransactionId field
+            foreach (var op in operations)
+            {
+                foreach(var partnerOp in partnerOperations)
+                {
+                    if(partnerOp.TransactionId.Equals(op.TransactionId) && partnerOp.Id != op.AccountId)
+                        op.TransactionPartnerAccountId = partnerOp.AccountId;
+                }
+            }
+
+            return _mapper.Map<IEnumerable<OperationData>, IEnumerable<OperationDTO>>(operations);
         }
+
         public async Task<TransactionPartnerDetailsDTO> GetTransactionPartnerAccountInfo(Guid transactionPartnerAccountId)
         {
-            return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _CustomerAccountDAL.GetAccountData(transactionPartnerAccountId));
+            return _mapper.Map<AccountData, TransactionPartnerDetailsDTO>(await _storage.GetAccountData(transactionPartnerAccountId));
         }
+        public Task<int> GetCountOperations(Guid AccountId)
+        {
+            return _storage.GetCountOperations(AccountId);
+        }
+        public Guid GetAccountIDFromToken(ClaimsPrincipal User)
+        {
+            var accountID = User.Claims.First(x => x.Type.Equals("AccountID", StringComparison.InvariantCultureIgnoreCase)).Value;
+            return Guid.Parse(accountID);
+        }
+
     }
 }

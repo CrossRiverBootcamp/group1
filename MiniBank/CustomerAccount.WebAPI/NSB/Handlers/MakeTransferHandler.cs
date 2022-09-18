@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using CustomerAccount.BL;
 using CustomerAccount.BL.Interfaces;
 using CustomerAccount.Messeges;
 using ExtendedExceptions;
@@ -12,19 +12,17 @@ public class MakeTransferHandler :
     IHandleMessages<MakeTransfer>
 {
     private readonly IAccountBL _accountBL;
-    private readonly IOperationBL _operationBL;
 
-    public MakeTransferHandler(IAccountBL accountBL, IOperationBL operationBL)
+    public MakeTransferHandler(IAccountBL accountBL)
     {
-        this._accountBL = accountBL;
-        this._operationBL = operationBL;
+        _accountBL = accountBL;
     }
     static ILog log = LogManager.GetLogger<MakeTransferHandler>();
   
     public async Task Handle(MakeTransfer message, IMessageHandlerContext context)
     {
         TransactionDone transactionDoneMsg = new TransactionDone() { TransactionId= message.TransactionId };
-        //Check correctness of accounts ids 
+        //Check currectness of accounts ids 
         try 
         { 
             if (!(await _accountBL.CustumerAccountExists(message.FromAccountId)))
@@ -35,6 +33,9 @@ public class MakeTransferHandler :
             }
             else
             {
+                //If he exists: get senders email for informing
+                transactionDoneMsg.SendersEmail = await _accountBL.GetCustomersEmail(message.FromAccountId);
+
                 if (!(await _accountBL.CustumerAccountExists(message.ToAccountId)))
                 {
                     log.Error($"Transfer failed, TransactionId = {message.TransactionId} - ToAccountId does not exist...");
@@ -44,7 +45,7 @@ public class MakeTransferHandler :
                 else
                 {
                     //Check sender balance 
-                    if (!(await _accountBL.SenderHasEnoughBalance(message.ToAccountId,message.Amount)))
+                    if (!(await _accountBL.SenderHasEnoughBalance(message.FromAccountId,message.Amount)))
                     {
                         log.Error($"Transfer failed, TransactionId = {message.TransactionId} - FromAccountId = {message.FromAccountId} does not Have Enough Balance");
                         transactionDoneMsg.IsDone = false;
@@ -53,23 +54,21 @@ public class MakeTransferHandler :
                     else
                     {
                         //Update receiver/sender balances (run in DB transaction) 
-                        var balances=await _accountBL.MakeBankTransfer(message.FromAccountId, message.ToAccountId, message.Amount);
-                        await _operationBL.PostOperations(message,balances);
+                        await _accountBL.MakeBankTransferAndSaveOperationsToDB(message.TransactionId,message.FromAccountId, message.ToAccountId, message.Amount);
                         log.Info($"Transfer succeded, TransactionId = {message.TransactionId} ");
                         transactionDoneMsg.IsDone = true;
+
+                        //Success: Get recievers email for informing
+                        transactionDoneMsg.RecieversEmail = await _accountBL.GetCustomersEmail(message.ToAccountId);  
                     }
                 }
             }
              await context.Publish(transactionDoneMsg);
-
             return;
         }
         catch (DBContextException error)
         {
             log.Error($"Transfer failed, TransactionId = {message.TransactionId}. Exception: {error.Message}");
-        }
-        
-        
-       
+        }               
     }
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Transaction.DAL.Models;
-public enum StatusEnum
+namespace Transaction.DAL.Models
 {
-    PROCESSING,SUCCESS,FAIL
+    public enum StatusEnum
+    {
+        INPROSSES, FAIL,SUCCESS
+    }
 }

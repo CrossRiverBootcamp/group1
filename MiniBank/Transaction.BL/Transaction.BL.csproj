@@ -13,6 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\EmailSender\EmailSender.Service.csproj" />
 	  <ProjectReference Include="..\Transaction.DAL\Transaction.DAL.csproj" />
 	  <ProjectReference Include="..\Transaction.DTO\Transaction.DTO.csproj" />
 	  <ProjectReference Include="..\Transaction.Messeges\Transaction.Messeges.csproj" />

@@ -4,6 +4,9 @@ using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL;
 using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Interfaces;
+using CustomerAccount.BL.Options;
+using System.Text.Json.Nodes;
+using EmailSender.Service;
 
 namespace CustomerAccount.BL
 {
@@ -13,21 +16,17 @@ namespace CustomerAccount.BL
         {
             services.AddScoped<IAccountBL, AccountBL>();
             services.AddScoped<ILoginBL, LoginBL>();
-            services.AddScoped<ICustomerAccountDAL, CustomerAccountDAL>();
+            services.AddScoped<IStorage, Storage>();
             services.AddScoped<IOperationBL, OperationBL>();
-            services.AddScoped<IOperationDAL, OperationDAL>();
-
+            services.AddScoped<IStorage, Storage>();
+            services.AddScoped<IEmailVerificationBL, EmailVerificationBL>();
+            services.AddScoped<ISendsEmail, SendsEmail>();
 
         }
         public static void AddDBContextService(this IServiceCollection services, string connection)
         {
             services.AddDbContextFactory<CustomerAccountDBContext>(item =>
-           item.UseSqlServer(connection));
-        }
-        public static void AddDIServicesNSB(this IServiceCollection services)
-        {
-            services.AddScoped<IAccountBL, AccountBL>();
-            services.AddScoped<ICustomerAccountDAL, CustomerAccountDAL>();
+                item.UseSqlServer(connection));
         }
     }
 }

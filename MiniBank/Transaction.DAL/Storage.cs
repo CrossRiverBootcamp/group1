@@ -12,14 +12,13 @@ using Transaction.DTO;
 
 namespace Transaction.DAL
 {
-    public class TransactionDAL : ITransactionDAL
+    public class Storage : IStorage
     {
         private readonly IDbContextFactory<TransactionDBContext> _factory;
-        public TransactionDAL(IDbContextFactory<TransactionDBContext> factory)
+        public Storage(IDbContextFactory<TransactionDBContext> factory)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
-
         public async Task<Guid> PostTransaction(Entities.Transaction transaction)
         {
             using var context = _factory.CreateDbContext();
@@ -48,6 +47,7 @@ namespace Transaction.DAL
             }
             catch (Exception ex)
             {
+                //includes if key not found
                 throw new DBContextException(ex.Message);
             }
         }

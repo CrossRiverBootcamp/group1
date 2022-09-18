@@ -40,7 +40,7 @@ public class TransactionPolicy :
             ToAccountId = message.ToAccountId,
             Amount = message.Amount
         };
-
+        
         return context.Send(makeTransfer);
     }
     public async Task Handle(TransactionDone message, IMessageHandlerContext context)
@@ -62,6 +62,14 @@ public class TransactionPolicy :
         {
             log.Info($"Updating transactions status failed with message: {ex.Message}. TransactionId: {message.TransactionId}");
         }
+
+        //If sender accountId currect: informs him.
+        if(message.SendersEmail != null)
+             _transactionBL.InformCustomerWithTrasactionStatus(message.SendersEmail, message.IsDone);
+        //If transaction successed: informs reciever.
+        if (message.RecieversEmail != null)
+            _transactionBL.InformAccuntCredited(message.RecieversEmail);
+
         MarkAsComplete();
     }
 }

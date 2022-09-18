@@ -1,9 +1,11 @@
+
 ﻿using Microsoft.AspNetCore.Mvc;
 using CustomerAccount.DTO;
 using CustomerAccount.BL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerAccount.WebAPI.Controllers;
-
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class AccountController : ControllerBase
@@ -17,24 +19,32 @@ public class AccountController : ControllerBase
 
     // GET api/<AccountController>/5
     [HttpGet("{accountId}")]
-    public async Task<ActionResult<CustomerAccountInfoDTO>> Get(Guid accountId)
+    public async Task<CustomerAccountInfoDTO> Get(Guid accountId)
     {
-        return Ok(await accountBL.GetAccountInfo(accountId));
+        if (accountBL.GetAccountIDFromToken(User).Equals(accountId))
+            return await accountBL.GetAccountInfo(accountId);
+        throw new UnauthorizedAccessException();
+
+    }
+    [AllowAnonymous]
+    [HttpGet("{email}/Exists")]
+    public async Task<bool> Get(string email)
+    {
+        return await accountBL.CustomerExists(email);
     }
 
-    //moved to operation BL
 
-    //// GET api/<AccountController>/5
-    //[HttpGet("{transactionPartnerAccountId}")]
-    //public async Task<ActionResult<TransactionPartnerDetailsDTO>> GetTransactionPartner(Guid transactionPartnerAccountId)
-    //{
-    //    return Ok(await accountBL.GetTransactionPartnerAccountInfo(transactionPartnerAccountId));
-    //}
+    [HttpGet("{AccountId}/AccountExists")]
+    public async Task<bool> CustumrAccountExists(Guid AccountId)
+    {
+        return await accountBL.CustumerAccountExists(AccountId);
+    }
 
     // POST api/<AccountController>
+    [AllowAnonymous]
     [HttpPost]
-    public async Task<ActionResult<bool>> Post([FromBody] CustomerDTO customerDTO)
+    public async Task<bool> Post([FromBody] CustomerDTO customerDTO)
     {
-        return Ok(await accountBL.CreateAccount(customerDTO));
+        return await accountBL.HandleCreateAccountRequest(customerDTO);
     }
 }
