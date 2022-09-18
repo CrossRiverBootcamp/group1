@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { AccountModule } from './modules/account/account.module';
+import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { OperationsModule } from './modules/operations/operations.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,10 @@ import { AccountModule } from './modules/account/account.module';
     BrowserModule,
     AppRoutingModule,
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     AccountModule,
+    AuthenticationModule,
+    OperationsModule,
     BrowserAnimationsModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],

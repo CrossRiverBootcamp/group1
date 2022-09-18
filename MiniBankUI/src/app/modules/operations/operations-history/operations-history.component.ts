@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { OperationsHistoryService } from '../services/operations-history.service';
+import { OperationsHistoryService } from '../../../services/operations-history.service';
 import { OperationData } from 'src/app/models/operation-data';
 import { TransactionPartner } from 'src/app/models/transaction-partner';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogTransactionPartnerDetailsComponent } from '../dialog-transaction-partner-details/dialog-transaction-partner-details.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 export interface DialogTransactionPartnerDetailsData {
   transactionPartner: TransactionPartner;
