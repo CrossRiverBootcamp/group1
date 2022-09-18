@@ -7,6 +7,7 @@ import { TransactionPartner } from 'src/app/models/transaction-partner';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogTransactionPartnerDetailsComponent } from '../dialog-transaction-partner-details/dialog-transaction-partner-details.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthenticationService } from '../services/authentication.service';
 
 export interface DialogTransactionPartnerDetailsData {
   transactionPartner: TransactionPartner;
@@ -37,7 +38,7 @@ export class OperationsHistoryComponent implements OnInit {
 
   constructor(private _operationsHistoryService: OperationsHistoryService,private _loginService:AuthenticationService, private _dialog: MatDialog,
     ) {
-     this.accountId = _loginService.accountId
+     this.accountId = _loginService.currentUserValue.accountId;
     }
 
   openTransactionPartnerDetailsDialog(): void {

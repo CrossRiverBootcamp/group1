@@ -6,19 +6,16 @@ import { AuthenticationService } from '../account/services/authentication.servic
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(   private authenticationService: AuthenticationService, private router: Router) {
+  constructor( private authenticationService: AuthenticationService, private router: Router) {
   }
   canActivate() {
-
-    //get the jwt token which are present in the local storage
-    const token = localStorage.getItem("jwt");
-
-    //Check if the token is expired or not and if token is expired then redirect to login page and return false
-    if (token && !this.jwtHelper.isTokenExpired(token)){
-      return true;
+    const currentUser = this.authenticationService.currentUserValue;
+    if (currentUser) {
+        // logged in so return true
+        return true;
     }
-    this.router.navigate(["account/login"]);
+    // not logged in so redirect to login page with the return url
+    this.router.navigate(['account/login']);
     return false;
   }
-
 }

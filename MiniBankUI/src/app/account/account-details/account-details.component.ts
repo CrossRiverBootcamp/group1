@@ -16,7 +16,7 @@ export class AccountDetailsComponent  {
   constructor(private _accountService:CustomerAccountService,_loginService:AuthenticationService
     // private alertService: AlertService
     ) {
-      let accountId = _loginService.accountId;
+      let accountId = _loginService.currentUserValue.accountId;
       //מיותר?- תמיד מגיע רק חארי לוגין
      // if(accountId)
         _accountService.getAccountInfo(accountId)
