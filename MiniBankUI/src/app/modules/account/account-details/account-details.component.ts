@@ -9,20 +9,16 @@ import { AuthenticationService } from '../../../services/authentication.service'
   templateUrl: './account-details.component.html',
   styleUrls: ['./account-details.component.scss']
 })
-export class AccountDetailsComponent  {
+export class AccountDetailsComponent {
 
-  accountInfo!:CustomerAccountInfo;
+  accountInfo!: CustomerAccountInfo;
 
-  constructor(private _accountService:CustomerAccountService,_authenticationService:AuthenticationService
-    // private alertService: AlertService
-    ) {
-      let accountId = _authenticationService.currentUserValue.accountId;
-      //מיותר?- תמיד מגיע רק חארי לוגין
-     // if(accountId)
-        _accountService.getAccountInfo(accountId)
-        .subscribe((accountInfo:CustomerAccountInfo) => {this.accountInfo = accountInfo}, (error: HttpErrorResponse) => {
-            //this.alertService.error(error.message);
-        });
-   }
+  constructor(private _accountService: CustomerAccountService, _authenticationService: AuthenticationService
+  ) {
+    let accountId = _authenticationService.currentUserValue.accountId;
+    _accountService.getAccountInfo(accountId)
+      .subscribe((accountInfo: CustomerAccountInfo) => { this.accountInfo = accountInfo }, (error: HttpErrorResponse) => {
+      });
+  }
 
 }

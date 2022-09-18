@@ -26,21 +26,18 @@ export class OperationsHistoryComponent implements OnInit {
 
   resultsLength: number = 0;
   isLoadingResults: boolean = true;
-  //isRateLimitReached: boolean = false;
   currentPage: number = 0;
   numOfRecords: number = 3;
-  pageSizeOptions:number[]=[3,5];
+  pageSizeOptions: number[] = [3, 5];
   accountId: string;
-  //accountId = sessionStorage.getItem('accountId');
   transactionPartner?: TransactionPartner;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  //@ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _operationsHistoryService: OperationsHistoryService,private _authenticationService :AuthenticationService, private _dialog: MatDialog,
-    ) {
-     this.accountId = _authenticationService.currentUserValue.accountId;
-    }
+  constructor(private _operationsHistoryService: OperationsHistoryService, private _authenticationService: AuthenticationService, private _dialog: MatDialog,
+  ) {
+    this.accountId = _authenticationService.currentUserValue.accountId;
+  }
 
   openTransactionPartnerDetailsDialog(): void {
     const RBdialogRef = this._dialog.open(DialogTransactionPartnerDetailsComponent, {
@@ -66,9 +63,8 @@ export class OperationsHistoryComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  getCountOperations()
-  {
-    this._operationsHistoryService.getCountOperations(this.accountId).subscribe(res=>{
+  getCountOperations() {
+    this._operationsHistoryService.getCountOperations(this.accountId).subscribe(res => {
       this.resultsLength = res;
     });
   }
@@ -82,10 +78,7 @@ export class OperationsHistoryComponent implements OnInit {
     ).subscribe(result => {
       this.data = result;
       this.dataSource = new MatTableDataSource<OperationData>(this.data);
-
       this.isLoadingResults = false;
-      //this.resultsLength = result.length;
-      //updates???
       this.paginator.pageIndex = this.currentPage;
     }, err => {
       this.isLoadingResults = false;
@@ -99,12 +92,12 @@ export class OperationsHistoryComponent implements OnInit {
   }
 
   viewTransactionPartnerDetails(transactionPartnerAccountId: string) {
-    this.transactionPartner = this._operationsHistoryService.getTransactionParnerByAccountId(transactionPartnerAccountId);
+    this.transactionPartner = this._operationsHistoryService.getTransactionPartnerByAccountId(transactionPartnerAccountId);
     if (!this.transactionPartner) {
       this._operationsHistoryService.getTransactionPartnerDetails(transactionPartnerAccountId).subscribe(res => {
         this.transactionPartner = res;
         this.transactionPartner.accountId = transactionPartnerAccountId;
-        this._operationsHistoryService.addTransactionParner(res);
+        this._operationsHistoryService.addTransactionPartner(res);
         this.openTransactionPartnerDetailsDialog();
       })
     }

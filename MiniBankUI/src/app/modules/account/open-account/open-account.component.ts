@@ -68,7 +68,6 @@ export class OpenAccountComponent implements OnInit {
     }
     this.accountDetailsFormSubmitted = true;
     this.accountDetailsForm.disable();
-    //this.NumOfVerificationCodesSent++;
     this.emailVerificationService.sendEmailVerification(this.f['email'].value,isResend)
       .subscribe(()=>{
         this.ngOtpInput?.otpForm.enable();
@@ -109,7 +108,6 @@ export class OpenAccountComponent implements OnInit {
             window.location.reload()
           }
           this.loading = false;
-          //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
 
         },
         (error: HttpErrorResponse) => {
@@ -134,15 +132,8 @@ export class OpenAccountComponent implements OnInit {
               }
           }
           console.log(error);
-          //this.alertService.error(error.message);
           this.loading = false;
         });
-  }
-
-  onSubmit() {
-    if (this.accountDetailsForm.invalid) {
-      return;
-    }
   }
 
 }

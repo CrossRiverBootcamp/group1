@@ -15,12 +15,12 @@ export class OperationsHistoryService {
 
   constructor(private _http: HttpClient) { }
 
-  getTransactionParnerByAccountId(accountId:string)
+  getTransactionPartnerByAccountId(accountId:string)
   {
      return this.transactionPartners.find(tp=> tp.accountId = accountId);
   }
 
-  addTransactionParner(transactionPartner: TransactionPartner)
+  addTransactionPartner(transactionPartner: TransactionPartner)
   {
     this.transactionPartners.push(transactionPartner);
   }
@@ -39,8 +39,4 @@ export class OperationsHistoryService {
     return this._http.get<TransactionPartner>(`api/Operation/${accountId}/transactionPartnerAccountId`);
   }
 
-  // getOperationsHistory(accountId:string, order: SortDirection, page: number, numOfRecords:number): Observable<OperationData[]> {
-  //   return this._http.get<OperationData[]>
-  //     (`api/OperationsHistory/${accountId}&order=${order}&page=${page + 1}&numOfRecords=${numOfRecords}`);
-  // }
 }

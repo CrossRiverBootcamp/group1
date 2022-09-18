@@ -1,55 +1,49 @@
 <div class="example-container mat-elevation-z8">
-    <div class="example-loading-shade" *ngIf="isLoadingResults">
-        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-    </div>
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
 
-    <div class="example-table-container">
+  <div class="example-table-container">
 
-        <table mat-table [dataSource]="data" class="example-table">
-         <!-- matSort matSortActive="Date" matSortDisableClear matSortDirection="desc" -->
+    <table mat-table [dataSource]="data" class="example-table">
 
-         <ng-container matColumnDef="Credit/Debit">
-          <th mat-header-cell *matHeaderCellDef>Credit/Debit</th>
-          <td mat-cell *matCellDef="let operation">
-         <span *ngIf="operation.isCredit">Credit </span>
-         <span *ngIf="!operation.isCredit">Debit </span>
-          </td>
+      <ng-container matColumnDef="Credit/Debit">
+        <th mat-header-cell *matHeaderCellDef>Credit/Debit</th>
+        <td mat-cell *matCellDef="let operation">
+          <span *ngIf="operation.isCredit">Credit </span>
+          <span *ngIf="!operation.isCredit">Debit </span>
+        </td>
       </ng-container>
 
-            <ng-container matColumnDef="From whom/to whom">
-                <th mat-header-cell *matHeaderCellDef>From whom/to whom</th>
-                <td mat-cell *matCellDef="let operation" >{{operation.transactionPartnerAccountId}}</td>
-            </ng-container>
+      <ng-container matColumnDef="From whom/to whom">
+        <th mat-header-cell *matHeaderCellDef>From whom/to whom</th>
+        <td mat-cell *matCellDef="let operation">{{operation.transactionPartnerAccountId}}</td>
+      </ng-container>
 
-            <ng-container matColumnDef="Amount">
-                <th mat-header-cell *matHeaderCellDef>Amount</th>
-                <td mat-cell *matCellDef="let operation">{{operation.amount}}</td>
-            </ng-container>
+      <ng-container matColumnDef="Amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let operation">{{operation.amount}}</td>
+      </ng-container>
 
-            <ng-container matColumnDef="Balance">
-                <th mat-header-cell *matHeaderCellDef>Balance</th>
-                <td mat-cell *matCellDef="let operation">{{operation.balance}}</td>
-            </ng-container>
+      <ng-container matColumnDef="Balance">
+        <th mat-header-cell *matHeaderCellDef>Balance</th>
+        <td mat-cell *matCellDef="let operation">{{operation.balance}}</td>
+      </ng-container>
 
-            <!-- Date Column -->
-            <ng-container matColumnDef="Date">
-                <th mat-header-cell *matHeaderCellDef disableClear>
-                    Date
-                </th>
-                <td mat-cell *matCellDef="let operation">{{operation.date | date}}</td>
-            </ng-container>
+      <ng-container matColumnDef="Date">
+        <th mat-header-cell *matHeaderCellDef disableClear>
+          Date
+        </th>
+        <td mat-cell *matCellDef="let operation">{{operation.date | date}}</td>
+      </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true "></tr>
-            <tr mat-row *matRowDef="let operation; columns: displayedColumns;" (click)="true;viewTransactionPartnerDetails(operation.transactionPartnerAccountId)"
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true "></tr>
+      <tr mat-row *matRowDef="let operation; columns: displayedColumns;"
+        (click)="true;viewTransactionPartnerDetails(operation.transactionPartnerAccountId)"></tr>
+    </table>
+  </div>
 
-            ></tr>     <!-- [ngClass]="clicked?'example-element-row-choosed':'example-element-row'"  -->
-        </table>
-    </div>
-
-    <mat-paginator [length]="resultsLength"
-               [pageSize]="numOfRecords"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="pageChanged($event)"
-               aria-label="Select page">
-</mat-paginator>
+  <mat-paginator [length]="resultsLength" [pageSize]="numOfRecords" [pageSizeOptions]="pageSizeOptions"
+    (page)="pageChanged($event)" aria-label="Select page">
+  </mat-paginator>
 </div>

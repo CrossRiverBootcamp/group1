@@ -9,21 +9,21 @@ import { Customer } from 'src/app/models/customer.model';
 })
 
 export class CustomerAccountService {
-  customerExists(email:string) {
+  customerExists(email: string) {
     return this._http.get<boolean>(`api/Account/${email}/Exists`);
   }
 
-  accountExists(accountId:string) {
+  accountExists(accountId: string) {
     return this._http.get<boolean>(`api/Account/${accountId}/AccountExists`);
   }
 
   constructor(private _http: HttpClient) { }
 
-  getAccountInfo(accountId:string): Observable<CustomerAccount>{
+  getAccountInfo(accountId: string): Observable<CustomerAccount> {
     return this._http.get<CustomerAccount>(`api/Account/${accountId}`);
   }
 
-  createCustomerAccount(customer:Customer): Observable<boolean> {
-    return this._http.post<boolean>("api/Account",customer);
+  createCustomerAccount(customer: Customer): Observable<boolean> {
+    return this._http.post<boolean>("api/Account", customer);
   }
 }

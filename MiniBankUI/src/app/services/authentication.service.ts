@@ -11,36 +11,36 @@ import { LoginReturn } from 'src/app/models/loginReturn.model';
 
 export class AuthenticationService {
 
-  isInActions:boolean=false;
+  isInActions: boolean = false;
 
-  isLogged:boolean=false;
+  isLogged: boolean = false;
 
   private currentUserSubject: BehaviorSubject<LoginReturn | any>;
   public currentUser: Observable<LoginReturn>;
 
   constructor(private http: HttpClient) {
-    let user=localStorage.getItem('currentUser');
-    user?this.currentUserSubject = new BehaviorSubject<LoginReturn>(JSON.parse(user)):
-    this.currentUserSubject = new BehaviorSubject<any>(null);
-      this.currentUser = this.currentUserSubject.asObservable();
+    let user = localStorage.getItem('currentUser');
+    user ? this.currentUserSubject = new BehaviorSubject<LoginReturn>(JSON.parse(user)) :
+      this.currentUserSubject = new BehaviorSubject<any>(null);
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue(): LoginReturn {
-      return this.currentUserSubject.value;
+    return this.currentUserSubject.value;
   }
 
   logout() {
-      // remove user from local storage to log user out
-      localStorage.removeItem('currentUser');
-      this.currentUserSubject.next(null);
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 
-  login(login:Login): Observable<LoginReturn> {
-    return this.http.post<LoginReturn>("api/Login",login).pipe(
+  login(login: Login): Observable<LoginReturn> {
+    return this.http.post<LoginReturn>("api/Login", login).pipe(
       map((login: LoginReturn) => {
         localStorage.setItem('currentUser', JSON.stringify(login));
         this.currentUserSubject.next(login);
-        this.isLogged=true;
+        this.isLogged = true;
         return login;
       })
     );

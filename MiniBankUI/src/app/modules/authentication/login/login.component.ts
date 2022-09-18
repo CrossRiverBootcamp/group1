@@ -33,10 +33,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    //reset alerts on submit
-    //this.alertService.clear();
-
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
@@ -58,8 +54,6 @@ export class LoginComponent implements OnInit {
             alert("unexpected error occurred, please try again")
         });
   }
-
-
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
