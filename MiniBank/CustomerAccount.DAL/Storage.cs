@@ -11,7 +11,7 @@ namespace CustomerAccount.DAL
 {
     public class Storage : IStorage
     {
-        
+
         private readonly IDbContextFactory<CustomerAccountDBContext> _factory;
         private readonly IMapper _mapper;
 

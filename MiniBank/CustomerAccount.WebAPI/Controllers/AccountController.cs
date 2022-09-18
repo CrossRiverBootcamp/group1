@@ -30,6 +30,12 @@ public class AccountController : ControllerBase
         return await accountBL.CustomerExists(email);
     }
 
+    [HttpGet("{AccountId}/Exists")]
+    public async Task<bool> CustumrAccountExists(Guid AccountId)
+    {
+        return await accountBL.CustumerAccountExists(AccountId);
+    }
+
     // POST api/<AccountController>
     [HttpPost]
     public async Task<bool> Post([FromBody] CustomerDTO customerDTO)

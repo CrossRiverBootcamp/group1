@@ -5,26 +5,37 @@ namespace CustomerAccount.DAL.Interfaces
 {
     public interface IStorage
     {
-        Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData);
-        Task CreateEmailVerification(EmailVerificationModel emailVerificationModel);
+        #region Account
+
         Task<bool> CustomerExists(string email);
-        Task<bool> CustumerAccountExists(Guid accountId);
+        Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData);
         Task<AccountData> GetAccountData(Guid accountDataId);
-      
-        Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId,Guid fromAccountId, Guid toAccountId, int amount);
         Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
+        Task MakeBankTransferAndSaveOperationsToDB(Guid transactionId, Guid fromAccountId, Guid toAccountId, int amount);
+        Task<bool> CustumerAccountExists(Guid accountId);
+        #endregion
+
+        #region EmailVerification
+
+      
+        Task CreateEmailVerification(EmailVerificationModel emailVerificationModel);
+        Task<bool> ValidateCodeAndTime(string email, string verificationCode);
         Task<int> UpdateAndGetNumOfAttempts(string email);
         Task<int> UpdateAndGetNumOfResends(string email);
-        Task<bool> ValidateCodeAndTime(string email, string verificationCode);
-
-        //FOR: Login BL
+        Task DeleteExpiredRows();
+        #endregion
+       
+        #region Login
         Task<Guid> Login(string email, string password);
 
-        //FOR: operation BL
+        #endregion
+       
+        #region Operation
         Task<IEnumerable<OperationData>> GetByPageAndAccountId(Guid AccountId, int PageNumber, int PageSize);
-        Task DeleteExpiredRows();
-        Task<IEnumerable<OperationData>> GetMatchedOperations(List<Guid> operations);
         Task<int> GetCountOperations(Guid AccountId);
+        Task<IEnumerable<OperationData>> GetMatchedOperations(List<Guid> operations);
+        #endregion
+
 
     }
 }

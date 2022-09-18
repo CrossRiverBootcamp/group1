@@ -13,6 +13,7 @@ using Transaction.BL.Interfaces;
 using NServiceBus;
 using Transaction.Messeges;
 using ExtendedExceptions;
+using System.Security.Claims;
 
 namespace Transaction.BL
 {
@@ -56,6 +57,12 @@ namespace Transaction.BL
         public async Task ChangeTransactionStatus(UpadateTransactionStatusDTO upadateTransactionStatusDTO)
         {
             _Storage.ChangeTransactionStatus(upadateTransactionStatusDTO);
+        }
+
+        public Guid getAccountIDFromToken(ClaimsPrincipal User)
+        {
+            var accountID = User.Claims.First(x => x.Type.Equals("AccountID", StringComparison.InvariantCultureIgnoreCase)).Value;
+            return Guid.Parse(accountID);
         }
         //public async Task InformCustomerWithTrasactionStatus(Guid transactionId, StatusEnum status)
         //{
