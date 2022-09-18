@@ -8,13 +8,13 @@ import { map } from 'rxjs/operators'
   providedIn: 'root'
 })
 
-export class LoginService {
+export class AuthenticationService  {
 
   isUserLoggedIn: boolean = false;
   accountId: string = '';
 
   constructor(private _http: HttpClient) { }
-  
+
   login(login:Login): Observable<string> {
     return this._http.post<string>("api/Login",login).pipe(
       map((accountId: string) => {

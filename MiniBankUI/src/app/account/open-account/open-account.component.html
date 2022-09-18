@@ -84,7 +84,7 @@
           <div *ngIf="f2['verificationCode'].errors['required']">verification code required</div>
           <div *ngIf="f2['verificationCode'].errors['pattern']">please enter valid verification code of exactly 6 digits</div>
         </div> -->
-        <a href="" (click)="resendVerificationCode()" class="btn btn-link">send me new code</a>
+        <a (click)="resendVerificationCode()" class="btn btn-link">send me new code</a>
       </div>
       <div class="form-group">
         <div>

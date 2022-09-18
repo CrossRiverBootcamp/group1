@@ -10,7 +10,7 @@ import { OperationData } from 'src/app/models/operation-data';
 import { TransactionPartner } from 'src/app/models/transaction-partner';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogTransactionPartnerDetailsComponent } from '../dialog-transaction-partner-details/dialog-transaction-partner-details.component';
-import { LoginService } from '../services/login.service';
+import { AuthenticationService } from '../services/login.service';
 
 export interface DialogTransactionPartnerDetailsData {
   transactionPartner: TransactionPartner;
@@ -38,7 +38,7 @@ export class OperationsHistoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _operationsHistoryService: OperationsHistoryService,private _loginService:LoginService, private _dialog: MatDialog,
+  constructor(private _operationsHistoryService: OperationsHistoryService,private _loginService:AuthenticationService, private _dialog: MatDialog,
     ) {
      this.accountId = _loginService.accountId
     }

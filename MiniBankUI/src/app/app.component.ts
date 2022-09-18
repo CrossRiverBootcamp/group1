@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from './account/services/login.service';
+import { AuthenticationService } from './account/services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent {
 
   viewActionsNav: boolean = false;
 
-  constructor(private router: Router, private loginService:LoginService) { }
+  constructor(private router: Router, private loginService:AuthenticationService) { }
 
   changeViewActionsNav() {
     this.viewActionsNav = !this.viewActionsNav;
