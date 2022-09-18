@@ -58,20 +58,21 @@ export class TransactionComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           this.loading = false;
-          switch (error.status) {
-            case 400:
-              {
-                alert("addressee not fount");
-                break;
-              }
-            case 403:
-              {
-                alert("Decline: Overdraft danger");
-                break;
-              }
-            default:
-              alert("error accured, please try again later");
-          }
+          //לא צריך- זה מה שמחכה למייל או יראה בטבלה...
+          // switch (error.status) {
+          //   case 400:
+          //     {
+          //       alert("addressee not fount");
+          //       break;
+          //     }
+          //   case 403:
+          //     {
+          //       alert("Decline: Overdraft danger");
+          //       break;
+          //     }
+          //   default:
+          //     alert("error accured, please try again later");
+          // }
           //   this.alertService.error(error.message);
         });
   }
