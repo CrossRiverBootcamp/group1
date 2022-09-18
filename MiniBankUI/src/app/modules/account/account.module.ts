@@ -24,7 +24,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     OpenAccountComponent,
     ActionsComponent,
     AccountDetailsComponent,
-    LoginComponent,
     TransactionComponent,
     OperationsHistoryComponent,
     DialogTransactionPartnerDetailsComponent,
@@ -46,7 +45,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     OpenAccountComponent,
     ActionsComponent,
     AccountDetailsComponent,
-    LoginComponent,
     OperationsHistoryComponent,
     TransactionComponent,
     DialogTransactionPartnerDetailsComponent

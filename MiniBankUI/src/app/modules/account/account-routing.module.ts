@@ -9,16 +9,16 @@ import { TransactionComponent } from './transaction/transaction.component';
 
 const routes: Routes =
 [
-  {path:'',redirectTo:'login',pathMatch:'full'},
+  //{path:'',redirectTo:'login',pathMatch:'full'},
   {path:'open-account',component:OpenAccountComponent},
   {path:'actions',component:ActionsComponent},
   {path:'account-details',component:AccountDetailsComponent},
   {path:'transaction',component:TransactionComponent},
-  {path:'login',component:LoginComponent},
-  {path:'operationHistory',component:OperationsHistoryComponent}];
+  {path:'operationHistory',component:OperationsHistoryComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AccountRoutingModule { }

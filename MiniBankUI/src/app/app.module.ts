@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { AccountModule } from './modules/account/account.module';
+import { AuthenticationModule } from './modules/authentication/authentication.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AccountModule } from './modules/account/account.module';
     ReactiveFormsModule,
     HttpClientModule,
     AccountModule,
+    AuthenticationModule,
     BrowserAnimationsModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
