@@ -5,7 +5,7 @@ using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
 using ExtendedExceptions;
-
+using System.Security.Claims;
 
 namespace CustomerAccount.BL
 {
@@ -67,6 +67,12 @@ namespace CustomerAccount.BL
         public Task<bool> SenderHasEnoughBalance(Guid accountId, int amount)
         {
             return _storage.SenderHasEnoughBalance(accountId, amount);
+        }
+
+        public Guid getAccountIDFromToken(ClaimsPrincipal User)
+        {
+            var accountID = User.Claims.First(x => x.Type.Equals("AccountID", StringComparison.InvariantCultureIgnoreCase)).Value;
+            return Guid.Parse(accountID);
         }
     }
 }

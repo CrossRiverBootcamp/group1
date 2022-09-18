@@ -79,7 +79,7 @@ namespace CustomerAccount.BL
 
             //check if a resend request
             if (isResendRequest)
-                codeNum = await UpdateLimitAndReturnNumberOfResends(email);
+                codeNum = (await UpdateLimitAndReturnNumberOfResends(email))+1;
             else
                 codeNum = 1;
 
@@ -124,7 +124,7 @@ namespace CustomerAccount.BL
                 throw new TooManyRetriesException();
             return numOfAttempts;
         }
-   
+  
         public Task DeleteExpiredRows()
         {
             return _storage.DeleteExpiredRows();

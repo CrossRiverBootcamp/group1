@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace CustomerAccount.BL
 {
@@ -56,6 +57,11 @@ namespace CustomerAccount.BL
         public Task<int> GetCountOperations(Guid AccountId)
         {
             return _storage.GetCountOperations(AccountId);
+        }
+        public Guid getAccountIDFromToken(ClaimsPrincipal User)
+        {
+            var accountID = User.Claims.First(x => x.Type.Equals("AccountID", StringComparison.InvariantCultureIgnoreCase)).Value;
+            return Guid.Parse(accountID);
         }
 
     }
