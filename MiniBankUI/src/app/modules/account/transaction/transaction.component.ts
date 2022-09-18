@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Transaction } from 'src/app/models/transaction.model';
-import { AuthenticationService } from '../services/authentication.service';
-import { TransactionService } from '../services/transaction.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { TransactionService } from '../../../services/transaction.service';
 
 @Component({
   selector: 'app-transaction',

@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Customer } from 'src/app/models/customer.model';
-import { CustomerAccountService } from '../services/customer-account.service';
-import { EmailVerificationService } from '../services/email-verification.service';
+import { CustomerAccountService } from '../../../services/customer-account.service';
+import { EmailVerificationService } from '../../../services/email-verification.service';
 
 const ATTEMPTS_ALLOWED=5;
 const NUM_OF_VERIFY_CODES_ALLOWED=2;
