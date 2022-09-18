@@ -25,7 +25,6 @@ namespace CustomerAccount.WebAPI.Controllers
             if (_operationBL.GetAccountIDFromToken(User).Equals(AccountId))
                 return _operationBL.GetByPageAndAccountId(AccountId, PageNumber, PageSize);
             throw new UnauthorizedAccessException();
-           
         }
 
         // GET api/<AccountController>/5

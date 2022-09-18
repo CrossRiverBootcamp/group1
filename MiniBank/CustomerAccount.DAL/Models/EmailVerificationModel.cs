@@ -12,7 +12,6 @@ namespace CustomerAccount.DAL.Models
         public string Email { get; set; }
         public string VerificationCode { get; set; }
         public DateTime ExpirationTime { get; set; }
-        //צריך?
         public int NumOfAttemps { get; set; }
         public int CodeNum { get; set; }
     }

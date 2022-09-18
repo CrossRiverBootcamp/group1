@@ -15,7 +15,6 @@ namespace EmailSender.Service
                 mail.Subject = subject;
                 mail.Body = body;
                 mail.IsBodyHtml = true;
-                //mail.Attachments.Add(new Attachment("C:\\file.zip"));
 
                 using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {

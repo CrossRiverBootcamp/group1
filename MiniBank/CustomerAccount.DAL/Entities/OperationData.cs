@@ -13,25 +13,20 @@ namespace CustomerAccount.DAL.Entities
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-
         [Required]
         [ForeignKey("AccountData")]
-       
         public Guid AccountId { get; set; }
         virtual public AccountData AccountData { get; set; }
         [Required]
         public Guid TransactionId { get; set; }
-
         [Required]
-        public Boolean IsCredit { get; set; }
-       
+        public Boolean IsCredit { get; set; }    
         [Required]
         public int TransactionAmount { get; set; }
         [Required]
         public int Balance { get; set; }
         [Required]
         public DateTime OperationTime { get; set; }
-
         [NotMapped]
         public Guid TransactionPartnerAccountId { get; set; }
     }

@@ -19,7 +19,6 @@ namespace Transaction.DAL
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
-
         public async Task<Guid> PostTransaction(Entities.Transaction transaction)
         {
             using var context = _factory.CreateDbContext();

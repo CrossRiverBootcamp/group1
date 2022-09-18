@@ -33,7 +33,7 @@ public class MakeTransferHandler :
             }
             else
             {
-                //If he exists: get senders email 
+                //If he exists: get senders email for informing
                 transactionDoneMsg.SendersEmail = await _accountBL.GetCustomersEmail(message.FromAccountId);
 
                 if (!(await _accountBL.CustumerAccountExists(message.ToAccountId)))
@@ -45,7 +45,7 @@ public class MakeTransferHandler :
                 else
                 {
                     //Check sender balance 
-                    if (!(await _accountBL.SenderHasEnoughBalance(message.ToAccountId,message.Amount)))
+                    if (!(await _accountBL.SenderHasEnoughBalance(message.FromAccountId,message.Amount)))
                     {
                         log.Error($"Transfer failed, TransactionId = {message.TransactionId} - FromAccountId = {message.FromAccountId} does not Have Enough Balance");
                         transactionDoneMsg.IsDone = false;
@@ -58,13 +58,12 @@ public class MakeTransferHandler :
                         log.Info($"Transfer succeded, TransactionId = {message.TransactionId} ");
                         transactionDoneMsg.IsDone = true;
 
-                        //Success: Get recievers email
+                        //Success: Get recievers email for informing
                         transactionDoneMsg.RecieversEmail = await _accountBL.GetCustomersEmail(message.ToAccountId);  
                     }
                 }
             }
              await context.Publish(transactionDoneMsg);
-
             return;
         }
         catch (DBContextException error)

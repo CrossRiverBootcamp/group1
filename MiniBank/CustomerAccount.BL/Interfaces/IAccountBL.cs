@@ -13,7 +13,5 @@ namespace CustomerAccount.BL.Interfaces
         Task<bool> SenderHasEnoughBalance(Guid accountId, int amount);
         Task<string> GetCustomersEmail(Guid accountId);
         public Guid GetAccountIDFromToken(ClaimsPrincipal User);
-      
-
     }
 }

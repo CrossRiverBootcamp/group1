@@ -28,10 +28,5 @@ namespace CustomerAccount.BL
             services.AddDbContextFactory<CustomerAccountDBContext>(item =>
                 item.UseSqlServer(connection));
         }
-
-        //public static void AddOptionServices(this IServiceCollection services, JsonArray   )
-        //{
-        //    services.Configure<EmailVerificationsOptions>();
-        //}
     }
 }

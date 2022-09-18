@@ -5,7 +5,6 @@ using NServiceBus;
 using System.Security.Claims;
 using Transaction.BL.Interfaces;
 using Transaction.DTO;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Transaction.WebAPI.Controllers
 {
@@ -28,8 +27,6 @@ namespace Transaction.WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<bool>> Post([FromBody] TransactionDTO transactionDTO)
         {
-
-             //Guid id = _transactionBL.GetAccountIDFromToken(User);
             if (_transactionBL.GetAccountIDFromToken(User).Equals(transactionDTO.FromAccountId))
             {
                var  result = await _transactionBL.PostTransactionStartSaga(transactionDTO, _messageSession);
@@ -37,6 +34,5 @@ namespace Transaction.WebAPI.Controllers
             }
             return Unauthorized();
         }
-    
     }
 }

@@ -19,7 +19,6 @@ namespace CustomerAccount.DAL.Entities
         public string VerificationCode { get; set; }
         [Required]
         public DateTime ExpirationTime { get; set; }
-        //מיותר השגיאות?
         [Range(0, int.MaxValue, ErrorMessage = "Only positive number allowed")]
         public int NumOfAttemps { get; set; }
         [Required]

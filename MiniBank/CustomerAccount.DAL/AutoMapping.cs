@@ -16,6 +16,5 @@ namespace CustomerAccount.DAL
             CreateMap<EmailVerificationModel, EmailVerification>();
             CreateMap<CustomerModel,Customer>();
         }
-
     }
 }

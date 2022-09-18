@@ -26,6 +26,7 @@ public class AccountController : ControllerBase
         throw new UnauthorizedAccessException();
 
     }
+    [AllowAnonymous]
     [HttpGet("{email}/Exists")]
     public async Task<bool> Get(string email)
     {

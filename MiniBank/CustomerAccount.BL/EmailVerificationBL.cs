@@ -60,8 +60,7 @@ namespace CustomerAccount.BL
         }
         private string[] CreateVerificationEmailBody(string verificationCode)
         {
-            // string link = "<a href= http://localhost:4200/#/guest-confirm/?id="
-            // + g.Id + ">Confirm your email here</a>";
+            // string link = "<a href= http://localhost:4200/#/aaaaa/?id=">Confirm your email here</a>";
 
             string subject = "Email Verification | Mini-Bank CR";
             string body = "Your verfication code is: " + verificationCode +
@@ -98,29 +97,8 @@ namespace CustomerAccount.BL
 
             //send Verification email
             _sendsEmail.SendEmail(_emailOptions, email, content[0], content[1]);
-           // SendEmail(email, content[0], content[1]);
         }
-        //private??
-        //public void SendEmail(string email, string subject, string body)
-        //{
-        //    using (MailMessage mail = new MailMessage())
-        //    {
-        //        mail.From = new MailAddress(_options.Email);
-        //        mail.To.Add(email);
-        //        mail.Subject = subject;
-        //        mail.Body = body;
-        //        mail.IsBodyHtml = true;
-        //        //mail.Attachments.Add(new Attachment("C:\\file.zip"));
-
-        //        using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-        //        {
-        //            smtp.Credentials = new NetworkCredential(_options.Email, _options.Password);
-        //            smtp.UseDefaultCredentials = false;
-        //            smtp.EnableSsl = true;
-        //            smtp.Send(mail);
-        //        }
-        //    }
-        //}
+        
         public Task<bool> ValidateCodeAndTime(CustomerDTO customerDTO)
         {
             return _storage.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);

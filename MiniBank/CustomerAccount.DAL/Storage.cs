@@ -20,6 +20,7 @@ namespace CustomerAccount.DAL
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _mapper = mapper;
         }
+
         #region Account
         public async Task<bool> CustomerExists(string email)
         {
@@ -49,7 +50,6 @@ namespace CustomerAccount.DAL
                throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<bool> CreateCustomerAccount(CustomerModel customerModel, AccountData accountData)
         {
             using var context = _factory.CreateDbContext();
@@ -70,7 +70,6 @@ namespace CustomerAccount.DAL
             }
             return true;
         }
-
         public async Task<AccountData> GetAccountData(Guid accountDataId)
         {
             using var context = _factory.CreateDbContext();
@@ -145,7 +144,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<bool> CustumerAccountExists(Guid accountId)
         {
             using var context = _factory.CreateDbContext();
@@ -246,7 +244,6 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
-
         public async Task<int> UpdateAndGetNumOfAttempts(string email)
         {
             using var context = _factory.CreateDbContext();
@@ -336,12 +333,6 @@ namespace CustomerAccount.DAL
         }
 
         #endregion
-
-
-
-
-
-
 
     }
 }

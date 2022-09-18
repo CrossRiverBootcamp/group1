@@ -42,7 +42,7 @@ namespace CustomerAccount.BL
             {
                 foreach(var partnerOp in partnerOperations)
                 {
-                    if(partnerOp.TransactionId.Equals(op.TransactionId) && partnerOp.Id!= op.AccountId)
+                    if(partnerOp.TransactionId.Equals(op.TransactionId) && partnerOp.Id != op.AccountId)
                         op.TransactionPartnerAccountId = partnerOp.AccountId;
                 }
             }

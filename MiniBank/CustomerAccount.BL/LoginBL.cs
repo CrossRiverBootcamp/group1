@@ -17,7 +17,7 @@ namespace CustomerAccount.BL
     public class LoginBL :  ILoginBL
     {
         private readonly IMapper _mapper;
-        private readonly IStorage _Storage;
+        private readonly IStorage _storage;
         private readonly IConfiguration _configuration;
 
         public LoginBL(IMapper mapper, IStorage Storage, IConfiguration configuration
@@ -25,14 +25,14 @@ namespace CustomerAccount.BL
 )
         {
             _mapper = mapper;
-            _Storage = Storage;
+            _storage = Storage;
             _configuration = configuration;
         }
 
         public async Task<loginReturnDTO> Login(LoginDTO loginDTO)
         {
 
-            Guid accountId = await _Storage.Login(loginDTO.Email, loginDTO.Password);
+            Guid accountId = await _storage.Login(loginDTO.Email, loginDTO.Password);
             string token = CreateToken(accountId);
 
             return new loginReturnDTO()

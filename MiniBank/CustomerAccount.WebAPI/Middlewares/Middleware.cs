@@ -56,7 +56,7 @@ public class Middleware
                     break;
                 case TooManyRetriesException ex:
                     response.StatusCode = (int)HttpStatusCode.TooManyRequests;
-                    await response.WriteAsync("too many retries requests..:(");
+                    await response.WriteAsync("Too many retries requests..:(");
                     break;
                 case DBContextException ex:
                     //Other DBContext Exceptions
@@ -65,7 +65,7 @@ public class Middleware
                     break;
                 default:
                     // unhandled error
-                    await response.WriteAsync("unknown problem:(");
+                    await response.WriteAsync("Unknown problem:(");
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
             }

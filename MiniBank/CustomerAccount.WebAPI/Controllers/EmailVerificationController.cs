@@ -17,8 +17,6 @@ namespace CustomerAccount.WebAPI.Controllers
         [HttpPost]
         public async Task Post([FromBody] string email,[FromQuery] bool isResendRequest)
         {
-            //catch here exceptions???????
-
             await _emailVerificationBL.HandleEmailVerificationRequest(email, isResendRequest);
         }
       

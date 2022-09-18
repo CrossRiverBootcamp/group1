@@ -8,8 +8,7 @@ namespace CustomerAccount.DTO
     public class loginReturnDTO
 
     {
-        [Required]
-     
+        [Required]   
         public  Guid AccountId{ get; set; }
 
         [Required]

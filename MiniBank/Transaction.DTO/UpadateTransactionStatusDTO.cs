@@ -9,11 +9,8 @@ namespace Transaction.DTO
 {
     public class UpadateTransactionStatusDTO
     {
-        //צריך פה אטרביוטים?
-        [Required]
         public Guid TransactioId { get; set; }
-        [Required]
         public bool IsSuccess { get; set; }
-        public string FailureReasun { get; set; }
+        public string? FailureReasun { get; set; }
     }
 }
