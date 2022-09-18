@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import { NgOtpInputModule } from 'ng-otp-input';
@@ -14,8 +12,6 @@ import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [],
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
@@ -26,8 +22,6 @@ import { MatSortModule } from '@angular/material/sort';
     MatDialogModule
   ],
   exports:[
-    FormsModule,
-    ReactiveFormsModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,

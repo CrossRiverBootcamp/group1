@@ -9,6 +9,7 @@ import {MatTableModule} from '@angular/material/table';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { AccountModule } from './modules/account/account.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { OperationsModule } from './modules/operations/operations.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     HttpClientModule,
     AccountModule,
     AuthenticationModule,
+    OperationsModule,
     BrowserAnimationsModule
   ],
   providers: [   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
