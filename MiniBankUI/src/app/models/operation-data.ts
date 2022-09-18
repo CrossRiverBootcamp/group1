@@ -1,6 +1,7 @@
 export interface OperationData {
-    CreditOrDebit: boolean;
-    FromWhomToWhom: string;
-    Amount: number;
-    Date: Date;
+    isCredit: boolean;
+    transactionPartnerId: string;
+    amount: number;
+    balance:number;
+    date: Date;
   }
