@@ -5,7 +5,7 @@ using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
 using ExtendedExceptions;
-
+using System.Security.Claims;
 
 namespace CustomerAccount.BL
 {
@@ -71,6 +71,12 @@ namespace CustomerAccount.BL
         public Task<string> GetCustomersEmail(Guid accountId)
         {
             return _storage.GetCustomersEmail(accountId);
+        }
+
+        public Guid getAccountIDFromToken(ClaimsPrincipal User)
+        {
+            var accountID = User.Claims.First(x => x.Type.Equals("AccountID", StringComparison.InvariantCultureIgnoreCase)).Value;
+            return Guid.Parse(accountID);
         }
     }
 }

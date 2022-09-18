@@ -17,27 +17,35 @@ using System.Security.Claims;
 using EmailSender;
 using System.Net.NetworkInformation;
 using EmailSender.Service;
+using Microsoft.Extensions.Options;
+using CustomerAccount.BL.Options;
 
 namespace Transaction.BL
 {
     public class TransactionBL : ITransactionBL
     {
+        //add DI
         private readonly IStorage _Storage;
         private readonly IMapper _mapper;
         private readonly ISendsEmail _emailSender;
-        public TransactionBL(IMapper mapper, IStorage Storage, ISendsEmail emailSender)
+
+        //add options
+        private readonly EmailOptions _emailOptions;
+        public TransactionBL(IMapper mapper, IStorage Storage, ISendsEmail emailSender,
+            IOptions<EmailOptions> emailOptions)
         {
             _mapper = mapper;
-            _Storage = Storage; 
+            _Storage = Storage;
             _emailSender = emailSender;
+            _emailOptions = emailOptions.Value;
         }
-        private Task<string[]> CreateTransactionDoneBodey(StatusEnum status)
+        private string[] CreateTransactionDoneBodey(bool isDone)
         {
             // string link = "<a href= http://localhost:4200/#/guest-confirm/?id="
             // + g.Id + ">Confirm your email here</a>";
 
             string subject = "Your transaction Update | Mini-Bank CR";
-            string body = "Your transfer request had returned with status: "+ status;
+            string body = "Your transfer request had returned with status: " + isDone;
 
             string[] content = new string[2];
             content[0] = subject;
@@ -45,9 +53,15 @@ namespace Transaction.BL
 
             return content;
         }
+
+        public void InformCustomerWithTrasactionStatus(string email, bool isDone)
+        {
+            string[] content = CreateTransactionDoneBodey(isDone);
+            _emailSender.SendEmail(_emailOptions, email, content[0], content[1]);
+        }
         public async Task<bool> PostTransactionStartSaga(TransactionDTO transactionDTO, IMessageSession _messageSession)
         {
-            
+
             DAL.Entities.Transaction transaction = _mapper.Map<TransactionDTO, DAL.Entities.Transaction>(transactionDTO);
             transaction.Date = DateTime.UtcNow;
 
@@ -69,24 +83,16 @@ namespace Transaction.BL
             catch
             {
                 return false;
-            }         
+            }
         }
         public async Task ChangeTransactionStatus(UpadateTransactionStatusDTO upadateTransactionStatusDTO)
         {
             _Storage.ChangeTransactionStatus(upadateTransactionStatusDTO);
         }
-
         public Guid getAccountIDFromToken(ClaimsPrincipal User)
         {
             var accountID = User.Claims.First(x => x.Type.Equals("AccountID", StringComparison.InvariantCultureIgnoreCase)).Value;
             return Guid.Parse(accountID);
         }
-
-        public async Task InformCustomerWithTrasactionStatus(string email, StatusEnum status)
-        {
-            string[] content = await CreateTransactionDoneBodey(status);
-            _emailSender.SendEmail(, email, content[0], content[1]);
-        }
-
     }
 }

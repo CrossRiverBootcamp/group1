@@ -4,7 +4,7 @@ using CustomerAccount.BL.Interfaces;
 using CustomerAccount.DAL;
 using CustomerAccount.DAL.EF;
 using CustomerAccount.DAL.Interfaces;
-using CustomerAccount.WebAPI.Options;
+using CustomerAccount.BL.Options;
 using System.Text.Json.Nodes;
 using EmailSender.Service;
 

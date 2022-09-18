@@ -1,9 +1,9 @@
 ﻿using CustomerAccount.BL.Interfaces;
+using CustomerAccount.BL.Options;
 using CustomerAccount.DAL.Entities;
 using CustomerAccount.DAL.Interfaces;
 using CustomerAccount.DAL.Models;
 using CustomerAccount.DTO;
-using CustomerAccount.WebAPI.Options;
 using ExtendedExceptions;
 using Microsoft.Extensions.Options;
 using NServiceBus.Features;
@@ -14,6 +14,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using EmailSender.Service;
 
 namespace CustomerAccount.BL
 {
@@ -21,15 +22,22 @@ namespace CustomerAccount.BL
     {
         //DI
         private readonly IStorage _storage;
+        private readonly ISendsEmail _sendsEmail;
 
         //add options
-        private readonly EmailVerificationsOptions _options;
+        private readonly VerificationCodeLimitsOptions _verificationOptions;
+        private readonly EmailOptions _emailOptions;
 
-        public EmailVerificationBL(IStorage storage, 
-            IOptions<EmailVerificationsOptions> options)
+        public EmailVerificationBL(IStorage storage,
+            ISendsEmail sendsEmail,
+            IOptions<VerificationCodeLimitsOptions> verificationOptions,
+            IOptions<EmailOptions> emailOptions
+            )
         {
             _storage = storage;
-            _options = options.Value;
+            _sendsEmail = sendsEmail;
+            _verificationOptions = verificationOptions.Value;
+            _emailOptions = emailOptions.Value;
         }
 
         private async Task<string> CreateEmailVerification(string email, int codeNum)
@@ -50,7 +58,7 @@ namespace CustomerAccount.BL
             await _storage.CreateEmailVerification(emailVerificationModel);
             return verificationCode;
         }
-        private async Task<string[]> CreateVerificationEmailBodey(string verificationCode)
+        private string[] CreateVerificationEmailBodey(string verificationCode)
         {
             // string link = "<a href= http://localhost:4200/#/guest-confirm/?id="
             // + g.Id + ">Confirm your email here</a>";
@@ -68,7 +76,7 @@ namespace CustomerAccount.BL
         private async Task<int> UpdateLimitAndReturnNumberOfResends(string email)
         {
             int CodeNum = await _storage.UpdateAndGetNumOfResends(email);
-            if (CodeNum > _options.NumOfVerficationCodesAllowed)
+            if (CodeNum > _verificationOptions.NumOfResendsAllowed)
                 throw new TooManyRetriesException();
             return CodeNum;
         }
@@ -86,32 +94,33 @@ namespace CustomerAccount.BL
             string verificationCode = await CreateEmailVerification(email, codeNum);
 
             //create Verification email
-            string[] content = await CreateVerificationEmailBodey(verificationCode);
+            string[] content = CreateVerificationEmailBodey(verificationCode);
 
             //send Verification email
-            SendEmail(email, content[0], content[1]);
+            _sendsEmail.SendEmail(_emailOptions, email, content[0], content[1]);
+           // SendEmail(email, content[0], content[1]);
         }
         //private??
-        public void SendEmail(string email, string subject, string body)
-        {
-            using (MailMessage mail = new MailMessage())
-            {
-                mail.From = new MailAddress(_options.Email);
-                mail.To.Add(email);
-                mail.Subject = subject;
-                mail.Body = body;
-                mail.IsBodyHtml = true;
-                //mail.Attachments.Add(new Attachment("C:\\file.zip"));
+        //public void SendEmail(string email, string subject, string body)
+        //{
+        //    using (MailMessage mail = new MailMessage())
+        //    {
+        //        mail.From = new MailAddress(_options.Email);
+        //        mail.To.Add(email);
+        //        mail.Subject = subject;
+        //        mail.Body = body;
+        //        mail.IsBodyHtml = true;
+        //        //mail.Attachments.Add(new Attachment("C:\\file.zip"));
 
-                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-                {
-                    smtp.Credentials = new NetworkCredential(_options.Email, _options.Password);
-                    smtp.UseDefaultCredentials = false;
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
-                }
-            }
-        }
+        //        using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+        //        {
+        //            smtp.Credentials = new NetworkCredential(_options.Email, _options.Password);
+        //            smtp.UseDefaultCredentials = false;
+        //            smtp.EnableSsl = true;
+        //            smtp.Send(mail);
+        //        }
+        //    }
+        //}
         public Task<bool> ValidateCodeAndTime(CustomerDTO customerDTO)
         {
             return _storage.ValidateCodeAndTime(customerDTO.Email, customerDTO.VerificationCode);
@@ -119,7 +128,7 @@ namespace CustomerAccount.BL
         public async Task<int> UpdateAndLimitNumberOfAttempts(string email)
         {
             int numOfAttempts = await _storage.UpdateAndGetNumOfAttempts(email);
-            if (numOfAttempts > _options.NumOfAttemptsAllowed)
+            if (numOfAttempts > _verificationOptions.NumOfGuessingAttemptsAllowed)
                 throw new TooManyRetriesException();
             return numOfAttempts;
         }

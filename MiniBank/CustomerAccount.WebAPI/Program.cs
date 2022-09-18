@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Diagnostics;
 using CustomerAccount.WebAPI.Middlewares;
 using NServiceBus;
 using Microsoft.Data.SqlClient;
-using CustomerAccount.WebAPI.Options;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using CustomerAccount.BL.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseNServiceBus(context =>
@@ -46,8 +46,10 @@ builder.Services.AddDBContextService(builder.Configuration.GetConnectionString("
 builder.Services.AddDIServices();
 
 //add options
-builder.Services.Configure<EmailVerificationsOptions>(builder.Configuration.GetSection(
-        nameof(EmailVerificationsOptions)));
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(
+        nameof(EmailOptions)));
+builder.Services.Configure<VerificationCodeLimitsOptions>(builder.Configuration.GetSection(
+        nameof(VerificationCodeLimitsOptions)));
 
 var key = Encoding.UTF8.GetBytes(builder.Configuration.GetSection("key").Value);
 

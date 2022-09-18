@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using CustomerAccount.BL.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +49,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //call extention methods
 builder.Services.AddDBContextService(builder.Configuration.GetConnectionString("myconn"));
 builder.Services.AddDIServices();
+
+//add options
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(
+        nameof(EmailOptions)));
 
 var key = Encoding.UTF8.GetBytes(builder.Configuration.GetSection("key").Value);
 

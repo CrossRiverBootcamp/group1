@@ -62,6 +62,7 @@ public class TransactionPolicy :
         {
             log.Info($"Updating transactions status failed with message: {ex.Message}. TransactionId: {message.TransactionId}");
         }
+        _transactionBL.InformCustomerWithTrasactionStatus(message.SendersEmail, message.IsDone);
         MarkAsComplete();
     }
 }
