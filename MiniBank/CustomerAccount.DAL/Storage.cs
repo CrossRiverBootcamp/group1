@@ -259,10 +259,17 @@ namespace CustomerAccount.DAL
         }
         public async Task<IEnumerable<OperationData>> GetMatchedOperations(List<Guid> operations)
         {
-            using var context = _factory.CreateDbContext();
+            try
+            {
+                using var context = _factory.CreateDbContext();
 
-            //selects double amount rows...
-            return await context.Operations.Where(op => operations.Contains(op.TransactionId)).ToListAsync();
+                //selects double amount rows...
+                return await context.Operations.Where(op => operations.Contains(op.TransactionId)).ToListAsync();
+            }
+            catch(Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }  
         }
         public async Task DeleteExpiredRows()
         {
@@ -282,5 +289,19 @@ namespace CustomerAccount.DAL
                 throw new DBContextException(ex.Message);
             }
         }
+        public async Task<int> GetCountOperations(Guid AccountId)
+        {
+            using var context = _factory.CreateDbContext();
+
+            try
+            {
+                return (await context.Operations.Where(op=> op.AccountId.Equals(AccountId)).ToListAsync()).Count;
+            }
+            catch(Exception ex)
+            {
+                throw new DBContextException(ex.Message);
+            }
+        }
+
     }
 }

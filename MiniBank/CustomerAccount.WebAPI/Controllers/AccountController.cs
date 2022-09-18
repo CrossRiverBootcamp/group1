@@ -5,7 +5,7 @@ using CustomerAccount.BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerAccount.WebAPI.Controllers;
-[Authorize]
+//[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class AccountController : ControllerBase
