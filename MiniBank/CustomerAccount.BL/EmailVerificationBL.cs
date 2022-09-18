@@ -58,7 +58,7 @@ namespace CustomerAccount.BL
             await _storage.CreateEmailVerification(emailVerificationModel);
             return verificationCode;
         }
-        private string[] CreateVerificationEmailBodey(string verificationCode)
+        private string[] CreateVerificationEmailBody(string verificationCode)
         {
             // string link = "<a href= http://localhost:4200/#/guest-confirm/?id="
             // + g.Id + ">Confirm your email here</a>";
@@ -94,7 +94,7 @@ namespace CustomerAccount.BL
             string verificationCode = await CreateEmailVerification(email, codeNum);
 
             //create Verification email
-            string[] content = CreateVerificationEmailBodey(verificationCode);
+            string[] content = CreateVerificationEmailBody(verificationCode);
 
             //send Verification email
             _sendsEmail.SendEmail(_emailOptions, email, content[0], content[1]);

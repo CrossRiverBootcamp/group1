@@ -11,5 +11,6 @@ namespace Transaction.BL.Interfaces
         Task ChangeTransactionStatus(UpadateTransactionStatusDTO upadateTransactionStatusDTO);
         public Guid getAccountIDFromToken(ClaimsPrincipal User);
         void InformCustomerWithTrasactionStatus(string email, bool isDone);
+        void InformAccuntCredited(string email);
     }
 }

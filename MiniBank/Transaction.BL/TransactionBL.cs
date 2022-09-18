@@ -39,13 +39,21 @@ namespace Transaction.BL
             _emailSender = emailSender;
             _emailOptions = emailOptions.Value;
         }
-        private string[] CreateTransactionDoneBodey(bool isDone)
+        private string[] CreateTransactionDoneBody(bool isDone)
         {
-            // string link = "<a href= http://localhost:4200/#/guest-confirm/?id="
-            // + g.Id + ">Confirm your email here</a>";
-
             string subject = "Your transaction Update | Mini-Bank CR";
             string body = "Your transfer request had returned with status: " + isDone;
+
+            string[] content = new string[2];
+            content[0] = subject;
+            content[1] = body;
+
+            return content;
+        }
+        private string[] CreateAccoutCreditedBody()
+        {
+            string subject = "Accout credited message| Mini-Bank CR";
+            string body = "Your account has bin credited, see your account for more info." ;
 
             string[] content = new string[2];
             content[0] = subject;
@@ -56,7 +64,12 @@ namespace Transaction.BL
 
         public void InformCustomerWithTrasactionStatus(string email, bool isDone)
         {
-            string[] content = CreateTransactionDoneBodey(isDone);
+            string[] content = CreateTransactionDoneBody(isDone);
+            _emailSender.SendEmail(_emailOptions, email, content[0], content[1]);
+        }
+        public void InformAccuntCredited(string email)
+        {
+            string[] content = CreateAccoutCreditedBody();
             _emailSender.SendEmail(_emailOptions, email, content[0], content[1]);
         }
         public async Task<bool> PostTransactionStartSaga(TransactionDTO transactionDTO, IMessageSession _messageSession)
