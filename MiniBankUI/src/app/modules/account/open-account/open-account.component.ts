@@ -30,17 +30,11 @@ export class OpenAccountComponent implements OnInit {
 
   @ViewChild(NgOtpInputComponent, { static: false}) ngOtpInput:NgOtpInputComponent | undefined;
 
-  @ViewChild(NgOtpInputComponent, { static: false}) ngOtpInput:NgOtpInputComponent | undefined;
-
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private accountService: CustomerAccountService,
     private emailVerificationService: EmailVerificationService
-<<<<<<< HEAD
-=======
-    // private alertService: AlertService
->>>>>>> 9c5ced40ab11ecf699a2667176dcc25fd7e661ab
   ) { }
 
   ngOnInit() {
