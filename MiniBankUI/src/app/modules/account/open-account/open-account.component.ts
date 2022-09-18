@@ -6,8 +6,8 @@ import { Customer } from 'src/app/models/customer.model';
 import { CustomerAccountService } from '../../../services/customer-account.service';
 import { EmailVerificationService } from '../../../services/email-verification.service';
 
-const ATTEMPTS_ALLOWED=5;
-const NUM_OF_VERIFY_CODES_ALLOWED=2;
+const ATTEMPTS_ALLOWED=4;
+//const NUM_OF_VERIFY_CODES_ALLOWED=2;
 
 
 @Component({
@@ -61,17 +61,18 @@ export class OpenAccountComponent implements OnInit {
   // convenience getter for easy access to verificationForm fields
   get f2() { return this.verificationForm.controls; }
 
-  getVerificationCodeByEmail(){
+  getVerificationCodeByEmail(isResend:boolean){
     if (this.accountDetailsForm.invalid) {
       return;
     }
     this.accountDetailsFormSubmitted=true;
     this.accountDetailsForm.disable();
-    this.NumOfVerificationCodesSent++;
-    this.emailVerificationService.sendEmailVerification(this.f['email'].value,false)
+    //this.NumOfVerificationCodesSent++;
+    this.emailVerificationService.sendEmailVerification(this.f['email'].value,isResend)
       .subscribe(()=>{},
       (error)=>{
-
+        alert("can not resend a code... sorry:(")
+        this.router.navigateByUrl('account');
       }
       );
   }
@@ -100,10 +101,14 @@ export class OpenAccountComponent implements OnInit {
       .subscribe(
         (isAdded: boolean) => {
           if(isAdded)
-          this.router.navigateByUrl('account/login');
+          {
+            alert("Welcome!! please login");
+            this.router.navigateByUrl('account/login');
+          }
           else
           {
-            debugger;
+            alert("ooop error acured, please try again");
+            this.router.navigateByUrl('account');
           }
           this.loading = false;
           //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
@@ -113,36 +118,23 @@ export class OpenAccountComponent implements OnInit {
           switch (error.status) {
             case 401:
               {
-                //if(this.numOfAttempts<ATTEMPTS_ALLOWED)
                   {alert(`wrong code. you have ${ATTEMPTS_ALLOWED-(this.numOfAttempts++)} attempts left`);
                   this.verificationForm.get('verificationCode')?.setValue('88888');}
               }
               break;
-              case 417:alert('code expired. you should ask for new one');
+              case 417:alert('code expired. Try a resend requst');
               break;
               case 429:{
-                alert(`wrong code. no more attempts left`)
+                alert(`wrong code. no more attempts שךךםקג`)
                 this.router.navigateByUrl('account');
               }
               break;
-              default:alert('unresolved error!!');
+              default:alert('Unresolved error:( Please try again later..');
           }
           console.log(error);
           //this.alertService.error(error.message);
           this.loading = false;
         });
-  }
-
-  resendVerificationCode(){
-    //this.NumOfVerificationCodesSent<NUM_OF_VERIFY_CODES_ALLOWED?this.NumOfVerificationCodesSent++: this.router.navigateByUrl('account/open-account');
-
-    this.emailVerificationService.sendEmailVerification(this.f['email'].value,true).subscribe(()=>{
-      debugger;
-    },
-    (error)=>{
-      debugger;
-    }
-    );
   }
 
   onSubmit() {
@@ -166,6 +158,4 @@ export class OpenAccountComponent implements OnInit {
   //   if (this.accountDetailsForm.invalid) {
   //     return;
   //   }
-
-
 }

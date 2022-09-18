@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { asapScheduler } from 'rxjs';
 import { Login } from 'src/app/models/login.model';
 import { AuthenticationService } from '../../../services/authentication.service';
 
@@ -51,6 +52,10 @@ export class LoginComponent implements OnInit {
         (error: HttpErrorResponse) => {
           //   this.alertService.error(error.message);
           this.loading = false;
+          if (error.status == 417)
+            alert("email or password uncurrect:(");
+          else
+            alert("unexpcted errur accured, please try again")
         });
   }
 

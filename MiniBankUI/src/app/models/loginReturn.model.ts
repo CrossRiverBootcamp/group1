@@ -1,5 +1,5 @@
 export interface LoginReturn
 {
-    accountId: string;
+    accountId: string,
     token:string
 }
