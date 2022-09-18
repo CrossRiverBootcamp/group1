@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CustomerAccount.DTO
 {
+    
     public class loginReturnDTO
 
     {
