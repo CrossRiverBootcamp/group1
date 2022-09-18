@@ -11,6 +11,8 @@ import { LoginReturn } from 'src/app/models/loginReturn.model';
 
 export class AuthenticationService {
 
+  isLogged:boolean=false;
+
   private currentUserSubject: BehaviorSubject<LoginReturn | any>;
   public currentUser: Observable<LoginReturn>;
 
@@ -36,6 +38,7 @@ export class AuthenticationService {
       map((login: LoginReturn) => {
         localStorage.setItem('currentUser', JSON.stringify(login));
         this.currentUserSubject.next(login);
+        this.isLogged=true;
         return login;
       })
     );

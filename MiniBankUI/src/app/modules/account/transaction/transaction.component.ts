@@ -22,19 +22,17 @@ export class TransactionComponent implements OnInit {
     private router: Router,
     private transactionService: TransactionService,
     private authenticationService: AuthenticationService
-   // private alertService: AlertService
+    // private alertService: AlertService
   ) { }
 
-ngOnInit() {
-  this.form = this.formBuilder.group({
-    toAccountId: ['', Validators.required],
-    amount:['',Validators.required,Validators.min(1),Validators.max(1000000)]
-  });
-
-
-}
- onSubmit()
- {
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      toAccountId: ['', Validators.required],
+      amount: ['', Validators.required, Validators.min(1), Validators.max(1000000)]
+    });
+  }
+  
+  onSubmit() {
     this.submitted = true;
 
     // reset alerts on submit
@@ -42,27 +40,42 @@ ngOnInit() {
 
     // stop here if form is invalid
     if (this.form.invalid) {
-        return;
+      return;
     }
 
     this.loading = true;
 
-    let trans=this.form.value as Transaction;
-    let accountId=this.authenticationService.currentUserValue.accountId;
-    accountId?trans.fromAccountId=accountId:this.router.navigateByUrl('account/login')
+    let trans = this.form.value as Transaction;
+    let accountId = this.authenticationService.currentUserValue.accountId;
+    accountId ? trans.fromAccountId = accountId : this.router.navigateByUrl('account/login')
 
     this.transactionService.createTransaction(this.form.value as Transaction)
-        .subscribe(
-            (isAdded: boolean) => {
-              alert(`Your request has been accepted in the system. The transfer will be made as soon as possible `)
-                this.loading = false;
-            },
-            (error: HttpErrorResponse) => {
-              //   this.alertService.error(error.message);
-                this.loading = false;
-            });
+      .subscribe(
+        (isAdded: boolean) => {
+          this.loading = false;
+          alert(`Your request has been accepted in the system. The transfer will be made as soon as possible `)
+          this.router.navigateByUrl('account/actions');
+        },
+        (error: HttpErrorResponse) => {
+          this.loading = false;
+          switch (error.status) {
+            case 400:
+              {
+                alert("addressee not fount");
+                break;
+              }
+            case 403:
+              {
+                alert("Decline: Overdraft danger");
+                break;
+              }
+            default:
+              alert("error accured, please try again later");
+          }
+          //   this.alertService.error(error.message);
+        });
   }
 
-// convenience getter for easy access to form fields
-get f() { return this.form.controls; }
+  // convenience getter for easy access to form fields
+  get f() { return this.form.controls; }
 }

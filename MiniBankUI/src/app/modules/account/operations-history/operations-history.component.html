@@ -15,7 +15,7 @@
 
             <ng-container matColumnDef="From whom/to whom">
                 <th mat-header-cell *matHeaderCellDef>From whom/to whom</th>
-                <td mat-cell *matCellDef="let row" (click)="viewTransactionPartnerDetails(row.transactionPartnerAccountId)">{{row.transactionPartnerAccountId}}</td>
+                <td mat-cell *matCellDef="let row" >{{row.transactionPartnerAccountId}}</td>
             </ng-container>
 
             <ng-container matColumnDef="Amount">
@@ -37,12 +37,10 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewTransactionPartnerDetails(row.transactionPartnerAccountId)"></tr>
         </table>
     </div>
 
-    <!-- <mat-paginator appStylePaginator showFirstLastButtons (page)="pageChanged($event)" [length]="resultsLength" [pageSize]="numOfRecords" showFirstLastButtons>
-    </mat-paginator> -->
     <mat-paginator [length]="resultsLength"
                [pageSize]="numOfRecords"
                [pageSizeOptions]="pageSizeOptions"

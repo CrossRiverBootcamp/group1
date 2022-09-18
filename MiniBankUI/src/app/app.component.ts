@@ -23,7 +23,7 @@ export class AppComponent {
   }
 
   checkIfUserLoggedIn() {
-    return this._authenticationService.currentUser;
+    return this._authenticationService.isLogged;
   }
 
   // openTransactionView(){
