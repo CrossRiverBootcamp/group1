@@ -18,15 +18,17 @@ const ATTEMPTS_ALLOWED=4;
 export class OpenAccountComponent implements OnInit {
 
   accountDetailsForm!: FormGroup;
-  verificationForm!:FormGroup;
-  accountDetailsViewForm!:FormGroup;
+  verificationForm!: FormGroup;
+  accountDetailsViewForm!: FormGroup;
   loading = false;
   accountDetailsFormSubmitted = false;
 
-  userVerified:boolean=true;
-  emailExists: boolean=false;
-  numOfAttempts:number=0;
-  NumOfVerificationCodesSent:number=0;
+  userVerified: boolean = true;
+  emailExists: boolean = false;
+  numOfAttempts: number = 0;
+  NumOfVerificationCodesSent: number = 0;
+
+  @ViewChild(NgOtpInputComponent, { static: false}) ngOtpInput:NgOtpInputComponent | undefined;
 
   @ViewChild(NgOtpInputComponent, { static: false}) ngOtpInput:NgOtpInputComponent | undefined;
 
@@ -35,6 +37,10 @@ export class OpenAccountComponent implements OnInit {
     private router: Router,
     private accountService: CustomerAccountService,
     private emailVerificationService: EmailVerificationService
+<<<<<<< HEAD
+=======
+    // private alertService: AlertService
+>>>>>>> 9c5ced40ab11ecf699a2667176dcc25fd7e661ab
   ) { }
 
   ngOnInit() {
@@ -52,7 +58,7 @@ export class OpenAccountComponent implements OnInit {
       verificationCode:['',[Validators.required]]
     })
 
-    this.accountDetailsViewForm=this.formBuilder.group({});
+    this.accountDetailsViewForm = this.formBuilder.group({});
 
   }
 
@@ -62,11 +68,11 @@ export class OpenAccountComponent implements OnInit {
   // convenience getter for easy access to verificationForm fields
   get f2() { return this.verificationForm.controls; }
 
-  getVerificationCodeByEmail(isResend:boolean){
+  getVerificationCodeByEmail(isResend: boolean) {
     if (this.accountDetailsForm.invalid) {
       return;
     }
-    this.accountDetailsFormSubmitted=true;
+    this.accountDetailsFormSubmitted = true;
     this.accountDetailsForm.disable();
     //this.NumOfVerificationCodesSent++;
     this.emailVerificationService.sendEmailVerification(this.f['email'].value,isResend)
@@ -80,37 +86,33 @@ export class OpenAccountComponent implements OnInit {
       );
   }
 
-  checkIfEmailExists(){
-    this.emailExists=false;
-    if(this.f['email'].invalid)
-      {
-        return;
-      }
+  checkIfEmailExists() {
+    this.emailExists = false;
+    if (this.f['email'].invalid) {
+      return;
+    }
     this.accountService.customerExists(this.accountDetailsForm.get('email')?.value)
-    .subscribe((res:boolean)=>{
-      if(res)
-        {
-          this.emailExists=true;
+      .subscribe((res: boolean) => {
+        if (res) {
+          this.emailExists = true;
         }
-    })
+      })
   }
 
-  OpenNewAccount(){
-  this.loading = true;
-  let customer=this.accountDetailsForm.value as Customer;
-  customer.verificationCode=this.verificationForm.get('verificationCode')?.value;
+  OpenNewAccount() {
+    this.loading = true;
+    let customer = this.accountDetailsForm.value as Customer;
+    customer.verificationCode = this.verificationForm.get('verificationCode')?.value;
     this.accountService.createCustomerAccount(customer)
       .subscribe(
         (isAdded: boolean) => {
-          if(isAdded)
-          {
+          if (isAdded) {
             alert("Welcome!! please login");
-            this.router.navigateByUrl('account/login');
+            this.router.navigateByUrl('login');
           }
-          else
-          {
-            alert("ooop error acured, please try again");
-            this.router.navigateByUrl('account');
+          else {
+            alert("ooops error acured, please try again");
+            window.location.reload()
           }
           this.loading = false;
           //this.alertService.success('Registration successful', { keepAfterRouteChange: true });
@@ -126,12 +128,16 @@ export class OpenAccountComponent implements OnInit {
                   }
               case 417:alert('code expired. Try a resend request');
               break;
-              case 429:{
-                alert(`wrong code. no more attempts left`)
-                this.router.navigateByUrl('account');
-              }
+            case 429: {
+              alert(`wrong code. no more attempts`)
+              window.location.reload()
+            }
               break;
-              default:alert('Unresolved error:( Please try again later..');
+            default:
+              {
+                alert('Unresolved error:( Please try again later..');
+                window.location.reload()
+              }
           }
           console.log(error);
           //this.alertService.error(error.message);
